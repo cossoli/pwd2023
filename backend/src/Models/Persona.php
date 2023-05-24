@@ -14,6 +14,28 @@ class Persona extends ModelBase
         $this->nombre_apellido = $nombre_apellido;
         $this->dni = $dni;
     }
+    public function serializar(): array
+    {
+      return [
+        'nombre_apellido' => $this->nombre_apellido,
+        'dni' => $this->dni,
+
+      ];
+    }
+    public static function deserializar(array $datos): self
+    {
+      return new self(
+        nombre_apellido: $datos['nombre_apellido'],
+        dni : $datos['dni'],
+    
+      );
+    }
+
+
+
+
+
+
 
     public function setNombre($nuevoNombre)
     {

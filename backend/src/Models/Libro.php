@@ -19,22 +19,21 @@ class Libro extends ModelBase
 
   Function __construct(string $cant_paginas, int $id, 
        string $titulo, int $anio_publicacion, 
-       string $estado )
+       string $estado, 
+       Autor $autor , Genero $genero, Editorial $editorial)
   {
       $this->cant_paginas = $cant_paginas;
       $this->titulo = $titulo;
       $this->anio_publicacion= $anio_publicacion;
       $this->estado = $estado;
       $this->id = $id;
+      $this->autor = $autor;
+      $this->genero = $genero;
+      $this->editorial = $editorial;
+
   }
- public function setgenero($nuevogenero)
- {
-    $this->genero = $nuevogenero;
- }
- public function getgenero()
-  {
-      return $this->genero;
-  }
+
+
 
   public function settitulo($nuevotitulo)
   {
@@ -87,6 +86,17 @@ class Libro extends ModelBase
   {
       return $this->estado;
   }
+
+  
+  public function setgenero($nuevogenero)
+  {
+      $this->genero = $nuevogenero;
+  }
+  public function getgenero()
+  {
+      return $this->genero;
+  }
+
 
   public function getid()
   {
