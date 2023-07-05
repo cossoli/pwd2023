@@ -15,14 +15,17 @@ final class ConectarBD
         $host = "pgsql:host=192.168.20.1; port=5433; dbname=$db";
         $user = "pwduser";
         $pass = "pwdpass";*/
+        
         $db = $_ENV['DB_NAME'];
-        $host = "pgsql:host=192.168.20.1; port=5433; dbname=$db";
+        $port = $_ENV['DB_PORT'];
+        $host = $_ENV['DB_HOST'];
+        $conexion = "pgsql:host=$host; port=$port; dbname=$db";
         $user = $_ENV['DB_USER'];
         $pass = $_ENV['DB_PASSWORD'];
 
 
         static::$cxn = new PDO(
-            $host,
+            $conexion,
             $user,
             $pass,
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
@@ -50,6 +53,7 @@ final class ConectarBD
     ) {
         $conexion = self::conectar();
         $consulta = $conexion->prepare(query: $sql);
+        //var_dump($params);
         $consulta->execute(params: $params);
         $consulta->closeCursor();
     }
