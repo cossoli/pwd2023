@@ -68,7 +68,20 @@ services:
         networks:
            red_interna:
              ipv4_address: 192.168.20.20
-             
+    frontend:
+        container_name: app
+        image: node:lts
+        working_dir: /app
+        entrypoint: /bin/bash
+        ports:
+            - 8080:80
+        volumes:
+        - ./frontend/:/app
+        tty: true
+        # command: -c "npm run dev"
+        networks:
+           red_interna:
+             ipv4_address: 192.168.20.25
 
 networks:
     red_web:
