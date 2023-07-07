@@ -24,7 +24,7 @@ class Categoria extends ModelBase
       return $this->descripcion;
   }
 
-  public function getid()
+  public function getId()
   {
       return $this->id;
   }

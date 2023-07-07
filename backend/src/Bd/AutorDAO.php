@@ -18,7 +18,7 @@ class AutorDAO implements InterfaceDAO
         $listaAutor = ConectarBD::leer(sql: $sql);
         $Autor = [];
         foreach ($listaAutor as $Autor) {
-            $Autor[] = Prestamo::deserializar($Autor);
+            $Autor[] = Autor::deserializar($Autor);
         }
         return $Autor;
     }
