@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import HomeApp from '../src/components/Home.vue';
+
 
 
 </script>
 
 <template>
-<HomeApp></HomeApp>
+<RouterLink to="/">Home</RouterLink> 
+<RouterView></RouterView>
 
 </template>
 
