@@ -1,5 +1,5 @@
 <template>
-    <h1> Listado de Socios</h1>
+    <h1>actualizar Socios</h1>
   
  </template>
 
@@ -19,7 +19,7 @@
                 activo:1,
 
              },
-             create(){
+             created(){
                 this.buscar()
              }
          }     
