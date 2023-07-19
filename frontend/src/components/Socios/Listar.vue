@@ -17,7 +17,7 @@
     </thead>
     <tbody>
         <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo == 1"> 
+        <div v-if="socio.activo == 0"> 
         <td>{{ socio.id }}</td>
         <td>{{ socio.nombre_apellido }}</td>
         <td>{{ socio.fecha_alta }}</td>

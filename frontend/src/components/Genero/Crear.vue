@@ -1,5 +1,5 @@
 <template>
-    <h1> Listado de Socios</h1>
+    <h1> Listado de genero</h1>
   
  </template>
 
@@ -13,9 +13,7 @@
          return{
              socio:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
+                descripcion:"",
                 activo:1,
 
              }
@@ -25,9 +23,9 @@
     
      methods:{
         
-          async crearSocio(socio){
-             console.log(socio)
-             const res=await axios.get('http:/192.168.20.10/apiv1/socios/nuevo', socio)
+          async crearGenero(genero){
+             console.log(genero)
+             const res=await axios.get('http:/192.168.20.10/apiv1/genero/nuevo', genero)
              
  
  
@@ -38,12 +36,10 @@
  }
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
+<h2>Crear nuevo genero</h2>
 
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-<button  @click = "crearSocio(Socio)"> guardar</button>
+<input v-model= genero.descripcion type="text" label='descripcion' placeholder="descripcion">
+<button  @click = "crearGenero(genero)"> guardar</button>
 </template>
 <style>
 input {

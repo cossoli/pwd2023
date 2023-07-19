@@ -1,5 +1,5 @@
 <template>
-    <h1>actualizar Socios</h1>
+    <h1>actualizar Categoria</h1>
   
  </template>
 
@@ -11,7 +11,7 @@
       Data()
           { 
          return{
-             socio:{
+             categoria:{
                 id:"",
                 nombre_apellido:"",
                 direccion:"",

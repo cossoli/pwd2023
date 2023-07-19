@@ -1,5 +1,5 @@
 <template>
-    <h1>actualizar Socios</h1>
+    <h1>actualizar Genero</h1>
   
  </template>
 
@@ -11,11 +11,10 @@
       Data()
           { 
          return{
-             socio:{
+             genero:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
+                descripcion:"",
+               
                 activo:1,
 
              },
@@ -28,16 +27,16 @@
     
      methods:{
         
-          async ActualizarSocio(socio){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
-                    this.$route.push('/ socios')
+          async ActualizarGenero(genero){
+               const res=await axios.get('http:/192.168.20.10/apiv1/genero/'+this.$route.params, genero)
+                    this.$route.push('/ genero')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params.id);
-                    this.Socio = res.data;
-                    console.log(this.Socio)
+               const res=await axios.get('http:/192.168.20.10/apiv1/genero/'+this.$route.params.id);
+                    this.genero = res.data;
+                    console.log(this.genero)
  
     }
      }
@@ -47,12 +46,11 @@
 </script>
 <template>
 <h2>Crear nuevo socio</h2>
-<div v-if="Socio.activo ==1">
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
+<div v-if="genero.activo ==1">
+<input v-model= genero.descripcion type="text" label='descripcion' placeholder="descripcion">
+
 </div>
-<button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
+<button  @click = "ActualizarGenero(genero)"> Actualizacion</button>
 </template>
 <style scope>
 input {

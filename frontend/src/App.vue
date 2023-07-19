@@ -9,6 +9,11 @@
 <RouterLink :to="{name:'Home'}"> Home </RouterLink> 
 <RouterLink :to="{name:'AcercaDe'}"> AcercaDe </RouterLink> 
 <RouterLink :to="{name:'Socios'}"> Socios </RouterLink> 
+<RouterLink :to="{name:'Autor'}"> Autor </RouterLink> 
+<RouterLink :to="{name:'Genero'}"> Genero </RouterLink> 
+<RouterLink :to="{name:'Editorial'}"> Editorial </RouterLink> 
+
+
 <RouterView></RouterView>
 
 

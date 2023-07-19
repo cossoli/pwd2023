@@ -1,5 +1,5 @@
 <template>
-    <h1>actualizar Socios</h1>
+    <h1>actualizar Editorial</h1>
   
  </template>
 
@@ -11,11 +11,9 @@
       Data()
           { 
          return{
-             socio:{
+             editorial:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
+                nombre:"",
                 activo:1,
 
              },
@@ -28,16 +26,16 @@
     
      methods:{
         
-          async ActualizarSocio(socio){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
-                    this.$route.push('/ socios')
+          async ActualizarEditorial(editorial){
+               const res=await axios.get('http:/192.168.20.10/apiv1/editorial/'+this.$route.params, editorial)
+                    this.$route.push('/ editorial')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params.id);
+               const res=await axios.get('http:/192.168.20.10/apiv1/editorial/'+this.$route.params.id);
                     this.Socio = res.data;
-                    console.log(this.Socio)
+                    console.log(this.editorial)
  
     }
      }
@@ -46,13 +44,11 @@
  
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
-<div v-if="Socio.activo ==1">
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
+<h2>Crear nuevo Editorial</h2>
+<div v-if="editorial.activo ==1">
+<input v-model= editorial.nombre type="text" label='nombre ' placeholder="nombre">
 </div>
-<button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
+<button  @click = "ActualizarEditorial(editorial)"> Actualizacion</button>
 </template>
 <style scope>
 input {

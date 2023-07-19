@@ -1,31 +1,28 @@
 <template>
-   <h1> Listado de Socios</h1>
+   <h1> Listado de Editorial</h1>
   
-   <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt="">Crear Socios</RouterLink> 
+   <RouterLink class ="crear" to="editorial/crear"><img src="../..assets/editar.svg" 
+    alt="">Crear Editorial</RouterLink> 
    
 <table>
     <thead>
         <tr>
             <td>id</td>
             <td>nombre</td>
-            <td>fecha alta</td>
-            <td>direccion</td>
-            <td>telefono</td>
             <td>acciones</td>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo == 1"> 
-        <td>{{ socio.id }}</td>
-        <td>{{ socio.nombre_apellido }}</td>
-        <td>{{ socio.fecha_alta }}</td>
-        <td>{{ socio.direccion }}</td>
-        <td>{{ socio.telefono }}</td>    
+        <tr v-for="editorial in items" :key="editorial">
+        <div v-if="editorial.activo == 1"> 
+        <td>{{ editorial.id }}</td>
+      
+        <td>{{ editorial.nombre }}</td>
+      
         <tr>
          <td>
-            <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}">
+
+            <RouterLink :to="{name: 'ActualizarEditorial', params: {id: editorial.id}}">
             <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
             </RouterLink>
          </td>  
@@ -33,7 +30,7 @@
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
          <td>
-            <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
+            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
          </td> 
          </tr>  
         </div>               
@@ -65,7 +62,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http:/192.168.20.10/apiv1/socios');
+            const res=await axios.get('http:/192.168.20.10/apiv1/editorial');
             this.items = res.data;
             console.log(res);
 

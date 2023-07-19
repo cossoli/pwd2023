@@ -1,5 +1,5 @@
 <template>
-    <h1> Listado de Socios</h1>
+    <h1> Listado de Autores</h1>
   
  </template>
 
@@ -11,13 +11,10 @@
       Data()
           { 
          return{
-             socio:{
+             autores:{
                 id:"",
                 nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
-                activo:1,
-
+               
              }
          }     
           
@@ -25,9 +22,9 @@
     
      methods:{
         
-          async crearSocio(socio){
-             console.log(socio)
-             const res=await axios.get('http:/192.168.20.10/apiv1/socios/nuevo', socio)
+          async crearAutor(autor){
+             console.log(autor)
+             const res=await axios.get('http:/192.168.20.10/apiv1/autor/nuevo', autor)
              
  
  
@@ -38,12 +35,11 @@
  }
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
+<h2>Crear nuevo Autor</h2>
 
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-<button  @click = "crearSocio(Socio)"> guardar</button>
+<input v-model= autores.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
+
+<button  @click = "crearAutor(autor)"> guardar</button>
 </template>
 <style>
 input {
