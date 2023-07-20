@@ -11,14 +11,17 @@
       Data()
           { 
          return{
-             socio:{
+            libros:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
-                activo:1,
+                anio:"",
+                estado:"",
+                titulo:"",
+                id_categoria:"",
+                id_editorial:"",
+                id_genero:"",
+                cant_paginas:""
+               },
 
-             },
              created(){
                 this.buscar()
              }
@@ -28,16 +31,16 @@
     
      methods:{
         
-          async ActualizarSocio(socio){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
-                    this.$route.push('/ socios')
+          async ActualizarLibros(libros){
+               const res=await axios.get('http:/192.168.20.10/apiv1/libro/'+this.$route.params, libros)
+                    this.$route.push('/ libro')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params.id);
-                    this.Socio = res.data;
-                    console.log(this.Socio)
+               const res=await axios.get('http:/192.168.20.10/apiv1/libro/'+this.$route.params.id);
+                    this.Libros = res.data;
+                    console.log(this.libros)
  
     }
      }
@@ -46,13 +49,18 @@
  
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
-<div v-if="Socio.activo ==1">
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
+<h2>Crear nuevo libros</h2>
+<div v-if="libros.activo ==1">
+
+<input v-model= Libros.estado type="text" label='estado' placeholder="estado">
+<input v-model= libros.titulo type="text" label ='titulo' placeholder="titulo">
+<input v-model= libros.anio type="text" label ='anio' placeholder="anio">
+<input v-model= libros.id_categoria type="text" label ='categoria' placeholder="id_categoria">
+<input v-model= libros.id_editorial type="text" label ='id_editorial' placeholder="id_editorial">
+<input v-model= libros.id_genero type="text" label ='id_genero' placeholder="id_genero">
+<input v-model= libros.cant_paginas type="text" label ='cant_paginas' placeholder="cant_paginas" >
 </div>
-<button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
+<button  @click = "ActualizarLibros(libros)"> Actualizacion</button>
 </template>
 <style scope>
 input {

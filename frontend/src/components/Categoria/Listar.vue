@@ -1,31 +1,26 @@
 <template>
-   <h1> Listado de Socios</h1>
+   <h1> Listado de Categoria</h1>
   
-   <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt="">Crear Socios</RouterLink> 
+   <RouterLink class ="crear" to="categoria/crear"><img src="../..assets/editar.svg" 
+    alt="">Crear Categoria</RouterLink> 
    
 <table>
     <thead>
         <tr>
             <td>id</td>
             <td>nombre</td>
-            <td>fecha alta</td>
-            <td>direccion</td>
-            <td>telefono</td>
             <td>acciones</td>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo == 1"> 
-        <td>{{ socio.id }}</td>
-        <td>{{ socio.nombre_apellido }}</td>
-        <td>{{ socio.fecha_alta }}</td>
-        <td>{{ socio.direccion }}</td>
-        <td>{{ socio.telefono }}</td>    
+        <tr v-for="categora in items" :key="categoria">
+        <div v-if="Categoria.activo == 1"> 
+        <td>{{ categora.id }}</td>
+        <td>{{ categora.nombre }}</td>
+        
         <tr>
          <td>
-            <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}">
+            <RouterLink :to="{name: 'ActualizarCategoria', params: {id: categora.id}}">
             <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
             </RouterLink>
          </td>  
@@ -65,7 +60,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http:/192.168.20.10/apiv1/socios');
+            const res=await axios.get('http:/192.168.20.10/apiv1/categoria');
             this.items = res.data;
             console.log(res);
 

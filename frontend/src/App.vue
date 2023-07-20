@@ -12,7 +12,9 @@
 <RouterLink :to="{name:'Autor'}"> Autor </RouterLink> 
 <RouterLink :to="{name:'Genero'}"> Genero </RouterLink> 
 <RouterLink :to="{name:'Editorial'}"> Editorial </RouterLink> 
-
+<RouterLink :to="{name:'Categoria'}"> Categoria </RouterLink>
+<RouterLink :to="{name:'libro'}"> libro </RouterLink> 
+<RouterLink :to="{name:'Prestamo'}"> Prestamo </RouterLink> 
 
 <RouterView></RouterView>
 

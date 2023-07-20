@@ -1,31 +1,36 @@
 <template>
-   <h1> Listado de Socios</h1>
+   <h1> Listado de libros</h1>
   
    <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt="">Crear Socios</RouterLink> 
+    alt="">alta libros</RouterLink> 
    
 <table>
     <thead>
         <tr>
             <td>id</td>
-            <td>nombre</td>
-            <td>fecha alta</td>
-            <td>direccion</td>
-            <td>telefono</td>
-            <td>acciones</td>
+            <td>titulo</td>
+            <td>anio</td>
+            <td>estado</td>
+            <td>id_categoria</td>
+            <td>id_editorial</td>
+            <td>id_genero</td>
+            <td>cant_paginas</td>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo == 1"> 
-        <td>{{ socio.id }}</td>
-        <td>{{ socio.nombre_apellido }}</td>
-        <td>{{ socio.fecha_alta }}</td>
-        <td>{{ socio.direccion }}</td>
-        <td>{{ socio.telefono }}</td>    
+        <tr v-for="libros in items" :key="libros">
+        <div v-if="libros.activo == 1"> 
+        <td>{{ libros.id }}</td>
+        <td>{{ libros.anio }}</td>
+        <td>{{ libros.titulo }}</td>
+        <td>{{ libros.estado }}</td>
+        <td>{{ libros.id_categoria }}</td>
+        <td>{{ libros.id_editorial }}</td>
+        <td>{{ libros.id_genero }}</td>
+        <td>{{ libros.cant_paginas }}</td>  
         <tr>
          <td>
-            <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}">
+            <RouterLink :to="{name: 'ActualizarLibros', params: {id: libros.id}}">
             <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
             </RouterLink>
          </td>  
@@ -33,7 +38,7 @@
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
          <td>
-            <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
+            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
          </td> 
          </tr>  
         </div>               
@@ -65,7 +70,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http:/192.168.20.10/apiv1/socios');
+            const res=await axios.get('http:/192.168.20.10/apiv1/libros');
             this.items = res.data;
             console.log(res);
 

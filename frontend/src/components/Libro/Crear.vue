@@ -1,5 +1,5 @@
 <template>
-    <h1> Listado de Socios</h1>
+    <h1> Listado de libros</h1>
   
  </template>
 
@@ -11,23 +11,25 @@
       Data()
           { 
          return{
-             socio:{
+             libros:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
-                activo:1,
-
-             }
+                anio:"",
+                estado:"",
+                titulo:"",
+                id_categoria:"",
+                id_editorial:"",
+                id_genero:"",
+                cant_paginas:""
+               }
          }     
           
       },
     
      methods:{
         
-          async crearSocio(socio){
-             console.log(socio)
-             const res=await axios.get('http:/192.168.20.10/apiv1/socios/nuevo', socio)
+          async crearLibros(libros){
+             console.log(libros)
+             const res=await axios.get('http:/192.168.20.10/apiv1/libro/nuevo', libros)
              
  
  
@@ -38,12 +40,17 @@
  }
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
+<h2>Crear nuevo libro</h2>
 
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-<button  @click = "crearSocio(Socio)"> guardar</button>
+<input v-model= Libros.estado type="text" label='estado' placeholder="estado">
+<input v-model= libros.titulo type="text" label ='titulo' placeholder="titulo">
+<input v-model= libros.anio type="text" label ='anio' placeholder="anio">
+<input v-model= libros.id_categoria type="text" label ='categoria' placeholder="id_categoria">
+<input v-model= libros.id_editorial type="text" label ='id_editorial' placeholder="id_editorial">
+<input v-model= libros.id_genero type="text" label ='id_genero' placeholder="id_genero">
+<input v-model= libros.cant_paginas type="text" label ='cant_paginas' placeholder="cant_paginas" >
+
+<button  @click = "crearLibros(libros)"> guardar</button>
 </template>
 <style>
 input {

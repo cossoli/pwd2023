@@ -11,13 +11,10 @@
       Data()
           { 
          return{
-             categoria:{
+            categoria:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
+                nombre:"",
                 activo:1,
-
              },
              created(){
                 this.buscar()
@@ -28,16 +25,16 @@
     
      methods:{
         
-          async ActualizarSocio(socio){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
-                    this.$route.push('/ socios')
+          async ActualizarCategoria (categoria){
+               const res=await axios.get('http:/192.168.20.10/apiv1/categoria/'+this.$route.params, categoria)
+                    this.$route.push('/ categoria')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params.id);
-                    this.Socio = res.data;
-                    console.log(this.Socio)
+               const res=await axios.get('http:/192.168.20.10/apiv1/categoria/'+this.$route.params.id);
+                    this.categoria = res.data;
+                    console.log(this.categoria)
  
     }
      }
@@ -47,12 +44,11 @@
 </script>
 <template>
 <h2>Crear nuevo socio</h2>
-<div v-if="Socio.activo ==1">
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-</div>
-<button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
+<div v-if="categoria.activo ==1">
+
+    <input v-model= categoria.nombre type="text" label='nombre' placeholder="nombre">
+
+<button  @click = "ActualizarCategoria(categoria)"> actualizacion</button>
 </template>
 <style scope>
 input {

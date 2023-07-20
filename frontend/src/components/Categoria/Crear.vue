@@ -11,11 +11,9 @@
       Data()
           { 
          return{
-             socio:{
+             categoria:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
+                nombre:"",
                 activo:1,
 
              }
@@ -25,9 +23,9 @@
     
      methods:{
         
-          async crearSocio(socio){
-             console.log(socio)
-             const res=await axios.get('http:/192.168.20.10/apiv1/socios/nuevo', socio)
+          async crearCategria(categoria){
+             console.log(categoria)
+             const res=await axios.get('http:/192.168.20.10/apiv1/categoria/nuevo', categoria)
              
  
  
@@ -38,12 +36,11 @@
  }
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
+<h2>Crear nueva categoria</h2>
 
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-<button  @click = "crearSocio(Socio)"> guardar</button>
+<input v-model= categoria.nombre type="text" label='nombre' placeholder="nombre">
+
+<button  @click = "crearCategria(categoria)"> guardar</button>
 </template>
 <style>
 input {
