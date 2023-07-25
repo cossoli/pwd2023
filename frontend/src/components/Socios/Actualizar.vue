@@ -1,8 +1,3 @@
-<template>
-    <h1>actualizar Socios</h1>
-  
- </template>
-
 <script lang="ts">
  import axios from 'axios';
 
@@ -28,7 +23,7 @@
     
      methods:{
         
-          async ActualizarSocio(socio){
+          async ActualizarSocios(socio){
                const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
                     this.$route.push('/ socios')
                 

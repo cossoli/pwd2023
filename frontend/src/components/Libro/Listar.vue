@@ -2,7 +2,7 @@
    <h1> Listado de libros</h1>
   
    <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt="">alta libros</RouterLink> 
+    alt=""/>alta libros</RouterLink> 
    
 <table>
     <thead>

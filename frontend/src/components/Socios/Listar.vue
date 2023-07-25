@@ -2,7 +2,7 @@
    <h1> Listado de Socios</h1>
   
    <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt="">Crear Socios</RouterLink> 
+    alt=""/>Crear Socios</RouterLink> 
    
 <table>
     <thead>

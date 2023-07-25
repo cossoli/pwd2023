@@ -2,7 +2,7 @@
    <h1> Listado de Editorial</h1>
   
    <RouterLink class ="crear" to="editorial/crear"><img src="../..assets/editar.svg" 
-    alt="">Crear Editorial</RouterLink> 
+    alt=""/>Crear Editorial</RouterLink> 
    
 <table>
     <thead>
