@@ -5,7 +5,6 @@ namespace Raiz\Bd;
 use Raiz\Aux\Serializador;
 use Raiz\Bd\InterfaceDAO;
 use Raiz\Models\Categoria;
-use Raiz\Models\Socio;
 
 
 class CategoriaDAO implements InterfaceDAO
@@ -24,11 +23,11 @@ class CategoriaDAO implements InterfaceDAO
     public static function encontrarUno(string $id): ?Categoria
     {
         $sql = 'SELECT * FROM Categoria WHERE id =:id;';
-        $socio = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
-        if (count($socio) === 0) {
+        $categoria = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
+        if (count($categoria) === 0) {
            return null;
         } else {
-            $categoria= Categoria::deserializar($socio[0]);
+            $categoria= Categoria::deserializar($categoria[0]);
             return $categoria;
         }
     }

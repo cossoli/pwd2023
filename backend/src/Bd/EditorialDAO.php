@@ -25,11 +25,11 @@ class EditorialDAO implements InterfaceDAO
     public static function encontrarUno(string $id): ?Editorial
     {
         $sql = 'SELECT * FROM Editorial WHERE id =:id;';
-        $socio = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
-        if (count($socio) === 0) {
+        $editorial = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
+        if (count($editorial) === 0) {
            return null;
         } else {
-            $editorial= Editorial::deserializar($socio[0]);
+            $editorial= Editorial::deserializar($editorial[0]);
             return $editorial;
         }
     }

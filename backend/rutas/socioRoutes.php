@@ -1,12 +1,12 @@
 <?php
 
+use PhpParser\JsonDecoder;
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Raiz\Aux\Utiles\Prueba\Utileria;
 use Raiz\Controllers\SocioController;
 
-
-$app = AppFactory::create();
 
 $app->addErrorMiddleware(displayErrorDetails: true, logErrors: true, logErrorDetails: true);
 
@@ -16,7 +16,7 @@ $app->addErrorMiddleware(displayErrorDetails: true, logErrors: true, logErrorDet
 // ************************************************ //
 // ---------- Listar todos los Registros ---------- //
 
-$app->get('/socios', function (Request $req, Response $res, array $args) {
+$app->get('/apiv1/socios', function (Request $req, Response $res, array $args) {
     $payload = Json_Encode(SocioController::listar(), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
@@ -24,30 +24,34 @@ $app->get('/socios', function (Request $req, Response $res, array $args) {
 
 //  ****** ------ Buscar por Id ------- ************* //
 
-$app->get('/socios/{id}', function (Request $req, Response $res, array $args) {
+$app->get('/apiv1/socios/{id}', function (Request $req, Response $res, array $args) {
+   
     $payload = Json_Encode(SocioController::encontrarUno($args["id"]), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
+    
     return $res->withHeader("Content-Type", "application/json");
 });
 
 // ---- Crear nuevo regitro ---- //
 
-$app->post('/socios/nuevo', function (Request $req, Response $res, array $args) {
-    $payload = Json_Encode(SocioController::crear($req->getQueryParams()), JSON_PRETTY_PRINT);
-    $res->getBody()->write($payload);
-    return $res->withHeader("Content-Type", "application/json");
+$app->post('/apiv1/socios/nuevo', function (Request $req, Response $response, array $args) {
+    $request = Utileria::PasarAJson(file_get_contents('php://input'));
+    $payload = Json_Encode(SocioController::crear($request), JSON_PRETTY_PRINT);
+    $response->getBody()->write($payload);
+    return $response;
 });
 
 // ---- Modificar registro existente ---- //
-$app->put('/socios/{id}', function (Request $req, Response $res, array $args) {
-    $payload = Json_Encode(SocioController::actualizar($req->getQueryParams()), JSON_PRETTY_PRINT);
+$app->put('/apiv1/socios/{id}', function (Request $req, Response $res, array $args) {
+    $request = Utileria::PasarAJson(file_get_contents('php://input'));
+    $payload = Json_Encode(SocioController::actualizar($request), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
 });
 
 // ---- Borrar registro existente ---- //
 
-$app->delete('/socios/{id}', function (Request $req, Response $res, array $args) {
+$app->delete('/apiv1/socios/{id}', function (Request $req, Response $res, array $args) {
     $payload = Json_Encode(SocioController::borrar($args["id"]), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");

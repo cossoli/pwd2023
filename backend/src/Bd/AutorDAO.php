@@ -6,7 +6,7 @@ use Raiz\Aux\Serializador;
 use Raiz\Bd\InterfaceDAO;
 use Raiz\Models\Autor;
 
-use Raiz\Models\Socio;
+
 
 
 class AutorDAO implements InterfaceDAO
@@ -25,11 +25,11 @@ class AutorDAO implements InterfaceDAO
     public static function encontrarUno(string $id): ?Autor
     {
         $sql = 'SELECT * FROM Autor WHERE id =:id;';
-        $socio = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
-        if (count($socio) === 0) {
+        $autor = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
+        if (count($autor) === 0) {
            return null;
         } else {
-            $Autor= Autor::deserializar($socio[0]);
+            $Autor= Autor::deserializar($autor[0]);
             return $Autor;
         }
     }

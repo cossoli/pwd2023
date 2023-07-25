@@ -24,11 +24,11 @@ class PrestamoDAO implements InterfaceDAO
     public static function encontrarUno(string $id): ?Prestamo
     {
         $sql = 'SELECT * FROM prestamo WHERE id =:id;';
-        $socio = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
-        if (count($socio) === 0) {
+        $prestamo = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
+        if (count($prestamo) === 0) {
            return null;
         } else {
-            $prestamo= Prestamo::deserializar($socio[0]);
+            $prestamo= Prestamo::deserializar($prestamo[0]);
             return $prestamo;
         }
     }

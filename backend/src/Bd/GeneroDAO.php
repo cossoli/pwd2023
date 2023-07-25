@@ -22,11 +22,11 @@ class GeneroDAO implements InterfaceDAO
     public static function encontrarUno(string $id): ?Genero
     {
         $sql = 'SELECT * FROM Categoria WHERE id =:id;';
-        $socio = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
-        if (count($socio) === 0) {
+        $genero = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
+        if (count($genero) === 0) {
            return null;
         } else {
-            $genero = Genero::deserializar($socio[0]);
+            $genero = Genero::deserializar($genero[0]);
             return $genero;
         }
     }
