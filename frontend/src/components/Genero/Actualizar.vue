@@ -1,8 +1,3 @@
-<template>
-    <h1>actualizar Genero</h1>
-  
- </template>
-
 <script lang="ts">
  import axios from 'axios';
 

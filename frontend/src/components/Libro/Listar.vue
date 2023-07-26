@@ -1,8 +1,8 @@
 <template>
    <h1> Listado de libros</h1>
   
-   <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt=""/>alta libros</RouterLink> 
+   <RouterLink class ="crear" to="libro/crear"><img src="../..assets/editar.svg" 
+    alt=""/>Crear libros</RouterLink> 
    
 <table>
     <thead>

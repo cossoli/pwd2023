@@ -1,7 +1,3 @@
-<template>
-    <h1>actualizar Editorial</h1>
-  
- </template>
 
 <script lang="ts">
  import axios from 'axios';

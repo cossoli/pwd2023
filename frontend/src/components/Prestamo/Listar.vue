@@ -1,8 +1,8 @@
 <template>
-   <h1> Listado de Socios</h1>
+   <h1> Listado de Prestamos</h1>
   
-   <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt=""/>Crear Socios</RouterLink> 
+   <RouterLink class="crear" to="prestamo/crear"><img src="../..assets/editar.svg" 
+    alt=""/>Crear Prestamo</RouterLink> 
    
 <table>
     <thead>

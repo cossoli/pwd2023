@@ -1,8 +1,3 @@
-<template>
-    <h1>actualizar Categoria</h1>
-  
- </template>
-
 <script lang="ts">
  import axios from 'axios';
 
@@ -48,6 +43,7 @@
 
     <input v-model= categoria.nombre type="text" label='nombre' placeholder="nombre">
 
+</div>
 <button  @click = "ActualizarCategoria(categoria)"> actualizacion</button>
 </template>
 <style scope>
