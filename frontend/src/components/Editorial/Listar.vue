@@ -1,7 +1,7 @@
 <template>
    <h1> Listado de Editorial</h1>
   
-   <RouterLink class ="crear" to="editorial/crear"><img src="../..assets/editar.svg" 
+   <RouterLink class ="crear" to="/editorial/crear"><img src="../..assets/editar.svg" 
     alt=""/>Crear Editorial</RouterLink> 
    
 <table>

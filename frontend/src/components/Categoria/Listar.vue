@@ -1,7 +1,7 @@
 <template>
    <h1> Listado de Categoria</h1>
   
-   <RouterLink class ="crear" to="categoria/crear"><img src="../..assets/editar.svg" 
+   <RouterLink class ="crear" to="/categoria/crear"><img src="../..assets/editar.svg" 
     alt=""/>Crear Categoria</RouterLink> 
    
 <table>

@@ -1,7 +1,3 @@
-<template>
-    <h1>actualizar Socios</h1>
-  
- </template>
 
 <script lang="ts">
  import axios from 'axios';
@@ -10,29 +6,16 @@
     export default{
       Data()
           { 
-         return{
-            libros:{
-                id:"",
-                anio:"",
-                estado:"",
-                titulo:"",
-                id_categoria:"",
-                id_editorial:"",
-                id_genero:"",
-                cant_paginas:""
+        
                },
-
              created(){
                 this.buscar()
-             }
-         }     
-          
-      },
-    
+             },     
+      
      methods:{
         
           async ActualizarLibros(libros){
-               const res=await axios.get('http:/192.168.20.10/apiv1/libro/'+this.$route.params, libros)
+               const res=await axios.put('http:/192.168.20.10/apiv1/libro/'+this.$route.params, libros)
                     this.$route.push('/ libro')
                 
            

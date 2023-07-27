@@ -1,8 +1,9 @@
 <template>
    <h1> Listado de Prestamos</h1>
   
-   <RouterLink class="crear" to="prestamo/crear"><img src="../..assets/editar.svg" 
-    alt=""/>Crear Prestamo</RouterLink> 
+   <RouterLink class="crear" to="/prestamo/crear">
+    <img src="../..assets/editar.svg" alt=""/>Crear Prestamo
+    </RouterLink> 
    
 <table>
     <thead>

@@ -1,8 +1,9 @@
 <template>
    <h1> Listado de Socios</h1>
   
-   <RouterLink class ="crear" to="socios/crear"><img src="../..assets/editar.svg" 
-    alt=""/>Crear Socios</RouterLink> 
+   <RouterLink class ="crear" to="/socios/crear">
+               <img src="../..assets/editar.svg" alt=""/>Crear Socios
+    </RouterLink> 
    
 <table>
     <thead>
@@ -17,7 +18,7 @@
     </thead>
     <tbody>
         <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo == 0"> 
+        <div v-if="socio.activo === 1"> 
         <td>{{ socio.id }}</td>
         <td>{{ socio.nombre_apellido }}</td>
         <td>{{ socio.fecha_alta }}</td>

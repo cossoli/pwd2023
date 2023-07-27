@@ -1,6 +1,6 @@
 
 
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/Home.vue';
 import ListarSocios from '../components/Socios/Listar.vue';
 import CrearSocios from '../components/Socios/Crear.vue';
@@ -18,132 +18,157 @@ import ListarCategoria from '../components/Categoria/Listar.vue';
 import CrearCategoria from '../components/Categoria/Crear.vue';
 import ActualizarCategoria from '../components/Categoria/Actualizar.vue';
 import ListarLibro from '../components/Libro/Listar.vue';
+import CrearLibro from '../components/Libro/Crear.vue'
+import ActualizarLibro from '../components/Libro/Actualizar.vue';
 import ListarPrestamo from '../components/Prestamo/Listar.vue';
-
-
+import CrearPrestamo from '../components/Prestamo/Crear.vue';
+import ActualizarPrestamo from '../components/Prestamo/Actualizar.vue';
 
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
    routes: [
       {
-         path: '/',
+         path: '/Home',
          name: 'Home',
-         component: Home
+         component: Home,
       },
+    
 
          {
          path: '/Socios',
          name: 'Socios',
-         component: ListarSocios
-
+         component: ListarSocios,
       },
       {
          path: '/Socios/crear',
          name: 'CrearSocios',
-         component: CrearSocios
+         component: CrearSocios,
 
       },
-
       {
          path: '/Socios/actualizar',
          name: 'ActualizarSocios',
-         component: ActualizarSocios
+         component: ActualizarSocios,
 
       },
-
       {
          path: '/Autor',
          name: 'Autor',
-         component: ListarAutores
-
+         component: ListarAutores,
       },
       {
          path: '/Autor/crear',
          name: 'CrearAutores',
-         component: CrearAutores
+         component: CrearAutores,
 
       },
       {
          path: '/Autor/actualizar',
          name: 'ActualizarAutores',
-         component: ActualizarAutores
-
+         component: ActualizarAutores,
       },
       {
          path: '/Genero',
-         name: 'ListarGenero',
-         component: ListarGenero
+         name: 'Genero',
+         component: ListarGenero,
 
       },
       {
          path:'/Genero/crear',
          name: 'CrearGenero',
-         component: CrearGenero
+         component: CrearGenero,
 
       },
       {
          path:'/Genero/actualizar',
          name: 'ActualizarGenero',
-         component: ActualizarGenero
+         component: ActualizarGenero,
 
       },
       {
          path: '/Editorial',
-         name: 'ListarEditorial',
-         component: ListarEditorial
+         name: 'Editorial',
+         component: ListarEditorial,
 
       },
       {
          path: '/Editorial/crear',
          name: 'CrearEditorial',
-         component: CrearEditorial
+         component: CrearEditorial,
 
       },
 
       {
          path: '/Editorial/actualizar',
          name: 'ActualizarEditorial',
-         component: ActualizarEditorial
+         component: ActualizarEditorial,
 
       },
 
 
       {
-         path: '/Libro',
-         name: 'ListarLibro',
-         component: ListarLibro
+         path: '/Categoria',
+         name: 'Categoria',
+         component: ListarCategoria,
 
-      },
+      }, 
+
 
       {
          path: '/Categoria/crear',
          name: 'CrearCategoria',
-         component: CrearCategoria
+         component: CrearCategoria,
 
       },
 
       {
          path: '/Categoria/actualizar',
          name: 'ActualizarCategoria',
-         component: ActualizarCategoria
+         component: ActualizarCategoria,
 
       },
-      {
-         path: '/Categoria',
-         name: 'ListarCategoria',
-         component: ListarCategoria
-
-      }, 
-
+     
 
 
       {
          path: '/Prestamo',
-         name: 'listarPrestamo',
-         component: ListarPrestamo
+         name: 'Prestamo',
+         component: ListarPrestamo,
 
-      }
+      } ,
+      {
+         path: '/Prestamo/crear',
+         name: 'Prestamo',
+         component: CrearPrestamo,
 
+      } ,
+      {
+         path: '/Prestamo/actualizar',
+         name: 'Prestamo',
+         component: ActualizarPrestamo,
+
+      } ,
+
+
+      {
+         path: '/Libro',
+         name: 'Libro',
+         component: ListarLibro,
+
+      },
+      {
+         path: '/Libro',
+         name: 'Libro',
+         component: CrearLibro,
+
+      },
+
+{
+         path: '/Libro/actualizar',
+         name: 'Libro',
+         component: ActualizarLibro,
+
+      },
 
 
 

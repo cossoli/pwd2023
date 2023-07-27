@@ -5,23 +5,16 @@
     export default{
       Data()
           { 
-         return{
-             autor:{
-                id:"",
-                nombre_apellido:"",
-                
+                      
              },
              created(){
                 this.buscar()
-             }
-         }     
-          
-      },
+         },
     
      methods:{
         
           async ActualizarAutor(autor){
-               const res=await axios.get('http:/192.168.20.10/apiv1/autor/'+this.$route.params, autor)
+               const res=await axios.put('http:/192.168.20.10/apiv1/autor/'+this.$route.params, autor)
                     this.$route.push('/ autor')
                 
            

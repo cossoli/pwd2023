@@ -1,7 +1,7 @@
 <template>
    <h1> Listado de Genero</h1>
   
-   <RouterLink class ="crear" to="genero/crear"><img src="../..assets/editar.svg" 
+   <RouterLink class ="crear" to="/genero/crear"><img src="../..assets/editar.svg" 
     alt=""/>Crear Genero</RouterLink> 
    
 <table>

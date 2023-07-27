@@ -39,7 +39,7 @@
 <input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
 <input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
 <input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-<button  @click = "crearSocio(Socio)"> guardar</button>
+<button  @click = "crearSocios(Socio)"> guardar</button>
 </template>
 <style>
 input {

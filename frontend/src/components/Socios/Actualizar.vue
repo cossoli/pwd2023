@@ -4,33 +4,26 @@
  
     export default{
       Data()
-          { 
-         return{
-             socio:{
-                id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
-                activo:1,
+          {        
 
              },
              created(){
                 this.buscar()
-             }
-         }     
+            
+         },  
           
-      },
+      
     
      methods:{
         
           async ActualizarSocios(socio){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
+               const res = await axios.put('http:/192.168.20.10/apiv1/socios/'+this.$route.params, socio)
                     this.$route.push('/ socios')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params.id);
+               const res = await axios.get('http:/192.168.20.10/apiv1/socios/'+this.$route.params.id);
                     this.Socio = res.data;
                     console.log(this.Socio)
  
@@ -47,7 +40,7 @@
 <input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
 <input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
 </div>
-<button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
+<button  @click = "ActualizarSocios(Socio)"> Actualizacion</button>
 </template>
 <style scope>
 input {

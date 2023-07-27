@@ -1,7 +1,7 @@
 <template>
    <h1> Listado de Autores</h1>
   
-   <RouterLink class ="crear" to="Autor/crear"><img src="../..assets/editar.svg" 
+   <RouterLink class ="crear" to="/Autor/crear"><img src="../..assets/editar.svg" 
     alt=""/>listar Autores</RouterLink> 
    
 <table>

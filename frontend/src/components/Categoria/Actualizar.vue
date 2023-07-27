@@ -5,23 +5,18 @@
     export default{
       Data()
           { 
-         return{
-            categoria:{
-                id:"",
-                nombre:"",
-                activo:1,
+        
              },
              created(){
                 this.buscar()
-             }
-         }     
+        
           
       },
     
      methods:{
         
           async ActualizarCategoria (categoria){
-               const res=await axios.get('http:/192.168.20.10/apiv1/categoria/'+this.$route.params, categoria)
+               const res=await axios.put('http:/192.168.20.10/apiv1/categoria/'+this.$route.params, categoria)
                     this.$route.push('/ categoria')
                 
            
