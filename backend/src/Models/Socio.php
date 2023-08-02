@@ -2,10 +2,13 @@
 declare(strict_types=1);
 namespace Raiz\Models;
 
-class Socio extends Persona{
+use Raiz\Aux\Serializador;
+
+class Socio extends ModelBase 
+{
     
   private int $id;
-  private string $nombre_Apellido;
+  private string $nombre_apellido;
   private string $fecha_alta;
   private int $activo;
   private int $telefono;
@@ -14,16 +17,40 @@ class Socio extends Persona{
 
 
   Function __construct(int $id,string $fecha_alta,int $activo,
-          int $telefono,string $direccion ,string $nombre_Apellido )
+          int $telefono,string $direccion ,string $nombre_apellido )
   
   {
       $this->id = $id;
-      $this->nombre_Apellido = $nombre_Apellido;
+      $this->nombre_apellido = $nombre_apellido;
       $this->fecha_alta = $fecha_alta;
       $this->activo = $activo;
       $this->telefono = $telefono;
       $this->direccion=$direccion;
       
+  }
+  public function serializar(): array
+  {
+    return [
+        'id' => $this->id,
+        'nombre_apellido' => $this->nombre_apellido,
+        'fecha_alta' => $this->fecha_alta,
+        'activo'  => $this-> activo,
+        'telefono'=> $this->telefono,
+        'direccion'=> $this->direccion
+    ];
+  }
+ 
+  public static function deserializar(array $datos): self
+  {
+    return new self(
+        id : $datos['id'],
+        nombre_apellido: $datos['nombre_apellido'],
+       fecha_alta:$datos   ['fecha_alta'],
+       activo: $datos ['activo'],
+       telefono:$datos['telefono'],
+       direccion:$datos['direccion']
+
+    );
   }
 
   public function setfecha_alta($nuevofecha)
@@ -37,11 +64,11 @@ class Socio extends Persona{
   }
   public function setNombre($nuevoNombre)
   {
-      $this->nombre_Apellido = $nuevoNombre;
+      $this->nombre_apellido = $nuevoNombre;
   }
   public function getNombre()
   {
-      return $this->nombre_Apellido;
+      return $this->nombre_apellido;
   }
 
   public function setactivo($nuevoactivo)
@@ -70,10 +97,7 @@ class Socio extends Persona{
       return $this->direccion;
   }
   
-  public function getid()
-  {
-      return $this->id;
-  }
+  
 
 }
 

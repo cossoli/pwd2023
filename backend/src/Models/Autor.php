@@ -8,26 +8,46 @@ use Raiz\Models\ModelBase;
 class Autor extends ModelBase 
 {
   private int $id;
-  private string $nombre_Apellido;
+  private string $nombre_apellido;
 
-  Function __construct(string $nombre_Apellido, int $id)
+  Function __construct(string $nombre_apellido, int $id)
   {
-      $this->nombre_Apellido = $nombre_Apellido;
+      $this->nombre_apellido = $nombre_apellido;
       $this->id = $id;
   }
 
+  public function serializar(): array
+  {
+    return [
+      'nombre_apellido' => $this->nombre_apellido,
+      'id' => $this->id
+
+    ];
+  }
+  public static function deserializar(array $datos): self
+  {
+    return new self(
+      nombre_apellido: $datos['nombre_apellido'],
+      id : $datos['id']
+  
+    );
+  }
+
+
+
+
+
+
+
   public function setNombre($nuevoNombre)
   {
-      $this->nombre_Apellido = $nuevoNombre;
+      $this->nombre_apellido = $nuevoNombre;
   }
   public function getNombre()
   {
-      return $this->nombre_Apellido;
+      return $this->nombre_apellido;
   }
 
-  public function getId()
-  {
-      return $this->id;
-  }
+  
 
 };

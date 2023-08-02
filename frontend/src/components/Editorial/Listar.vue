@@ -62,7 +62,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http:/192.168.20.10/apiv1/editorial');
+            const res=await axios.get('http://192.168.20.10/apiv1/editorial');
             this.items = res.data;
             console.log(res);
 

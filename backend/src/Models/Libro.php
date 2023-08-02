@@ -46,7 +46,7 @@ class Libro extends ModelBase
         $this->estado = $estado;
     }
 
-    public function getTitulo(): string
+     public function getTitulo(): string
     {
         return $this->titulo;
     }

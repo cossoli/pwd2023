@@ -15,13 +15,13 @@
      methods:{
         
           async ActualizarEditorial(editorial){
-               const res=await axios.put('http:/192.168.20.10/apiv1/editorial/'+this.$route.params, editorial)
+               const res=await axios.put('http://192.168.20.10/apiv1/editorial/'+this.$route.params, editorial)
                     this.$route.push('/ editorial')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/editorial/'+this.$route.params.id);
+               const res=await axios.get('http://192.168.20.10/apiv1/editorial/'+this.$route.params.id);
                     this.Socio = res.data;
                     console.log(this.editorial)
  

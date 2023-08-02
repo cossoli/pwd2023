@@ -13,9 +13,9 @@ class Prestamo extends ModelBase
   private int $id;
   private socio $socio;
   private libro $libro;
-  private FechaHora $fecha_desde;
-  private fechahora $fecha_hasta; 
-  private fechahora $fecha_dev;
+  private $fecha_desde;
+  private $fecha_hasta; 
+  private $fecha_dev;
 
 
   Function __construct(int $id, socio $socio, libro $libro, 
@@ -31,6 +31,35 @@ class Prestamo extends ModelBase
       $this->fecha_dev = $fecha_dev;
          
  }
+
+ public function serializar(): array
+ {
+   return [
+       'id' => $this->id,
+       'socio' => $this->socio,
+       'libro' => $this->libro,
+       'fecha_desde'  => $this-> fecha_desde,
+       'fecha_hasta'=> $this->fecha_hasta,
+       'fecha_dev'=> $this->fecha_dev
+   ];
+ }
+
+ public static function deserializar(array $datos): self
+ {
+   return new self(
+       id : $datos['id'],
+       socio: $datos['socio'],
+      libro:$datos   ['libro'],
+        
+      fecha_desde: $datos ['fecha_desde'],
+      fecha_hasta:$datos['fecha_hasta'],
+      fecha_dev:$datos['fecha_dev']
+
+   );
+ }
+
+
+
 
 
 function diasRetraso($id_libro): int {
@@ -53,7 +82,7 @@ function diasRetraso($id_libro): int {
 
 
    
-$diferencia = $desde->diff($hasta);
+$diferencia = $fecha_desde->diff($hasta);
     
     $
 $dias_retraso = $diferencia->days;

@@ -20,7 +20,7 @@
         
           async crearCategria(categoria){
              console.log(categoria)
-             const res=await axios.get('http:/192.168.20.10/apiv1/categoria/nuevo', categoria)
+             const res=await axios.get('http://192.168.20.10/apiv1/categoria/nuevo', categoria)
              
  
  

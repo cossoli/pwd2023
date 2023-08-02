@@ -25,7 +25,7 @@
         
           async crearLibros(libros){
              console.log(libros)
-             const res=await axios.get('http:/192.168.20.10/apiv1/libro/nuevo', libros)
+             const res=await axios.get('http://192.168.20.10/apiv1/libro/nuevo', libros)
              
  
  

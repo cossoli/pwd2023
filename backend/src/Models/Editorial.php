@@ -14,6 +14,28 @@ class Editorial extends ModelBase
       $this->id = $id;
   }
 
+  public function serializar(): array
+  {
+    return [
+      'nombre' => $this->nombre,
+      'id' => $this->id
+
+    ];
+  }
+  public static function deserializar(array $datos): self
+  {
+    return new self(
+      nombre: $datos['nombre'],
+      id : $datos['id']
+  
+    );
+  }
+
+
+
+
+
+
   public function setNombre($nuevoNombre)
   {
       $this->nombre = $nuevoNombre;
@@ -23,9 +45,6 @@ class Editorial extends ModelBase
       return $this->nombre;
   }
 
-  public function getid()
-  {
-      return $this->id;
-  }
+ 
 
 };

@@ -17,13 +17,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo === 1"> 
-        <td>{{ socio.id }}</td>
-        <td>{{ socio.nombre_apellido }}</td>
-        <td>{{ socio.fecha_alta }}</td>
-        <td>{{ socio.direccion }}</td>
-        <td>{{ socio.telefono }}</td>    
+        <tr
+         v-for="socio in items" :key="socio">
+                <td>{{ socio.id }}</td>
+                <td>{{ socio.nombre_apellido }}</td>
+                <td>{{ socio.fecha_alta }}</td>
+                <td>{{ socio.direccion }}</td>
+                <td>{{ socio.telefono }}</td>    
         <tr>
          <td>
             <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}">
@@ -34,10 +34,10 @@
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
          <td>
-            <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
+            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
          </td> 
          </tr>  
-        </div>               
+             
         </tr>      
           
    </tbody>
@@ -50,7 +50,7 @@ import Boton from '../Boton.vue';
 
    export default{
 
-    components :{Boton},
+    components :{ Boton },
      Data()
          { 
         return{
@@ -66,7 +66,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http:/192.168.20.10/apiv1/socios');
+            const res=await axios.get('http://192.168.20.10/apiv1/socios');
             this.items = res.data;
             console.log(res);
 

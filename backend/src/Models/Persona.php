@@ -18,7 +18,7 @@ class Persona extends ModelBase
     {
       return [
         'nombre_apellido' => $this->nombre_apellido,
-        'dni' => $this->dni,
+        'dni' => $this->dni
 
       ];
     }
@@ -26,16 +26,10 @@ class Persona extends ModelBase
     {
       return new self(
         nombre_apellido: $datos['nombre_apellido'],
-        dni : $datos['dni'],
+        dni : $datos['dni']
     
       );
     }
-
-
-
-
-
-
 
     public function setNombre($nuevoNombre)
     {

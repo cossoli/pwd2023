@@ -20,7 +20,7 @@
         
           async crearEditorial(editorial){
              console.log(editorial)
-             const res=await axios.get('http:/192.168.20.10/apiv1/editorial/nuevo', editorial)
+             const res=await axios.get('http://192.168.20.10/apiv1/editorial/nuevo', editorial)
              
  
  

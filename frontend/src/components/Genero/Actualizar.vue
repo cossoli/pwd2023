@@ -13,13 +13,13 @@
      methods:{
         
           async ActualizarGenero(genero){
-               const res=await axios.put('http:/192.168.20.10/apiv1/genero/'+this.$route.params, genero)
+               const res=await axios.put('http://192.168.20.10/apiv1/genero/'+this.$route.params, genero)
                     this.$route.push('/ genero')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/genero/'+this.$route.params.id);
+               const res=await axios.get('http://192.168.20.10/apiv1/genero/'+this.$route.params.id);
                     this.genero = res.data;
                     console.log(this.genero)
  

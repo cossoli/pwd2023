@@ -12,7 +12,7 @@ final class SocioControllerTest extends TestCase{
     /** @Test */
     public function testCrear(){
 
-        $socio = new Socio("Guillermo Santolaria", 32841155, 100);
+        $socio = new Socio(01, 2023 ,1, 32841155, 100,"Guillermo Santolaria");
         $parametros = $socio->serializar();
         SocioController::crear($parametros);
         var_dump(SocioController::listar());

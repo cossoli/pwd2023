@@ -15,13 +15,13 @@
      methods:{
         
           async ActualizarLibros(libros){
-               const res=await axios.put('http:/192.168.20.10/apiv1/libro/'+this.$route.params, libros)
+               const res=await axios.put('http://192.168.20.10/apiv1/libro/'+this.$route.params, libros)
                     this.$route.push('/ libro')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/libro/'+this.$route.params.id);
+               const res=await axios.get('http://192.168.20.10/apiv1/libro/'+this.$route.params.id);
                     this.Libros = res.data;
                     console.log(this.libros)
  

@@ -14,13 +14,13 @@
      methods:{
         
           async ActualizarAutor(autor){
-               const res=await axios.put('http:/192.168.20.10/apiv1/autor/'+this.$route.params, autor)
+               const res=await axios.put('http://192.168.20.10/apiv1/autor/'+this.$route.params, autor)
                     this.$route.push('/ autor')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http:/192.168.20.10/apiv1/autor/'+this.$route.params.id);
+               const res=await axios.get('http://192.168.20.10/apiv1/autor/'+this.$route.params.id);
                     this.autor = res.data;
                     console.log(this.autor)
  

@@ -14,6 +14,26 @@ class Genero extends ModelBase
       $this->descripcion = $descripcion;
       $this->id = $id;
   }
+  public function serializar(): array
+    {
+      return [
+        'descripcion' => $this->descripcion,
+        'id' => $this->id
+
+      ];
+    }
+    public static function deserializar(array $datos): self
+    {
+      return new self(
+        descripcion: $datos['descripcion'],
+        id: $datos['id']
+    
+      );
+    }
+
+
+
+
 
   public function setDescripcion($nuevoDescricion)
   {
@@ -24,9 +44,6 @@ class Genero extends ModelBase
       return $this->descripcion;
   }
 
-  public function getid()
-  {
-      return $this->id;
-  }
+  
 
 };

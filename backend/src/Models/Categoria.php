@@ -15,6 +15,28 @@ class Categoria extends ModelBase
       $this->id = $id;
   }
 
+  public function serializar(): array
+  {
+    return [
+      'descripcion' => $this->descripcion,
+      'id' => $this->id
+
+    ];
+  }
+  public static function deserializar(array $datos): self
+  {
+    return new self(
+      descripcion: $datos['descripcion'],
+      id: $datos['id']
+  
+    );
+  }
+
+
+
+
+
+
   public function setNombre($nuevoDescricion)
   {
       $this->descripcion = $nuevoDescricion;
@@ -24,9 +46,6 @@ class Categoria extends ModelBase
       return $this->descripcion;
   }
 
-  public function getId()
-  {
-      return $this->id;
-  }
+ 
 
 };

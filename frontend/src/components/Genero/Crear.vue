@@ -20,7 +20,7 @@
         
           async crearGenero(genero){
              console.log(genero)
-             const res=await axios.get('http:/192.168.20.10/apiv1/genero/nuevo', genero)
+             const res=await axios.get('http://192.168.20.10/apiv1/genero/nuevo', genero)
              
  
  
