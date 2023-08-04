@@ -18,8 +18,8 @@
     </thead>
     <tbody>
         <tr v-for="socio in items" :key="socio">
-        <div v-if="socio.activo == 1"> 
-        <td>{{ socio.id }}</td>
+     
+        <td>{{ socio.id}}</td>
         <td>{{ socio.nombre_apellido }}</td>
         <td>{{ socio.fecha_alta }}</td>
         <td>{{ socio.direccion }}</td>
@@ -37,7 +37,7 @@
             <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
          </td> 
          </tr>  
-        </div>               
+                   
         </tr>      
           
    </tbody>
@@ -51,7 +51,7 @@ import Boton from '../Boton.vue';
    export default{
 
     components :{Boton},
-     Data()
+     data()
          { 
         return{
             items:[]
@@ -70,13 +70,9 @@ import Boton from '../Boton.vue';
             this.items = res.data;
             console.log(res);
 
-
         }
-
    }
-  
-}
-
+ }
 </script>
 
 <style scoped>

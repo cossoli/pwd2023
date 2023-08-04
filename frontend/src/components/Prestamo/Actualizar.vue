@@ -4,7 +4,7 @@
 
  
     export default{
-      Data()
+      data()
           { 
    
              },
@@ -17,7 +17,7 @@
         
           async ActualizarSocio(socio){
                const res=await axios.put('http://192.168.20.10/apiv1/socios/'+this.$route.params, socio)
-                    this.$route.push('/ socios')
+                    this.$route.push('/socios')
                 
            
          },

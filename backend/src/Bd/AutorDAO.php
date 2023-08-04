@@ -14,7 +14,7 @@ class AutorDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM Autor';
+        $sql = 'SELECT * FROM Autores';
         $listaAutor = ConectarBD::leer(sql: $sql);
         $Autor = [];
         foreach ($listaAutor as $Autor) {
@@ -24,7 +24,7 @@ class AutorDAO implements InterfaceDAO
     }
     public static function encontrarUno(string $id): ?Autor
     {
-        $sql = 'SELECT * FROM Autor WHERE id =:id;';
+        $sql = 'SELECT * FROM Autores WHERE id =:id;';
         $autor = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($autor) === 0) {
            return null;
@@ -37,7 +37,7 @@ class AutorDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO Autor (id, nombre-apellido VALUES (:id, :nombre-apeliido)';
+        $sql = 'INSERT INTO Autores (id, nombre-apellido VALUES (:id, :nombre-apeliido)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -51,7 +51,7 @@ class AutorDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Autor SET Autor =:Autor WHERE id=:id';
+        $sql = 'UPDATE Autores SET Autores =:Autores WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -62,7 +62,7 @@ class AutorDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM Autor WHERE id=:id';
+        $sql = 'DELETE FROM Autores WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

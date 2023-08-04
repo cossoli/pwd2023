@@ -1,11 +1,12 @@
 <template>
    <h1> Listado de Socios</h1>
   
-   <RouterLink class ="crear" to="/socios/crear">
+   <RouterLink class ="crear" to="socios/crear">
                <img src="../..assets/editar.svg" alt=""/>Crear Socios
     </RouterLink> 
    
-<table>
+<table> 
+
     <thead>
         <tr>
             <td>id</td>
@@ -25,6 +26,7 @@
                 <td>{{ socio.direccion }}</td>
                 <td>{{ socio.telefono }}</td>    
         <tr>
+
          <td>
             <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}">
             <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
@@ -51,7 +53,7 @@ import Boton from '../Boton.vue';
    export default{
 
     components :{ Boton },
-     Data()
+     data()
          { 
         return{
             items:[]
@@ -68,7 +70,7 @@ import Boton from '../Boton.vue';
         async Listar(){
             const res=await axios.get('http://192.168.20.10/apiv1/socios');
             this.items = res.data;
-            console.log(res);
+            console.log(res.data);
 
 
         }
@@ -79,7 +81,7 @@ import Boton from '../Boton.vue';
 
 </script>
 
-<style scoped>
+<style >
 table {
     background:#fff ;
     border-radius: 10px;
@@ -90,9 +92,4 @@ table {
     margin: 20px;
     padding: 15px;
 }
-thead {
-    
-}
-
-
 </style>

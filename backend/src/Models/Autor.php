@@ -16,7 +16,7 @@ class Autor extends ModelBase
       $this->id = $id;
   }
 
-  public function serializar(): array
+  public function Serializar(): array
   {
     return [
       'nombre_apellido' => $this->nombre_apellido,
@@ -32,13 +32,6 @@ class Autor extends ModelBase
   
     );
   }
-
-
-
-
-
-
-
   public function setNombre($nuevoNombre)
   {
       $this->nombre_apellido = $nuevoNombre;
