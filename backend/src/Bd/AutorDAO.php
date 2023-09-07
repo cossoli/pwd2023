@@ -16,11 +16,11 @@ class AutorDAO implements InterfaceDAO
     {
         $sql = 'SELECT * FROM Autores';
         $listaAutor = ConectarBD::leer(sql: $sql);
-        $Autor = [];
-        foreach ($listaAutor as $Autor) {
-            $Autor[] = Autor::deserializar($Autor);
+        $autor = [];
+        foreach ($listaAutor as $autores) {
+            $autor[] = Autor::deserializar($autores);
         }
-        return $Autor;
+        return $autor;
     }
     public static function encontrarUno(string $id): ?Autor
     {
@@ -37,12 +37,12 @@ class AutorDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO Autores (id, nombre-apellido VALUES (:id, :nombre-apeliido)';
+        $sql = 'INSERT INTO Autores (id, nombre_apellido VALUES (:id, :nombre_apeliido)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
                 ':id' => $params['id'],
-                ':nombre-apellido' => $params['nombre-apellido'],
+                ':nombre_apellido' => $params['nombre_apellido'],
                 
             ]
         );
@@ -51,18 +51,18 @@ class AutorDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Autores SET Autores =:Autores WHERE id=:id';
+        $sql = 'UPDATE Autores SET  nombre_apellid =:nombre_apellidor WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
                 ':id' => $params['id'],
-                ':nombre-apellido' => $params['nombre-apellido'],
+                ':nombre_apellido' => $params['nombre-apellido'],
             ]
         );
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM Autores WHERE id=:id';
+        $sql = 'DELETE FROM Autor WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

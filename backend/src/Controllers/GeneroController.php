@@ -16,10 +16,11 @@ class GeneroController implements InterfaceController{
 
     public static function listar(): array
     {
-        $socios = [];
+        $genero = [];
         $listadogenero = GeneroDAO::listar();
-        foreach($listadogenero as $genero){
-            $genero[] = $genero->serializar();
+        foreach($listadogenero as $Genero){
+
+            $genero[] = $Genero->serializar();
         }
         return $genero;
 

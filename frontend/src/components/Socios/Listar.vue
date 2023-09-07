@@ -24,21 +24,11 @@
                 <td>{{ socio.nombre_apellido }}</td>
                 <td>{{ socio.fecha_alta }}</td>
                 <td>{{ socio.direccion }}</td>
-                <td>{{ socio.telefono }}</td>    
-        <tr>
+                <td>{{ socio.telefono }}</td>  
+             
+                  
 
-         <td>
-            <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}">
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
-         <td>
-            <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
-         </td> 
-         <td>
-            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
-         </td> 
-         </tr>  
+      
              
         </tr>      
           
@@ -68,7 +58,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http://192.168.20.10/apiv1/socios');
+            const res = await axios.get('http://192.168.20.10/apiv1/socios');
             this.items = res.data;
             console.log(res.data);
 

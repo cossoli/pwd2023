@@ -14,24 +14,9 @@
     </thead>
     <tbody>
         <tr v-for="genero in items" :key="genero">
-        <div v-if="genero.activo == 1"> 
         <td>{{ genero.id }}</td>
         <td>{{ genero.Descricion }}</td>
-        <tr>
-         <td>
-            <RouterLink :to="{name: 'Actualizargenero', params: {id: genero.id}}">
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
-         <td>
-            <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
-         </td> 
-         <td>
-            <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
-         </td> 
-         </tr>  
-        </div>               
-        </tr>      
+        </tr> 
           
    </tbody>
 </table>
@@ -44,7 +29,7 @@ import Boton from '../Boton.vue';
    export default{
 
     components :{Boton},
-     Data()
+     data()
          { 
         return{
             items:[]

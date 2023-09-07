@@ -41,13 +41,13 @@ const router = createRouter({
       },
       {
          path: '/Socios/crear',
-         name: 'CrearSocios',
+         name: 'Crear',
          component: CrearSocios,
 
       },
       {
-         path: '/Socios/actualizar',
-         name: 'ActualizarSocios',
+         path: '/Socios/actualizar/:id',
+         name: 'Actualizar',
          component: ActualizarSocios,
 
       },
@@ -73,6 +73,7 @@ const router = createRouter({
          component: ListarGenero,
 
       },
+
       {
          path:'/Genero/crear',
          name: 'CrearGenero',
@@ -85,6 +86,28 @@ const router = createRouter({
          component: ActualizarGenero,
 
       },
+      {
+         path: '/Libro',
+         name: 'Libro',
+         component: ListarLibro,
+
+      },
+      {
+         path: '/Libro/crear',
+         name: 'Libro',
+         component: CrearLibro,
+
+      },
+
+{
+         path: '/Libro/actualizar',
+         name: 'Libro',
+         component: ActualizarLibro,
+
+      },
+
+
+
       {
          path: '/Editorial',
          name: 'Editorial',
@@ -150,25 +173,6 @@ const router = createRouter({
       } ,
 
 
-      {
-         path: '/Libro',
-         name: 'Libro',
-         component: ListarLibro,
-
-      },
-      {
-         path: '/Libro',
-         name: 'Libro',
-         component: CrearLibro,
-
-      },
-
-{
-         path: '/Libro/actualizar',
-         name: 'Libro',
-         component: ActualizarLibro,
-
-      },
 
 
 

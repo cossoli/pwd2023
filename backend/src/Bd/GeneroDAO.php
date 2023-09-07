@@ -11,11 +11,13 @@ class GeneroDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM Genero';
+        $sql = 'SELECT * FROM generos';
         $listagenero = ConectarBD::leer(sql: $sql);
         $genero = [];
-        foreach ($listagenero as $genero) {
-            $genero[] = Genero::deserializar($genero);
+        
+        foreach ($listagenero as $Genero)
+         {
+            $genero[] = Genero::deserializar($Genero);
         }
         return $genero;
     }

@@ -12,11 +12,12 @@ class CategoriaDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM Categoria';
+        $sql = 'SELECT * FROM Categorias';
         $listacategoria = ConectarBD::leer(sql: $sql);
         $categoria = [];
-        foreach ($listacategoria as $categoria) {
-            $categoria[] = Categoria::deserializar($categoria);
+        foreach ($listacategoria as $Categoria) 
+        {
+            $categoria[] = Categoria::deserializar($Categoria);
         }
         return $categoria;
     }

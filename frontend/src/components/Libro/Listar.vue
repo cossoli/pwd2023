@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         <tr v-for="libros in items" :key="libros">
-        <div v-if="libros.activo == 1"> 
+        
         <td>{{ libros.id }}</td>
         <td>{{ libros.anio }}</td>
         <td>{{ libros.titulo }}</td>
@@ -28,20 +28,7 @@
         <td>{{ libros.id_editorial }}</td>
         <td>{{ libros.id_genero }}</td>
         <td>{{ libros.cant_paginas }}</td>  
-        <tr>
-         <td>
-            <RouterLink :to="{name: 'ActualizarLibros', params: {id: libros.id}}">
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
-         <td>
-            <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
-         </td> 
-         <td>
-            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
-         </td> 
-         </tr>  
-        </div>               
+                    
         </tr>      
           
    </tbody>
@@ -55,7 +42,7 @@ import Boton from '../Boton.vue';
    export default{
 
     components :{Boton},
-     Data()
+     data()
          { 
         return{
             items:[]
