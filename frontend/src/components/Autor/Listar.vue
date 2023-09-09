@@ -11,6 +11,8 @@
             <td>nombre y apellido</td>
             <td>acciones</td>
         </tr>
+
+    
    
     </thead>
     <tbody>
@@ -20,6 +22,19 @@
         <td>{{ autores.nombre_apellido }}</td>
      
         </tr>
+          <!-- <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}"> -->
+            <Boton btnText="Editar" btnUrl="" btnClass="btn blue"></Boton>
+            <!-- </RouterLink> -->
+   
+         <td>
+            <!-- <boton texto="Eliminar" v-bind:class="{warning:true}"></boton> -->
+            <Boton btnText="Eliminar" btnUrl="" btnClass="btn red"></Boton>
+         </td> 
+         <td>
+            <!-- <boton texto="Abrir" v-bind:class="{alert:true}"></boton> -->
+         </td>   
+ 
+
 
         </tbody>
    </table>
