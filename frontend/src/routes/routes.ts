@@ -1,7 +1,6 @@
 
 
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
 import ListarSocios from '../components/Socios/Listar.vue';
 import CrearSocios from '../components/Socios/Crear.vue';
 import ActualizarSocios from '../components/Socios/Actualizar.vue';
@@ -27,13 +26,7 @@ import ActualizarPrestamo from '../components/Prestamo/Actualizar.vue';
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
    routes: [
-      {
-         path: '/Home',
-         name: 'Home',
-         component: Home,
-      },
-    
-
+   
          {
          path: '/Socios',
          name: 'Socios',

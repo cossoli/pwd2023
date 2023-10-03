@@ -6,11 +6,11 @@
 
 <template>
   
-<RouterLink :to="{name:'Home'}"> Home </RouterLink> 
+
 <RouterLink :to="{name:'Socios'}"> Socios </RouterLink> 
-<RouterLink :to="{name:'Autor'}"> Autor </RouterLink> 
+<RouterLink :to="{name:'Autor'}"> Autores </RouterLink> 
 <RouterLink :to="{name:'Genero'}"> Genero </RouterLink> 
-<RouterLink :to="{name:'Libro'}"> libro </RouterLink> 
+<RouterLink :to="{name:'Libro'}"> libros </RouterLink> 
 <RouterLink :to="{name:'Prestamo'}"> Prestamo </RouterLink> 
 <RouterLink :to="{name:'Categoria'}"> Categoria </RouterLink>
 <RouterLink :to="{name:'Editorial'}"> Editorial </RouterLink> 

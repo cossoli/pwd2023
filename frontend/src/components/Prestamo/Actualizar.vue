@@ -13,18 +13,18 @@
              },     
                
     
-     methods:{
+         methods:{
         
-          async ActualizarSocio(socio){
-               const res=await axios.put('http://192.168.20.10/apiv1/socios/'+this.$route.params, socio)
+          async ActualizarPrestamo(prestamo){
+               const res=await axios.put('http://192.168.20.10/apiv1/prestamo/'+this.$route.params,prestamo)
                     this.$route.push('/socios')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http://192.168.20.10/apiv1/socios/'+this.$route.params.id);
-                    this.Socio = res.data;
-                    console.log(this.Socio)
+               const res=await axios.get('http://192.168.20.10/apiv1/prestamo/'+this.$route.params.id);
+                    this.prestamo = res.data;
+                    console.log(this.prestamo)
  
     }
      }
@@ -39,7 +39,7 @@
 <input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
 <input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
 </div>
-<button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
+<button  @click = "ActualizarPrestamo(prestamo)"> Actualizacion</button>
 </template>
 <style scope>
 input {

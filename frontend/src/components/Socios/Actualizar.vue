@@ -3,7 +3,7 @@
 
  
     export default{
-      Data()
+      data()
           {        
 
              },
@@ -16,9 +16,9 @@
     
      methods:{
         
-          async ActualizarSocio(socio){
-               const res = await axios.put('http://192.168.20.10/apiv1/socios/'+this.$route.params.id, 
-                   socio);
+          async ActualizarSocio(Socio){
+               const res = await axios.push ('http://192.168.20.10/apiv1/socios/'+this.$route.params.id, 
+                   Socio);
 
                     this.$route.push('/ socios')
                 
@@ -39,9 +39,9 @@
 <template>
 <h2>Crear nuevo socio</h2>
 <div v-if="Socio.activo ==1">
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
+<input v-model= Socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
+<input v-model= Socio.telefono type="text" label ='telefono' placeholder="telefono">
+<input v-model = Socio.direccion type="text" label ='direccion' placeholder="direccion">
 </div>
 <button  @click = "ActualizarSocio(Socio)"> Actualizacion</button>
 </template>

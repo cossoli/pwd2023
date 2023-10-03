@@ -1,9 +1,7 @@
 <template>
    <h1> Listado de Socios</h1>
   
-   <RouterLink class ="crear" to="socios/crear">
-               <img src="../..assets/editar.svg" alt=""/>Crear Socios
-    </RouterLink> 
+   <RouterLink class ="Crear" to="Socios/Crear"><img src="../../assets/editar.svg" alt="">Crear Socios</RouterLink> 
    
 <table> 
 
@@ -25,22 +23,23 @@
                 <td>{{ socio.fecha_alta }}</td>
                 <td>{{ socio.direccion }}</td>
                 <td>{{ socio.telefono }}</td>  
+                <td>
 
-             <!-- <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}"> -->
-                <Boton btnText="Editar" btnUrl="" btnClass="btn blue"></Boton>
-            <!-- </RouterLink> -->
-   
+            <Router-Link :to="{name: 'Actualizar', params: {id: socio.id}}">
+
+            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
+            </Router-Link>
+         </td>  
          <td>
-            <!-- <boton texto="Eliminar" v-bind:class="{warning:true}"></boton> -->
-            <Boton btnText="Eliminar" btnUrl="" btnClass="btn red"></Boton>
+            <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
          <td>
-            <!-- <boton texto="Abrir" v-bind:class="{alert:true}"></boton> -->
-         </td>   
-        </tr>       
-            
+            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
+         </td> 
+
+         
+         </tr>  
      
- 
          
           
    </tbody>
