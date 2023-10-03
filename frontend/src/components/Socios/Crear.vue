@@ -26,8 +26,7 @@
           async crearSocios(Socio){
              console.log(Socio)
              const res= await axios.post('http://192.168.20.10/apiv1/socios/nuevo', Socio)
-             console.log(res.data);
- 
+           
  
          }
  
@@ -38,13 +37,13 @@
 <template>
 <h2>Crear nuevo socios</h2>
 
-<input v-model=Socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model=Socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model=Socio.direccion type="text" label ='direccion' placeholder="direccion">
+<input v-model=Socio.nombre_apellido type="text" label='Nombre y Apellido' placeholder="Nombre y Apellido">
+<input v-model=Socio.telefono type="text" label ='Telefono' placeholder="Telefono">
+<input v-model=Socio.direccion type="text" label ='Direccion' placeholder="Direccion">
 <button  @click = "crearSocios(Socio)"> guardar</button>
 </template>
-<style>
 
+<style scope>
 
 input {
     width: 50%;

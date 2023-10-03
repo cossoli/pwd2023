@@ -20,7 +20,7 @@
                const res = await axios.push ('http://192.168.20.10/apiv1/socios/'+this.$route.params.id, 
                    Socio);
 
-                    this.$route.push('/ socios')
+                    this.$route.push('/socios')
                 
            
          },
