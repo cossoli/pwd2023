@@ -14,17 +14,17 @@ class EditorialDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM Editorial';
+        $sql = 'SELECT * FROM editorial';
         $listaeditorial = ConectarBD::leer(sql: $sql);
         $editorial = [];
-        foreach ($listaeditorial as $editorial) {
-            $editorial[] = Editorial::deserializar($editorial);
+        foreach ($listaeditorial as $editoriales) {
+            $editorial[] = Editorial::deserializar($editoriales);
         }
         return $editorial;
     }
     public static function encontrarUno(string $id): ?Editorial
     {
-        $sql = 'SELECT * FROM Editorial WHERE id =:id;';
+        $sql = 'SELECT * FROM editorial WHERE id =:id;';
         $editorial = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($editorial) === 0) {
            return null;
@@ -37,7 +37,7 @@ class EditorialDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO Editorial (id, nombre) VALUES (:id, :nombre)';
+        $sql = 'INSERT INTO editorial (id, nombre) VALUES (:id, :nombre)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -51,7 +51,7 @@ class EditorialDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Editorial SET Editorial =:Editorial WHERE id=:id';
+        $sql = 'UPDATE editorial SET editorial =: editorial WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -62,7 +62,7 @@ class EditorialDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM Editorial WHERE id=:id';
+        $sql = 'DELETE FROM editorial WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

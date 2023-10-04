@@ -14,7 +14,7 @@ class AutorDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM Autores';
+        $sql = 'SELECT * FROM autores';
         $listaAutor = ConectarBD::leer(sql: $sql);
         $autor = [];
         foreach ($listaAutor as $autores) {
@@ -24,7 +24,7 @@ class AutorDAO implements InterfaceDAO
     }
     public static function encontrarUno(string $id): ?Autor
     {
-        $sql = 'SELECT * FROM Autores WHERE id =:id;';
+        $sql = 'SELECT * FROM autores WHERE id =:id;';
         $autor = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($autor) === 0) {
            return null;
@@ -37,7 +37,7 @@ class AutorDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO Autores (id, nombre_apellido VALUES (:id, :nombre_apeliido)';
+        $sql = 'INSERT INTO autores (id, nombre_apellido ) VALUES (:id, :nombre_apellido)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -51,7 +51,7 @@ class AutorDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Autores SET  nombre_apellid =:nombre_apellidor WHERE id=:id';
+        $sql = 'UPDATE autores SET  nombre_apellido =:nombre_apellido WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [

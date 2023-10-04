@@ -87,14 +87,14 @@ const router = createRouter({
       },
       {
          path: '/Libro/crear',
-         name: 'Libro',
+         name: 'CrearLibro',
          component: CrearLibro,
 
       },
 
 {
          path: '/Libro/actualizar',
-         name: 'Libro',
+         name: 'ActualizarLibro',
          component: ActualizarLibro,
 
       },
@@ -154,13 +154,13 @@ const router = createRouter({
       } ,
       {
          path: '/Prestamo/crear',
-         name: 'Prestamo',
+         name: 'CrearPrestamo',
          component: CrearPrestamo,
 
       } ,
       {
          path: '/Prestamo/actualizar',
-         name: 'Prestamo',
+         name: 'ActualizarPrestamo',
          component: ActualizarPrestamo,
 
       } ,

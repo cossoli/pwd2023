@@ -9,11 +9,11 @@
          return{
              Socio:{
                 
-                id:1,
+                id:5,
                 fecha_alta: new Date().toISOString().substring(0,10),
                 nombre_apellido:"",
                 direccion:"",
-                telefono:"",
+                telefono:258648525,
                 activo:1,                       
 
              }

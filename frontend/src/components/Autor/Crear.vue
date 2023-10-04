@@ -7,7 +7,7 @@
           { 
          return{
              Autor:{
-                id:"4",
+                id:4,
                 nombre_apellido:"",
                
              }

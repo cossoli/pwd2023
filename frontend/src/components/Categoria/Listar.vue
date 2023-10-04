@@ -13,17 +13,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="categora in items" :key="categoria">
-        <div v-if="Categoria.activo == 1"> 
-        <td>{{ categora.id }}</td>
-        <td>{{ categora.nombre }}</td>
+        <tr v-for="categoria in items" :key="categoria">
+        <div v-if="categoria.activo == 1"> 
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nombre }}</td>
         
         <tr>
-         <td>
-            <RouterLink :to="{name: 'ActualizarCategoria', params: {id: categora.id}}">
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
+         
          <td>
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
@@ -45,7 +41,7 @@ import Boton from '../Boton.vue';
    export default{
 
     components :{Boton},
-     Data()
+     data()
          { 
         return{
             items:[]

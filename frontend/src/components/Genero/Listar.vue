@@ -8,14 +8,14 @@
     <thead>
         <tr>
             <td>id</td>
-            <td>Descricion</td>
+            <td>Descripcion</td>
             <td>acciones</td>
         </tr>
     </thead>
     <tbody>
         <tr v-for="genero in items" :key="genero">
         <td>{{ genero.id }}</td>
-        <td>{{ genero.Descricion }}</td>
+        <td>{{ genero.descripcion }}</td>
         </tr> 
           
    </tbody>
@@ -44,7 +44,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http://192.168.20.10/apiv1/genero');
+            const res=await axios.get('http://192.168.20.10/apiv1/generos');
             this.items = res.data;
             console.log(this.items);
 

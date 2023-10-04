@@ -4,7 +4,7 @@
 
  
     export default{
-      Data()
+      data()
           { 
          return{
              libros:{
@@ -25,7 +25,7 @@
         
           async crearLibros(libros){
              console.log(libros)
-             const res=await axios.get('http://192.168.20.10/apiv1/libro/nuevo', libros)
+             const res=await axios.post('http://192.168.20.10/apiv1/libros/nuevo', libros)
              
  
  
@@ -38,7 +38,7 @@
 <template>
 <h2>Crear nuevo libro</h2>
 
-<input v-model= Libros.estado type="text" label='estado' placeholder="estado">
+<input v-model= libros.estado type="text" label='estado' placeholder="estado">
 <input v-model= libros.titulo type="text" label ='titulo' placeholder="titulo">
 <input v-model= libros.anio type="text" label ='anio' placeholder="anio">
 <input v-model= libros.id_categoria type="text" label ='categoria' placeholder="id_categoria">

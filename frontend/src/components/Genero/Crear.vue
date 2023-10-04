@@ -3,11 +3,11 @@
 
  
     export default{
-      Data()
+      data()
           { 
          return{
-             socio:{
-                id:"",
+             genero:{
+                id:5,
                 descripcion:"",
                 activo:1,
 
@@ -20,7 +20,7 @@
         
           async crearGenero(genero){
              console.log(genero)
-             const res=await axios.get('http://192.168.20.10/apiv1/genero/nuevo', genero)
+             const res=await axios.post('http://192.168.20.10/apiv1/generos/nuevo', genero)
              
  
  

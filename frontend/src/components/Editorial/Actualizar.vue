@@ -4,7 +4,7 @@
 
  
     export default{
-      Data()
+      data()
           { 
            },
              created(){

@@ -14,18 +14,11 @@
     </thead>
     <tbody>
         <tr v-for="editorial in items" :key="editorial">
-        <div v-if="editorial.activo == 1"> 
-        <td>{{ editorial.id }}</td>
       
+        <td>{{ editorial.id }}</td>
         <td>{{ editorial.nombre }}</td>
       
         <tr>
-         <td>
-
-            <RouterLink :to="{name: 'ActualizarEditorial', params: {id: editorial.id}}">
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
          <td>
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
@@ -33,7 +26,7 @@
             <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
          </td> 
          </tr>  
-        </div>               
+                    
         </tr>      
           
    </tbody>
@@ -47,7 +40,7 @@ import Boton from '../Boton.vue';
    export default{
 
     components :{Boton},
-     Data()
+     data()
          { 
         return{
             items:[]

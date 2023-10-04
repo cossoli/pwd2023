@@ -12,18 +12,18 @@ class CategoriaDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM Categorias';
+        $sql = 'SELECT * FROM categoria';
         $listacategoria = ConectarBD::leer(sql: $sql);
         $categoria = [];
-        foreach ($listacategoria as $Categoria) 
+        foreach ($listacategoria as $Categorias) 
         {
-            $categoria[] = Categoria::deserializar($Categoria);
+            $categoria[] = Categoria::deserializar($Categorias);
         }
         return $categoria;
     }
     public static function encontrarUno(string $id): ?Categoria
     {
-        $sql = 'SELECT * FROM Categoria WHERE id =:id;';
+        $sql = 'SELECT * FROM categoria WHERE id =:id;';
         $categoria = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($categoria) === 0) {
            return null;
@@ -36,7 +36,7 @@ class CategoriaDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO Categoria(id, descripcion) VALUES (:id, :descripcion)';
+        $sql = 'INSERT INTO categoria(id, descripcion) VALUES (:id, :descripcion)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -50,7 +50,7 @@ class CategoriaDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Categoria SET Categoria =:Categoria WHERE id=:id';
+        $sql = 'UPDATE categoria SET categoria =:categoria WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -61,7 +61,7 @@ class CategoriaDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM Categoria WHERE id=:id';
+        $sql = 'DELETE FROM categoria WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

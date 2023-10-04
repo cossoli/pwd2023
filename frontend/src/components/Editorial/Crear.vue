@@ -3,10 +3,10 @@
 
  
     export default{
-      Data()
+      data()
           { 
          return{
-             editorial:{
+             editoriales:{
                 id:"",
                 nombre:"",
                 activo:1,
@@ -18,9 +18,9 @@
     
      methods:{
         
-          async crearEditorial(editorial){
-             console.log(editorial)
-             const res=await axios.get('http://192.168.20.10/apiv1/editorial/nuevo', editorial)
+          async crearEditorial(editoriales){
+             console.log(editoriales)
+             const res=await axios.post('http://192.168.20.10/apiv1/editorial/nuevo', editoriales)
              
  
  
@@ -33,8 +33,8 @@
 <template>
 <h2>Crear nuevo Editorial</h2>
 
-<input v-model= editorial.nombre type="text" label='nombre ' placeholder="nombre">
-<button  @click = "crearEditorial(editorial)"> guardar</button>
+<input v-model=editoriales.nombre type="text" label='nombre ' placeholder="nombre">
+<button  @click = "crearEditorial(editoriales)"> guardar</button>
 </template>
 <style>
 input {

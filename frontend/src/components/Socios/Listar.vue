@@ -25,10 +25,10 @@
                 <td>{{ socio.telefono }}</td>  
                 <td>
 
-            <Router-Link :to="{name: 'Actualizar', params: {id: socio.id}}">
+            <RouterLink :to="{name: 'Actualizar', params: {id: socio.id}}">
 
             <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </Router-Link>
+            </RouterLink>
          </td>  
          <td>
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>

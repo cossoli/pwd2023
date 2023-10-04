@@ -26,10 +26,10 @@ class Autor extends ModelBase
   }
   public static function deserializar(array $datos): self
   {
-    return new self(
-      nombre_apellido: $datos['nombre_apellido'],
-      id : $datos['id']
-  
+    return new self (
+       id : $datos ['id'],
+      nombre_apellido : $datos ['nombre_apellido']
+       
     );
   }
   public function setNombre($nuevoNombre)

@@ -23,7 +23,7 @@ class GeneroDAO implements InterfaceDAO
     }
     public static function encontrarUno(string $id): ?Genero
     {
-        $sql = 'SELECT * FROM Categoria WHERE id =:id;';
+        $sql = 'SELECT * FROM generos WHERE id =:id;';
         $genero = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($genero) === 0) {
            return null;
@@ -36,7 +36,7 @@ class GeneroDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO Genero (id, descripcion) VALUES (:id, :descripcion)';
+        $sql = 'INSERT INTO generos (id, descripcion) VALUES (:id, :descripcion)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -50,7 +50,7 @@ class GeneroDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Genero SET Genero =:Genero WHERE id=:id';
+        $sql = 'UPDATE generos SET generos =:generos WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -61,7 +61,7 @@ class GeneroDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM Genero WHERE id=:id';
+        $sql = 'DELETE FROM generos WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }
