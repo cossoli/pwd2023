@@ -13,10 +13,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="editorial in items" :key="editorial">
+        <tr v-for="editoriales in items" :key="editoriales">
       
-        <td>{{ editorial.id }}</td>
-        <td>{{ editorial.nombre }}</td>
+        <td>{{ editoriales.id }}</td>
+        <td>{{ editoriales.nombre }}</td>
       
         <tr>
          <td>
@@ -55,7 +55,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http://192.168.20.10/apiv1/editorial');
+            const res=await axios.get('http://192.168.20.10/apiv1/editoriales');
             this.items = res.data;
             console.log(res);
 

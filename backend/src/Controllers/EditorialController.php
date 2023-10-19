@@ -18,8 +18,8 @@ class EditorialController implements InterfaceController{
     {
         $editorial = [];
         $listadoeditorial = EditorialDAO::listar();
-        foreach($listadoeditorial as $editorial){
-            $editorial[] = $editorial->serializar();
+        foreach($listadoeditorial as $editoriales){
+            $editorial[] = $editoriales->serializar();
         }
         return $editorial;
 

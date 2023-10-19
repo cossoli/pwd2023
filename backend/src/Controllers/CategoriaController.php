@@ -18,8 +18,8 @@ class CategoriaController implements InterfaceController{
     {
         $categoria = [];
         $listadocategoria = CategoriaDAO::listar();
-        foreach($listadocategoria as $Categoria){
-            $categoria[] = $Categoria->serializar();
+        foreach($listadocategoria as $categorias){
+            $categoria[] = $categorias->serializar();
         }
         return $categoria;
 

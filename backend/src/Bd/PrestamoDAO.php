@@ -13,17 +13,17 @@ class PrestamoDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM prestamo';
+        $sql = 'SELECT * FROM prestamos';
         $listaPrestamo = ConectarBD::leer(sql: $sql);
         $prestamo = [];
-        foreach ($listaPrestamo as $prestamo) {
-            $prestamo[] = Prestamo::deserializar($prestamo);
+        foreach ($listaPrestamo as $prestamos) {
+            $prestamo[] = Prestamo::deserializar($prestamos);
         }
         return $prestamo;
     }
     public static function encontrarUno(string $id): ?Prestamo
     {
-        $sql = 'SELECT * FROM prestamo WHERE id =:id;';
+        $sql = 'SELECT * FROM prestamos WHERE id =:id;';
         $prestamo = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($prestamo) === 0) {
            return null;
@@ -36,7 +36,7 @@ class PrestamoDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO prestamo (id, socio, libro) VALUES (:id, :socio, :libro)';
+        $sql = 'INSERT INTO prestamos (id, socio, libro) VALUES (:id, :socio, :libro)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -50,7 +50,7 @@ class PrestamoDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE Prestamo SET Prestamo =:Prestamo WHERE id=:id';
+        $sql = 'UPDATE Prestamos SET Prestamos =:Prestamos WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -61,7 +61,7 @@ class PrestamoDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM prestamo WHERE id=:id';
+        $sql = 'DELETE FROM prestamos WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

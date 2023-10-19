@@ -12,18 +12,18 @@ class CategoriaDAO implements InterfaceDAO
 
     public static function listar(): array
     {
-        $sql = 'SELECT * FROM categoria';
+        $sql = 'SELECT * FROM categorias';
         $listacategoria = ConectarBD::leer(sql: $sql);
         $categoria = [];
-        foreach ($listacategoria as $Categorias) 
+        foreach ($listacategoria as $categorias) 
         {
-            $categoria[] = Categoria::deserializar($Categorias);
+            $categoria[] = Categoria::deserializar($categorias);
         }
         return $categoria;
     }
     public static function encontrarUno(string $id): ?Categoria
     {
-        $sql = 'SELECT * FROM categoria WHERE id =:id;';
+        $sql = 'SELECT * FROM categorias WHERE id =:id;';
         $categoria = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
         if (count($categoria) === 0) {
            return null;
@@ -36,7 +36,7 @@ class CategoriaDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO categoria(id, descripcion) VALUES (:id, :descripcion)';
+        $sql = 'INSERT INTO categorias(id, descripcion) VALUES (:id, :descripcion)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -50,7 +50,7 @@ class CategoriaDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE categoria SET categoria =:categoria WHERE id=:id';
+        $sql = 'UPDATE categorias SET categorias =:categorias WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [
@@ -61,7 +61,7 @@ class CategoriaDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM categoria WHERE id=:id';
+        $sql = 'DELETE FROM categorias WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

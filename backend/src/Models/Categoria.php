@@ -9,33 +9,31 @@ class Categoria extends ModelBase
   private int $id;
   private string $descripcion;
 
-  Function __construct(string  $descripcion, int $id)
-  {
-      $this->descripcion = $descripcion;
+  Function __construct( int $id,string  $descripcion)
+  {   
       $this->id = $id;
+      $this->descripcion = $descripcion;
+      
   }
 
   public function serializar(): array
   {
     return [
-      'descripcion' => $this->descripcion,
-      'id' => $this->id
+      'id' => $this->id,
+      'descripcion' => $this->descripcion
+      
 
     ];
   }
   public static function deserializar(array $datos): self
   {
     return new self(
-      descripcion: $datos['descripcion'],
-      id: $datos['id']
+      id: $datos['id'],
+      descripcion: $datos['descripcion']
+      
   
     );
   }
-
-
-
-
-
 
   public function setNombre($nuevoDescricion)
   {

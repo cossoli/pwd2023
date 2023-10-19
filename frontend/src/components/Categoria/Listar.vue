@@ -13,10 +13,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="categoria in items" :key="categoria">
-        <div v-if="categoria.activo == 1"> 
-        <td>{{ categoria.id }}</td>
-        <td>{{ categoria.nombre }}</td>
+        <tr v-for="categorias in items" :key="categorias">
+       
+        <td>{{ categorias.id }}</td>
+        <td>{{ categorias.nombre }}</td>
         
         <tr>
          
@@ -27,7 +27,7 @@
             <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
          </td> 
          </tr>  
-        </div>               
+            
         </tr>      
           
    </tbody>
@@ -56,7 +56,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http://192.168.20.10/apiv1/categoria');
+            const res=await axios.get('http://192.168.20.10/apiv1/categorias');
             this.items = res.data;
             console.log(res);
 

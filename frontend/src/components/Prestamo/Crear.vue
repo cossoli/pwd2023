@@ -7,12 +7,13 @@
       data()
           { 
          return{
-             socio:{
+             prestamo:{
                 id:"",
-                nombre_apellido:"",
-                direccion:"",
-                fecha_alta: new Date().toISOString().substring(0,10),
-                activo:1,
+                id_socio:"",
+                fecha_desde: new Date().toISOString().substring(0,10),
+                fecha_hasta: new Date().toISOString().substring(0,10),
+                fecha_devolucion : new Date().toISOString().substring(0,10),
+
 
              }
          }     
@@ -21,9 +22,9 @@
     
      methods:{
         
-          async crearPrestamo(socio){
-             console.log(socio)
-             const res=await axios.get('http://192.168.20.10/apiv1/socios/nuevo', socio)
+          async crearPrestamo(prestamo){
+             console.log(prestamo)
+             const res=await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', prestamo)
              
  
  
@@ -34,12 +35,16 @@
  }
 </script>
 <template>
-<h2>Crear nuevo socio</h2>
+<h2>Crear nuevo prestamos</h2>
 
-<input v-model= socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
-<input v-model= socio.telefono type="text" label ='telefono' placeholder="telefono">
-<input v-model = socio.direccion type="text" label ='direccion' placeholder="direccion">
-<button  @click = "crearPrestamo(Socio)"> guardar</button>
+<input v-model= prestamo.id type="text" label='id' placeholder="id">
+<input v-model= prestamo.id_socio type="text" label ='socio' placeholder="socio">
+<input v-model = prestamo.fecha_desde type="text" label ='fecha desde' placeholder="fecha desde">
+<input v-model = prestamo.fecha_hasta type="text" label ='fecha hasta' placeholder="fecha hasta">
+<input v-model = prestamo.fecha_devolucion type="text" label ='fecha dev' placeholder="fecha dev">
+
+
+<button  @click = "crearPrestamo(prestamo)"> guardar</button>
 </template>
 <style>
 input {

@@ -9,27 +9,24 @@
     <thead>
         <tr>
             <td>id</td>
-            <td>nombre</td>
-            <td>fecha alta</td>
-            <td>direccion</td>
-            <td>telefono</td>
-            <td>acciones</td>
+            <td>id libro</td>
+            <td>id socio</td>
+            <td>fecha desde</td>
+            <td>fecha hasta</td>
+            <td>fecha devolucion</td>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="socio in items" :key="socio">
+        <tr v-for="prestamo in items" :key="prestamo">
      
-        <td>{{ socio.id}}</td>
-        <td>{{ socio.nombre_apellido }}</td>
-        <td>{{ socio.fecha_alta }}</td>
-        <td>{{ socio.direccion }}</td>
-        <td>{{ socio.telefono }}</td>    
+        <td>{{ prestamo.id}}</td>
+        <td>{{ prestamo.id_libro }}</td>
+        <td>{{ prestamo.id_socio }}</td>
+        <td>{{ prestamo.fecha_desde }}</td>
+        <td>{{ prestamo.fecha_hasta }}</td>    
+        <td>{{ prestamo.fecha_dev }}</td>   
         <tr>
-         <td>
-            <RouterLink :to="{name: 'ActualizarLibro', params: {id: socio.id}}">
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
+         
          <td>
             <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
          </td> 
@@ -66,7 +63,7 @@ import Boton from '../Boton.vue';
    methods:{
        
         async Listar(){
-            const res=await axios.get('http://192.168.20.10/apiv1/socios');
+            const res=await axios.get('http://192.168.20.10/apiv1/prestamos');
             this.items = res.data;
             console.log(res);
 

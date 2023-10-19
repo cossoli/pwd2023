@@ -8,26 +8,26 @@ class Editorial extends ModelBase
   private int $id;
   private string $nombre;
 
-  Function __construct(string  $nombre, int $id)
-  {
-      $this->nombre = $nombre;
+  Function __construct( int $id, string  $nombre)
+  {    
       $this->id = $id;
+      $this->nombre = $nombre;
+
   }
 
   public function serializar(): array
   {
     return [
-      'nombre' => $this->nombre,
-      'id' => $this->id
-
+      
+       'id' => $this->id,
+       'nombre' => $this->nombre
     ];
   }
   public static function deserializar(array $datos): self
   {
     return new self(
-      nombre: $datos['nombre'],
-      id : $datos['id']
-  
+      id : $datos['id'],
+      nombre: $datos['nombre']
     );
   }
 

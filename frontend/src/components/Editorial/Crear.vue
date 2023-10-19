@@ -7,7 +7,7 @@
           { 
          return{
              editoriales:{
-                id:"",
+                id:3,
                 nombre:"",
                 activo:1,
 
@@ -20,7 +20,7 @@
         
           async crearEditorial(editoriales){
              console.log(editoriales)
-             const res=await axios.post('http://192.168.20.10/apiv1/editorial/nuevo', editoriales)
+             const res=await axios.post('http://192.168.20.10/apiv1/editoriales/nuevo', editoriales)
              
  
  
