@@ -16,7 +16,7 @@
         <tr v-for="categorias in items" :key="categorias">
        
         <td>{{ categorias.id }}</td>
-        <td>{{ categorias.nombre }}</td>
+        <td>{{ categorias.descripcion}}</td>
         
         <tr>
          
