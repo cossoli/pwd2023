@@ -7,8 +7,8 @@
           { 
          return{
              categoria:{
-                id:"",
-                nombre:"",
+                id:4,
+                descripcion:"",
                 activo:1,
 
              }
@@ -33,7 +33,7 @@
 <template>
 <h2>Crear nueva categoria</h2>
 
-<input v-model= categoria.nombre type="text" label='nombre' placeholder="nombre">
+<input v-model= categoria.descripcion type="text" label='descripcion' placeholder="descripcion">
 
 <button  @click = "crearCategria(categoria)"> guardar</button>
 </template>

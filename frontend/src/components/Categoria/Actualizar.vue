@@ -3,7 +3,7 @@
 
  
     export default{
-      Data()
+      data()
           { 
         
              },
@@ -16,13 +16,13 @@
      methods:{
         
           async ActualizarCategoria (categoria){
-               const res=await axios.put('http://192.168.20.10/apiv1/categoria/'+this.$route.params, categoria)
+               const res=await axios.put('http://192.168.20.10/apiv1/categorias/'+this.$route.params, categoria)
                     this.$route.push('/ categoria')
                 
            
          },
            async buscar(){
-               const res=await axios.get('http://192.168.20.10/apiv1/categoria/'+this.$route.params.id);
+               const res=await axios.get('http://192.168.20.10/apiv1/categorias/'+this.$route.params.id);
                     this.categoria = res.data;
                     console.log(this.categoria)
  
@@ -36,7 +36,7 @@
 <h2>Crear nuevo socio</h2>
 <div v-if="categoria.activo ==1">
 
-    <input v-model= categoria.nombre type="text" label='nombre' placeholder="nombre">
+    <input v-model= categoria.descripcion type="text" label='nombre' placeholder="nombre">
 
 </div>
 <button  @click = "ActualizarCategoria(categoria)"> actualizacion</button>
