@@ -6,8 +6,8 @@ use Raiz\Models\ModelBase;
 
 class Persona extends ModelBase
 {
-    private $nombre_apellido;
-    private $dni;
+    public $nombre_apellido;
+    public $dni;
 
     function __construct(string $nombre_apellido, int $dni)
     {

@@ -7,7 +7,7 @@ use Raiz\Aux\Serializador;
 class Socio extends ModelBase 
 {
     
-  private int $id;
+  public  $id;
   private string $nombre_apellido;
   private string $fecha_alta;
   private int $activo;
@@ -16,7 +16,7 @@ class Socio extends ModelBase
 
 
 
-  Function __construct(int $id,string $fecha_alta,int $activo,
+  Function __construct(mixed $id,string $fecha_alta,int $activo,
           int $telefono,string $direccion ,string $nombre_apellido )
   
   {

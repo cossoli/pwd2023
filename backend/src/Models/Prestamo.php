@@ -10,15 +10,15 @@ use Raiz\Models\Datetime;
 
 class Prestamo extends ModelBase 
 {
-  private int $id;
-  private socio $socio;
-  private libro $libro;
+  public  $id;
+  public socio $socio;
+  public libro $libro;
   private $fecha_desde;
   private $fecha_hasta; 
   private $fecha_dev;
 
 
-  Function __construct(int $id, socio $socio, libro $libro, 
+  Function __construct(mixed $id, socio $socio, libro $libro, 
      string $fecha_desde , string $fecha_hasta, string $fecha_dev
       )
   

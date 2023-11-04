@@ -6,10 +6,10 @@ use Raiz\Models\ModelBase;
 
 class Categoria extends ModelBase 
 {
-  private int $id;
-  private string $descripcion;
+  public $id;
+  public $descripcion;
 
-  Function __construct( int $id,string  $descripcion)
+  Function __construct( mixed $id,string  $descripcion)
   {   
       $this->id = $id;
       $this->descripcion = $descripcion;

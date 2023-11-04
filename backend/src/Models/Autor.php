@@ -7,10 +7,10 @@ use Raiz\Models\ModelBase;
 
 class Autor extends ModelBase 
 {
-  private int $id;
-  private string $nombre_apellido;
+  public  $id;
+  public  $nombre_apellido;
 
-  Function __construct(string $nombre_apellido, int $id)
+  Function __construct(string $nombre_apellido, mixed $id)
   {
       $this->nombre_apellido = $nombre_apellido;
       $this->id = $id;

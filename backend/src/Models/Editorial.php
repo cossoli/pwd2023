@@ -5,10 +5,10 @@ use Raiz\Models\ModelBase;
 
 class Editorial extends ModelBase 
 {
-  private int $id;
-  private string $nombre;
+  public $id;
+  public $nombre;
 
-  Function __construct( int $id, string  $nombre)
+  Function __construct( mixed $id, string  $nombre)
   {    
       $this->id = $id;
       $this->nombre = $nombre;

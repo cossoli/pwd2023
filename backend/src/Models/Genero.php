@@ -6,10 +6,10 @@ use Raiz\Models\ModelBase;
 
 class Genero extends ModelBase 
 {
-  private int $id;
-  private string $descripcion;
+  public $id;
+  public string $descripcion;
 
-  Function __construct(string  $descripcion, int $id)
+  Function __construct(string  $descripcion, mixed $id)
   {
       $this->descripcion = $descripcion;
       $this->id = $id;
