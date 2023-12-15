@@ -35,12 +35,11 @@ class SocioDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO socios (id, nombre_apellido, fecha_alta, direccion,telefono,activo) 
-        VALUES (:id, :nombre_apellido, :fecha_alta, :direccion, :telefono, :activo )';
+        $sql = 'INSERT INTO socios (nombre_apellido, fecha_alta, direccion,telefono,activo) 
+        VALUES (:nombre_apellido, :fecha_alta, :direccion, :telefono, :activo )';
         ConectarBD::escribir(
             sql: $sql,
             params: [
-                ':id' => $params['id'],
                 ':nombre_apellido' => $params['nombre_apellido'],
                 ':fecha_alta' => $params['fecha_alta'],
                 ':direccion' => $params['direccion'],

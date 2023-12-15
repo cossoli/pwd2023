@@ -16,7 +16,18 @@
         <tr v-for="genero in items" :key="genero">
         <td>{{ genero.id }}</td>
         <td>{{ genero.descripcion }}</td>
-        </tr> 
+
+ <!-- <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}"> -->
+    <Boton btnText="Editar" btnUrl="" btnClass="btn blue"></Boton>
+            <!-- </RouterLink> -->
+   
+         <td>
+            <!-- <boton texto="Eliminar" v-bind:class="{warning:true}"></boton> -->
+            <Boton btnText="Eliminar" btnUrl="" btnClass="btn red"></Boton>
+         </td> 
+         
+        </tr>
+
           
    </tbody>
 </table>

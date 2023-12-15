@@ -35,12 +35,12 @@
  }
 </script>
 <template>
-<h2>Crear nuevo socios</h2>
+<h2>Crear nuevo socio</h2>
 
 <input v-model=Socio.nombre_apellido type="text" label='Nombre y Apellido' placeholder="Nombre y Apellido">
 <input v-model=Socio.telefono type="text" label ='Telefono' placeholder="Telefono">
 <input v-model=Socio.direccion type="text" label ='Direccion' placeholder="Direccion">
-<button  @click = "crearSocios(Socio)"> guardar</button>
+<button  @click = "crearSocios(Socio)"> GUARDAR</button>
 </template>
 
 <style scope>

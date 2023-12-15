@@ -26,7 +26,7 @@ class EditorialController implements InterfaceController{
         
     }
     
-    public static function encontrarUno(string $id): ?array
+    public static function encontrarUno(mixed $id): ?array
     {
         $editorial = EditorialDAO::encontrarUno($id);
         if($editorial===null){
@@ -53,7 +53,7 @@ class EditorialController implements InterfaceController{
         return $editorial->serializar();
     }
 
-    public static function borrar(string $id):void
+    public static function borrar(mixed $id):void
     {
         EditorialDAO::borrar($id);
         

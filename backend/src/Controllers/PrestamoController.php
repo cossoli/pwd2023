@@ -26,7 +26,7 @@ class PrestamoController implements InterfaceController{
         
     }
     
-    public static function encontrarUno(string $id): ?array
+    public static function encontrarUno(mixed $id): ?array
     {
         $prestamo = PrestamoDAO::encontrarUno($id);
         if($prestamo===null){
@@ -53,18 +53,18 @@ class PrestamoController implements InterfaceController{
         return $prestamo->serializar();
     }
 
-    public static function borrar(string $id):void
+    public static function borrar(mixed $id):void
     {
         PrestamoDAO::borrar($id);
         
     }
-    public function verificarLibroDevuelvo($id)
+    public function verificarLibroDevuelvo(mixed $id)
     {
 
     } 
     
 
-    public function calcularDiasRetraso($id)
+    public function calcularDiasRetraso(mixed$id)
     {
         
     }

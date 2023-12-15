@@ -48,7 +48,7 @@ class Libro extends ModelBase
 
      public function getTitulo(): string
     {
-        return $this->titulo;
+      return $this->titulo;
     }
     public function getGenero(): Genero
     {
@@ -70,15 +70,16 @@ class Libro extends ModelBase
     {
         return $this->titulo;
     }
-    public function getAutores(): array
-    {
-        $listaAutores =[];
-        foreach($this->autor as $autor){
-            $listaAutores = $autor->serializar();
-        }
-        return $listaAutores;
+   /// public function getAutores(): array
+    ///{
+///        $listaAutores =[];
         
-    }
+    ///    foreach($this->autor as $autor){
+        ///    $listaAutores = $autor->serializar();
+        // }
+       // return $listaAutores;
+        
+   // }
     public function getEstado(): string
     {
         return $this->estado;
@@ -135,7 +136,7 @@ class Libro extends ModelBase
         return [
             'id' => $this->getId(),
             'titulo' => $this->titulo,
-            'autor' => $this->getAutores(),
+    ////        'autor' => $this->getAutores(),
             'editorial' => $this->editorial->serializar(),
             'cant_paginas' => $this->cant_paginas,
             'genero' => $this->genero->serializar(),

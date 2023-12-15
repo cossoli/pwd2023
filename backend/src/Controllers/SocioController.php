@@ -26,7 +26,7 @@ class SocioController implements InterfaceController{
         
     }
     
-    public static function encontrarUno(string $id): ?array
+    public static function encontrarUno(mixed $id): ?array
     {
         $socio = SocioDAO::encontrarUno($id);
         if($socio===null){
@@ -53,7 +53,7 @@ class SocioController implements InterfaceController{
         return $socio->serializar();
     }
 
-    public static function borrar(string $id):void
+    public static function borrar(mixed $id):void
     {
         SocioDAO::borrar($id);
         

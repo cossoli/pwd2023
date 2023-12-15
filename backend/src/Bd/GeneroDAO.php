@@ -36,11 +36,10 @@ class GeneroDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO generos (id, descripcion) VALUES (:id, :descripcion)';
+        $sql = 'INSERT INTO generos (descripcion) VALUES (:descripcion)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
-                ':id' => $params['id'],
                 ':descripcion' => $params['descripcion'],
           
             ]

@@ -23,22 +23,17 @@
                 <td>{{ socio.fecha_alta }}</td>
                 <td>{{ socio.direccion }}</td>
                 <td>{{ socio.telefono }}</td>  
-                <td>
-
-            <RouterLink :to="{name: 'Actualizar', params: {id: socio.id}}">
-
-            <Boton texto="editar" v-bind:class="{primary:true}"></Boton>
-            </RouterLink>
-         </td>  
+                
+                 <!-- <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}"> -->
+            <Boton btnText="Editar" btnUrl="" btnClass="btn blue"></Boton>
+            <!-- </RouterLink> -->
+   
          <td>
-            <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
+            <!-- <boton texto="Eliminar" v-bind:class="{warning:true}"></boton> -->
+            <Boton btnText="Eliminar" btnUrl="" btnClass="btn red"></Boton>
          </td> 
-         <td>
-            <boton texto="Abrir" v-bind:class="{alert:true}"></boton>
-         </td> 
-
          
-         </tr>  
+        </tr>
      
          
           

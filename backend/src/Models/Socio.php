@@ -16,11 +16,12 @@ class Socio extends ModelBase
 
 
 
-  Function __construct(mixed $id,string $fecha_alta,int $activo,
+  Function __construct(mixed $id = null ,string $fecha_alta,int $activo,
           int $telefono,string $direccion ,string $nombre_apellido )
   
   {
-      $this->id = $id;
+      $this->id = is_null($id) ? 'adjhdf' : $id;
+      $this->id = $id; 
       $this->nombre_apellido = $nombre_apellido;
       $this->fecha_alta = $fecha_alta;
       $this->activo = $activo;

@@ -26,7 +26,7 @@ class CategoriaController implements InterfaceController{
         
     }
     
-    public static function encontrarUno(string $id): ?array
+    public static function encontrarUno(mixed $id): ?array
     {
         $categoria = CategoriaDAO::encontrarUno($id);
         if($categoria===null){
@@ -53,7 +53,7 @@ class CategoriaController implements InterfaceController{
         return $categoria->serializar();
     }
 
-    public static function borrar(string $id):void
+    public static function borrar(mixed $id):void
     {
          CategoriaDAO::borrar($id);
         

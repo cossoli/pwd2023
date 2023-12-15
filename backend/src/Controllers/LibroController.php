@@ -37,7 +37,7 @@ class LibroController implements InterfaceController{
         
     }
     
-    public static function encontrarUno(string $id): ?array
+    public static function encontrarUno(mixed $id): ?array
     {
         $Libro = LibroDAO::encontrarUno($id);
         if($Libro===null){
@@ -89,7 +89,7 @@ class LibroController implements InterfaceController{
     }
 
 
-    public static function borrar(string $id):void
+    public static function borrar(mixed $id):void
     {
         LibroDAO::borrar($id);
         

@@ -18,16 +18,17 @@
         <td>{{ categorias.id }}</td>
         <td>{{ categorias.descripcion}}</td>
         
-        <tr>
+                 
+          <!-- <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}"> -->
+            <Boton btnText="Editar" btnUrl="" btnClass="btn blue"></Boton>
+            <!-- </RouterLink> -->
+   
+         <td>
+            <!-- <boton texto="Eliminar" v-bind:class="{warning:true}"></boton> -->
+            <Boton btnText="Eliminar" btnUrl="" btnClass="btn red"></Boton>
+         </td> 
          
-         <td>
-            <boton texto="Eliminar" v-bind:class="{warning:true}"></boton>
-         </td> 
-         <td>
-            <boton texto="Abritr" v-bind:class="{alert:true}"></boton>
-         </td> 
-         </tr>  
-            
+                  
         </tr>      
           
    </tbody>

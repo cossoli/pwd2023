@@ -27,7 +27,7 @@ class AutorController implements InterfaceController{
         
     }
     
-    public static function encontrarUno(string $id): ?array
+    public static function encontrarUno(mixed $id): ?array
     {
         $autor = AutorDAO::encontrarUno($id);
         if($autor===null){
@@ -54,7 +54,7 @@ class AutorController implements InterfaceController{
         return $autor->serializar();
     }
 
-    public static function borrar(string $id):void
+    public static function borrar(mixed $id):void
     {
         AutorDAO::borrar($id);
         

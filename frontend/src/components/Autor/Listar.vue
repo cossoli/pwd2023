@@ -21,7 +21,7 @@
         <td>{{ autores.id }}</td>
         <td>{{ autores.nombre_apellido }}</td>
      
-        </tr>
+       
           <!-- <RouterLink :to="{name: 'ActualizarSocio', params: {id: socio.id}}"> -->
             <Boton btnText="Editar" btnUrl="" btnClass="btn blue"></Boton>
             <!-- </RouterLink> -->
@@ -30,8 +30,13 @@
             <!-- <boton texto="Eliminar" v-bind:class="{warning:true}"></boton> -->
             <Boton btnText="Eliminar" btnUrl="" btnClass="btn red"></Boton>
          </td> 
+         
+        </tr>
          <td>
             <!-- <boton texto="Abrir" v-bind:class="{alert:true}"></boton> -->
+
+       
+
          </td>   
  
 
