@@ -2,10 +2,8 @@
 declare(strict_types=1);
 namespace Raiz\Models;
 
-use Raiz\Auxiliadores\FechaHora;
-use Raiz\Models\Serializar;
+
 use Raiz\Models\ModelBase;
-use Raiz\Models\Datetime;
 
 
 class Prestamo extends ModelBase 
@@ -13,9 +11,9 @@ class Prestamo extends ModelBase
   public  $id;
   public socio $socio;
   public libro $libro;
-  private $fecha_desde;
-  private $fecha_hasta; 
-  private $fecha_dev;
+  public $fecha_desde;
+  public $fecha_hasta; 
+  public $fecha_dev = null;
 
 
   Function __construct(mixed $id, socio $socio, libro $libro, 
@@ -36,7 +34,7 @@ class Prestamo extends ModelBase
  {
    return [
        'id' => $this->id,
-       'socio' => $this->socio,
+        'socio' => $this->socio,
        'libro' => $this->libro,
        'fecha_desde'  => $this-> fecha_desde,
        'fecha_hasta'=> $this->fecha_hasta,
@@ -44,18 +42,20 @@ class Prestamo extends ModelBase
    ];
  }
 
+
+ 
+
  public static function deserializar(array $datos): self
  {
    return new self(
-       id : $datos['id'],
-       socio: $datos['socio'],
-      libro:$datos   ['libro'],
-        
-      fecha_desde: $datos ['fecha_desde'],
-      fecha_hasta:$datos['fecha_hasta'],
-      fecha_dev:$datos['fecha_dev']
+        id : $datos['id'],
+        socio:$datos['socio'],
+        libro:$datos   ['libro'],    
+        fecha_desde: $datos ['fecha_desde'],
+        fecha_hasta:$datos['fecha_hasta'],
+        fecha_dev:$datos['fecha_dev']
 
-   );
+   );                       
  }
 
 
@@ -82,10 +82,10 @@ function diasRetraso($id_libro): int {
 
 
    
-$diferencia = $fecha_desde->diff($hasta);
+//$diferencia = $fecha_desde->diff($hasta);
     
     $
-$dias_retraso = $diferencia->days;
+//$dias_retraso = $diferencia->days;
     
     
     
@@ -113,7 +113,7 @@ function cantLibrosPrestados($id_socio): int {
   // Aquí deberías reemplazar esta línea con la lógica para obtener la cantidad de libros prestados al socio basada en su ID
       
      
-  $libros_prestados = obtenerLibrosPrestados($id_socio); // Obtener libros prestados al socio (ejemplo)
+  //$libros_prestados = obtenerLibrosPrestados($id_socio); // Obtener libros prestados al socio (ejemplo)
       
       
       
