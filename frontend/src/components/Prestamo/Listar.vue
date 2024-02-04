@@ -1,10 +1,15 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Listado de Prestamos</h1>
 
-    <router-link class="crear btn-verde" to="/prestamo/crear">
+    <router-link class="btn btn-verde" to="/prestamo/crear">
       <img src="../../assets/editar.svg" alt=""/>Crear Prestamo
     </router-link>
+
+    <div class="search-container">
+      <input v-model="searchSocio" type="text" placeholder="Buscar Socio" @input="buscarSocio">
+      <input v-model="searchLibro" type="text" placeholder="Buscar Libro" @input="buscarLibro">
+    </div>
 
     <table>
       <thead>
@@ -27,8 +32,8 @@
           <td>{{ prestamo.fecha_hasta }}</td>    
           <td>{{ prestamo.fecha_devolucion }}</td>   
           <td>
-            <button class="eliminar btn-rojo" @click="eliminarPrestamo(prestamo.id)">Eliminar</button>
-            <button class="abrir btn-azul" @click="abrirPrestamo(prestamo.id)">Abrir</button>
+            <button class="btn btn-rojo" @click="eliminarPrestamo(prestamo.id)">Eliminar</button>
+            <button class="btn btn-azul" @click="abrirPrestamo(prestamo.id)">Abrir</button>
           </td>
         </tr>      
       </tbody>
@@ -36,22 +41,22 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import axios from 'axios';
-import Boton from '../Boton.vue';
 
 export default {
-  components: { Boton },
   data() {
     return {
-      items: []
+      items: [],
+      searchSocio: '',
+      searchLibro: '',
     };
   },
   created() {
-    this.Listar();
+    this.listarPrestamos();
   },
   methods: {
-    async Listar() {
+    async listarPrestamos() {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/prestamos');
         this.items = res.data;
@@ -59,11 +64,17 @@ export default {
         console.error('Error al obtener los préstamos:', error);
       }
     },
+    buscarSocio() {
+      // Lógica para filtrar socios según la búsqueda
+    },
+    buscarLibro() {
+      // Lógica para filtrar libros según la búsqueda
+    },
     async eliminarPrestamo(id) {
       try {
         await axios.delete(`http://192.168.20.10/apiv1/prestamos/${id}`);
         // Actualizar la lista después de eliminar
-        this.Listar();
+        this.listarPrestamos();
       } catch (error) {
         console.error('Error al eliminar el préstamo:', error);
       }
@@ -72,28 +83,46 @@ export default {
       // Lógica para abrir el préstamo
     }
   }
-}
+};
 </script>
 
 <style scoped>
-/* Estilos para los botones */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .btn {
-  padding: 5px 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.crear {
+.btn-verde {
   background-color: #66cc99; /* Verde */
   color: white;
 }
 
-.abrir {
+.btn-rojo {
+  background-color: #ff4d4d; /* Rojo */
+  color: white;
+}
+
+.btn-azul {
   background-color: #3498db; /* Azul */
   color: white;
 }
 
-.eliminar {
-  background-color: #ff4d4d; /* Rojo */
-  color: white;
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 </style>

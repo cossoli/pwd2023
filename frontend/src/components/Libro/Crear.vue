@@ -1,62 +1,180 @@
-
 <template>
+  <div class="form-container">
     <h2>Crear nuevo libro</h2>
-  
-    <input v-model="libro.estado" type="text" label="Estado" placeholder="Estado">
-    <input v-model="libro.titulo" type="text" label="Título" placeholder="Título">
-    <input v-model="libro.anio" type="date" label="Año" placeholder="Año">
-    <input v-model="libro.id_categoria" type="number" label="Categoría" placeholder="ID Categoría">
-    <input v-model="libro.id_editorial" type="number" label="Editorial" placeholder="ID Editorial">
-    <input v-model="libro.id_genero" type="number" label="Género" placeholder="ID Género">
-    <input v-model="libro.cant_paginas" type="number" label="Cantidad de páginas" placeholder="Cantidad de páginas">
-  
-    <button @click="crearLibro">Guardar</button>
-  </template>
-  
-  <script lang="ts">
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        libro: {
-          id: "",
-          anio: "",
-          estado: "",
+
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input v-model="libro.titulo" type="text" id="titulo" placeholder="Título del libro">
+    </div>
+
+    <div class="form-group">
+      <label for="estado">Estado</label>
+      <input v-model="libro.estado" type="text" id="estado" placeholder="Estado del libro">
+    </div>
+
+    <div class="form-group">
+      <label for="anio">Año</label>
+      <input v-model="libro.anio" type="date" id="anio">
+    </div>
+
+    <div class="form-group">
+      <label for="id_categoria">Categoría</label>
+      <select v-model="libro.id_categoria" id="id_categoria">
+        <option value="">Seleccionar Categoría</option>
+        <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">{{ categoria.descripcion }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="id_editorial">Editorial</label>
+      <select v-model="libro.id_editorial" id="id_editorial">
+        <option value="">Seleccionar Editorial</option>
+        <option v-for="editorial in editoriales" :key="editorial.id" :value="editorial.id">{{ editorial.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="id_genero">Género</label>
+      <select v-model="libro.id_genero" id="id_genero">
+        <option value="">Seleccionar Género</option>
+        <option v-for="genero in generos" :key="genero.id" :value="genero.id">{{ genero.descripcion }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="cant_paginas">Cantidad de Páginas</label>
+      <input v-model="libro.cant_paginas" type="number" id="cant_paginas">
+    </div>
+
+    <button @click="crearLibro" :disabled="cargando" class="guardar-btn">{{ cargando ? 'Cargando...' : 'Guardar' }}</button>
+    <p v-if="mensajeError" class="error-message">{{ mensajeError }}</p>
+  </div>
+</template>
+
+<script lang="ts">
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      libro: {
+        titulo: "",
+        estado: "",
+        anio: "",
+        id_categoria: "",
+        id_editorial: "",
+        id_genero: "",
+        cant_paginas: ""
+      },
+      categorias: [],
+      editoriales: [],
+      generos: [],
+      cargando: false,
+      mensajeError: ""
+    }
+  },
+  created() {
+    this.obtenerCategorias();
+    this.obtenerEditoriales();
+    this.obtenerGeneros();
+  },
+  methods: {
+    async obtenerCategorias() {
+      try {
+        const res = await axios.get('http://192.168.20.10/apiv1/categorias');
+        this.categorias = res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async obtenerEditoriales() {
+      try {
+        const res = await axios.get('http://192.168.20.10/apiv1/editoriales');
+        this.editoriales = res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async obtenerGeneros() {
+      try {
+        const res = await axios.get('http://192.168.20.10/apiv1/generos');
+        this.generos = res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async crearLibro() {
+      this.cargando = true;
+      try {
+        const res = await axios.post('http://192.168.20.10/apiv1/libros', this.libro);
+        console.log(res.data); // Manejar la respuesta según sea necesario
+        this.mensajeError = ""; // Limpiar mensaje de error si existe
+        // Reiniciar formulario
+        this.libro = {
           titulo: "",
+          estado: "",
+          anio: "",
           id_categoria: "",
           id_editorial: "",
           id_genero: "",
           cant_paginas: ""
-        }
-      }
-    },
-    methods: {
-      async crearLibro() {
-        console.log(this.libro);
-        try {
-          const res = await axios.post('http://192.168.20.10/apiv1/libros/nuevo', this.libro);
-          console.log(res.data); // Manejar la respuesta según sea necesario
-          // Aquí podrías redirigir a otra página o realizar otra acción después de crear el libro
-        } catch (error) {
-          console.error(error);
-          // Manejar errores de la solicitud HTTP
-        }
+        };
+      } catch (error) {
+        console.error(error);
+        this.mensajeError = "Error al crear el libro"; // Mostrar mensaje de error
+      } finally {
+        this.cargando = false;
       }
     }
   }
-  </script>
-  
-  <style>
-  input {
-    width: 50%;
-    font-size: 1.2em;
-    display: flex;
-    align-content: center;
-    padding: 10px;
-    margin: 15px;
-  }
-  </style>
-  
+}
+</script>
+
+<style scoped>
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 14px;
+}
+</style>
+
 
 

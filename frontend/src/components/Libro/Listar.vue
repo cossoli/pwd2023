@@ -1,96 +1,127 @@
 <template>
-    <h1> Listado de libros</h1>
-   
-    <RouterLink class ="crear" to="/libro/crear">
+   <div>
+     <h1>Listado de libros</h1>
+ 
+     <router-link class="crear" to="/libro/crear">
        <img src="../..assets/editar.svg" alt="" />Crear libros
-    </RouterLink> 
-    
-    <table>
+     </router-link>
+ 
+     <table>
        <thead>
-          <tr>
-             <td>id</td>
-             <td>titulo</td>
-             <td>anio</td>
-             <td>estado</td>
-             <td>id_categoria</td>
-             <td>id_editorial</td>
-             <td>id_genero</td>
-             <td>cant_paginas</td>
-             <td>Acciones</td> <!-- Agregar columna para acciones -->
-          </tr>
+         <tr>
+           <th>ID</th>
+           <th>Título</th>
+           <th>Año</th>
+           <th>Estado</th>
+           <th>Categoría</th>
+           <th>Editorial</th>
+           <th>Género</th>
+           <th>Cant. Páginas</th>
+           <th>Acciones</th>
+         </tr>
        </thead>
        <tbody>
-          <tr v-for="libro in items" :key="libro.id">
-             <td>{{ libro.id }}</td>
-             <td>{{ libro.titulo }}</td>
-             <td>{{ libro.anio }}</td>
-             <td>{{ libro.estado }}</td>
-             <td>{{ libro.id_categoria }}</td>
-             <td>{{ libro.id_editorial }}</td>
-             <td>{{ libro.id_genero }}</td>
-             <td>{{ libro.cant_paginas }}</td>
-             <td>
-                <!-- Botón Editar -->
-                <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
-                <!-- Botón Eliminar -->
-                <button @click="eliminarLibro(libro.id)" class="btn-eliminar">Eliminar</button>
-             </td>  
-          </tr>      
+         <tr v-for="libro in items" :key="libro.id">
+           <td>{{ libro.id }}</td>
+           <td>{{ libro.titulo }}</td>
+           <td>{{ libro.anio }}</td>
+           <td>{{ libro.estado }}</td>
+           <td>{{ obtenerNombre(libro.id_categoria, categorias) }}</td>
+           <td>{{ obtenerNombre(libro.id_editorial, editoriales) }}</td>
+           <td>{{ obtenerNombre(libro.id_genero, generos) }}</td>
+           <td>{{ libro.cant_paginas }}</td>
+           <td>
+             <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
+             <button @click="eliminarLibro(libro.id)" class="btn-eliminar">Eliminar</button>
+           </td>
+         </tr>
        </tbody>
-    </table>
+     </table>
+   </div>
  </template>
-   
+ 
  <script lang="ts">
  import axios from 'axios';
  import Boton from '../Boton.vue';
  
  export default {
-    components :{Boton},
-    data() {
-       return {
-          items: []
-       };
-    },
-    created() {
-       this.Listar();
-    }, 
-    methods:{
-       async Listar(){
-          const res = await axios.get('http://192.168.20.10/apiv1/libros');
-          this.items = res.data;
-       },
-       editarLibro(id) {
-          this.$router.push(`/libros/Actualizar/${id}`);
-       },
-       eliminarLibro(id) {
-          // Lógica para eliminar el libro con el ID proporcionado
+   components: { Boton },
+   data() {
+     return {
+       items: [],
+       categorias: {},
+       editoriales: {},
+       generos: {}
+     };
+   },
+   created() {
+     this.listarLibros();
+     this.obtenerNombres('categorias');
+     this.obtenerNombres('editoriales');
+     this.obtenerNombres('generos');
+   },
+   methods: {
+     async listarLibros() {
+       try {
+         const res = await axios.get('http://192.168.20.10/apiv1/libros');
+         this.items = res.data;
+       } catch (error) {
+         console.error(error);
        }
-    }
- }
+     },
+     async obtenerNombres(tipo) {
+       try {
+         const res = await axios.get(`http://192.168.20.10/apiv1/${tipo}`);
+         this[tipo] = res.data.reduce((acc, curr) => {
+           acc[curr.id] = curr.nombre; // Suponiendo que la respuesta tiene la estructura { id, nombre }
+           return acc;
+         }, {});
+       } catch (error) {
+         console.error(`Error al obtener los nombres de ${tipo}:`, error);
+       }
+     },
+     editarLibro(id) {
+       this.$router.push(`/libros/Actualizar/${id}`);
+     },
+     async eliminarLibro(id) {
+       try {
+         await axios.delete(`http://192.168.20.10/apiv1/libros/${id}`);
+         this.listarLibros();
+       } catch (error) {
+         console.error('Error al eliminar el libro:', error);
+       }
+     },
+     obtenerNombre(id, nombres) {
+       return nombres[id] || 'Sin información';
+     }
+   }
+ };
  </script>
  
  <style scoped>
  table {
-    background:#fff ;
-    border-radius: 10px;
-    inset: 10px 50px 10px;
-    box-shadow: 5px 5px 50px rgb(4,96,0.2);
-    width: 100%;
-    color:black;
-    margin: 20px;
-    padding: 15px;
+   width: 100%;
+   border-collapse: collapse;
  }
- thead {
-    
+ 
+ th, td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: left;
  }
+ 
+ th {
+   background-color: #f2f2f2;
+ }
+ 
  .btn-editar {
-    background-color: #3498db; /* Color azul */
-    color: #fff; /* Texto blanco */
-    margin-right: 5px; /* Espacio entre botones */
+   background-color: #3498db; /* Azul */
+   color: #fff;
+   margin-right: 5px;
  }
+ 
  .btn-eliminar {
-    background-color: #e74c3c; /* Color rojo */
-    color: #fff; /* Texto blanco */
+   background-color: #e74c3c; /* Rojo */
+   color: #fff;
  }
  </style>
- 
