@@ -1,7 +1,7 @@
 <template>
     <h2>Crear nuevo préstamo</h2>
   
-    <input v-model="prestamo.id" type="text" label="ID" placeholder="ID">
+    <input v-model="prestamo.id" type="number" label="ID" placeholder="ID">
     <input v-model="prestamo.id_socio" type="text" label="ID Socio" placeholder="ID Socio">
     <input v-model="prestamo.id_libro" type="text" label="ID Libro" placeholder="ID Libro">
     <input v-model="prestamo.fecha_desde" type="date" label="Fecha desde">

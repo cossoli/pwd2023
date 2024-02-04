@@ -37,11 +37,11 @@
 
 <input v-model= Libros.estado type="text" label='estado' placeholder="estado">
 <input v-model= libros.titulo type="text" label ='titulo' placeholder="titulo">
-<input v-model= libros.anio type="text" label ='anio' placeholder="anio">
-<input v-model= libros.id_categoria type="text" label ='categoria' placeholder="id_categoria">
-<input v-model= libros.id_editorial type="text" label ='id_editorial' placeholder="id_editorial">
-<input v-model= libros.id_genero type="text" label ='id_genero' placeholder="id_genero">
-<input v-model= libros.cant_paginas type="text" label ='cant_paginas' placeholder="cant_paginas" >
+<input v-model= libros.anio type="date" label ='anio' placeholder="anio">
+<input v-model= libros.id_categoria type="number" label ='categoria' placeholder="id_categoria">
+<input v-model= libros.id_editorial type="number" label ='id_editorial' placeholder="id_editorial">
+<input v-model= libros.id_genero type="number" label ='id_genero' placeholder="id_genero">
+<input v-model= libros.cant_paginas type="number" label ='cant_paginas' placeholder="cant_paginas" >
 </div>
 <button  @click = "ActualizarLibros(libros)"> Actualizacion</button>
 </template>

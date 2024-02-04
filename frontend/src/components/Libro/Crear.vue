@@ -4,11 +4,11 @@
   
     <input v-model="libro.estado" type="text" label="Estado" placeholder="Estado">
     <input v-model="libro.titulo" type="text" label="Título" placeholder="Título">
-    <input v-model="libro.anio" type="text" label="Año" placeholder="Año">
-    <input v-model="libro.id_categoria" type="text" label="Categoría" placeholder="ID Categoría">
-    <input v-model="libro.id_editorial" type="text" label="Editorial" placeholder="ID Editorial">
-    <input v-model="libro.id_genero" type="text" label="Género" placeholder="ID Género">
-    <input v-model="libro.cant_paginas" type="text" label="Cantidad de páginas" placeholder="Cantidad de páginas">
+    <input v-model="libro.anio" type="date" label="Año" placeholder="Año">
+    <input v-model="libro.id_categoria" type="number" label="Categoría" placeholder="ID Categoría">
+    <input v-model="libro.id_editorial" type="number" label="Editorial" placeholder="ID Editorial">
+    <input v-model="libro.id_genero" type="number" label="Género" placeholder="ID Género">
+    <input v-model="libro.cant_paginas" type="number" label="Cantidad de páginas" placeholder="Cantidad de páginas">
   
     <button @click="crearLibro">Guardar</button>
   </template>
