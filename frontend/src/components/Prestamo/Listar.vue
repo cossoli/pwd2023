@@ -1,15 +1,10 @@
 <template>
-  <div class="container">
+  <div>
     <h1>Listado de Prestamos</h1>
 
-    <router-link class="btn btn-verde" to="/prestamo/crear">
+    <router-link class="btn-crear" to="/prestamo/crear">
       <img src="../../assets/editar.svg" alt=""/>Crear Prestamo
     </router-link>
-
-    <div class="search-container">
-      <input v-model="searchSocio" type="text" placeholder="Buscar Socio" @input="buscarSocio">
-      <input v-model="searchLibro" type="text" placeholder="Buscar Libro" @input="buscarLibro">
-    </div>
 
     <table>
       <thead>
@@ -20,6 +15,7 @@
           <th>Fecha Desde</th>
           <th>Fecha Hasta</th>
           <th>Fecha Devolución</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -31,9 +27,9 @@
           <td>{{ prestamo.fecha_desde }}</td>
           <td>{{ prestamo.fecha_hasta }}</td>    
           <td>{{ prestamo.fecha_devolucion }}</td>   
+          <td>{{ prestamo.estado }}</td> <!-- Mostrar el estado del préstamo -->
           <td>
-            <button class="btn btn-rojo" @click="eliminarPrestamo(prestamo.id)">Eliminar</button>
-            <button class="btn btn-azul" @click="abrirPrestamo(prestamo.id)">Abrir</button>
+            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
           </td>
         </tr>      
       </tbody>
@@ -41,22 +37,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      items: [],
-      searchSocio: '',
-      searchLibro: '',
+      items: []
     };
   },
   created() {
-    this.listarPrestamos();
+    this.Listar();
   },
   methods: {
-    async listarPrestamos() {
+    async Listar() {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/prestamos');
         this.items = res.data;
@@ -64,65 +58,42 @@ export default {
         console.error('Error al obtener los préstamos:', error);
       }
     },
-    buscarSocio() {
-      // Lógica para filtrar socios según la búsqueda
-    },
-    buscarLibro() {
-      // Lógica para filtrar libros según la búsqueda
-    },
-    async eliminarPrestamo(id) {
+    async devolverLibro(id) {
       try {
-        await axios.delete(`http://192.168.20.10/apiv1/prestamos/${id}`);
-        // Actualizar la lista después de eliminar
-        this.listarPrestamos();
+        await axios.put(`http://192.168.20.10/apiv1/prestamos/devolver/${id}`);
+        // Actualizar la lista después de devolver el libro
+        this.Listar();
       } catch (error) {
-        console.error('Error al eliminar el préstamo:', error);
+        console.error('Error al devolver el libro:', error);
       }
-    },
-    abrirPrestamo(id) {
-      // Lógica para abrir el préstamo
     }
   }
-};
+}
 </script>
 
 <style scoped>
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
+/* Estilos para los botones */
 .btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  padding: 8px 12px;
   cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.btn-verde {
+.btn-crear {
   background-color: #66cc99; /* Verde */
   color: white;
+  text-decoration: none;
 }
 
-.btn-rojo {
-  background-color: #ff4d4d; /* Rojo */
-  color: white;
-}
-
-.btn-azul {
+.btn-devolver {
   background-color: #3498db; /* Azul */
   color: white;
 }
 
-.search-container {
-  margin-bottom: 20px;
-}
-
-.search-container input {
-  padding: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.btn:hover {
+  background-color: #555; /* Cambiar color al pasar el mouse */
 }
 </style>
+

@@ -51,8 +51,8 @@
              console.error(error);
           }
        },
-       editarCategoria(id) {
-          this.$router.push(`/categoria/editar/${id}`);
+       editarCategoria(categoria) {
+          this.$router.push(`/Categoria/Actualizar/${categoria.id}`);
        },
        async eliminarCategoriaConfirmacion(categoria) {
           if (confirm(`¿Estás seguro de eliminar la categoría ${categoria.descripcion}?`)) {

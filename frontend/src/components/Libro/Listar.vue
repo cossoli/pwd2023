@@ -71,7 +71,7 @@
      },
      async obtenerNombres(tipo) {
        try {
-         const res = await axios.get(`http://192.168.20.10/apiv1/${tipo}`);
+         const res = await axios.get(`http://192.168.20.10/apiv1/libros ${tipo}`);
          this[tipo] = res.data.reduce((acc, curr) => {
            acc[curr.id] = curr.nombre; // Suponiendo que la respuesta tiene la estructura { id, nombre }
            return acc;
@@ -81,7 +81,7 @@
        }
      },
      editarLibro(id) {
-       this.$router.push(`/libros/Actualizar/${id}`);
+       this.$router.push(`/Libro/Actualizar/${id}`);
      },
      async eliminarLibro(id) {
        try {

@@ -48,18 +48,19 @@ export default {
         console.error(error);
       }
     },
-    async editarAutor(id) {
-      this.$router.push(`/Autor/Actualizar/${id}`);
+    async editarAutor(autor) {
+      this.$router.push(`/Autor/Actualizar/${autor.id}`);
     },
     async eliminarAutorConfirmacion(autor) {
       if (confirm(`¿Estás seguro de que quieres eliminar al Autor ${autor.id}?`)) {
         await this.eliminarAutor(autor.id);
       }
     },
-    async eliminarAutor(id) {
+    async eliminarAutor(autor) {
       try {
-        await axios.delete(`http://192.168.20.10/apiv1/autores/${id}`);
-        this.items = this.items.filter(autor => autor.id !== id);
+        await axios.delete(`http://192.168.20.10/apiv1/autores/${autor.id}`);
+        this.items = this.items.filter(item => item.id !== id);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }

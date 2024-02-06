@@ -64,7 +64,7 @@
         }
       },
       editarGenero(genero) {
-        this.$router.push(`/genero/Actualizar/${genero.id}`);
+        this.$router.push(`/Genero/Actualizar/${genero.id}`);
       }
     }
   };

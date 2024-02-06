@@ -50,7 +50,7 @@
           }
        },
        editarEditorial(id) {
-          this.$router.push(`/editorial/Actualizar/${id}`);
+          this.$router.push(`/Editorial/Actualizar/${id}`);
        },
 
        async eliminarEditorialConfirmacion(editorial) {
