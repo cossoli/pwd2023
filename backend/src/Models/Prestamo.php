@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Raiz\Models;
 
+
 use PhpParser\Node\Stmt\Static_;
 
 class Prestamo extends ModelBase 
