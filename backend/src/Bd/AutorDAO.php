@@ -61,7 +61,7 @@ class AutorDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM Autor WHERE id=:id';
+        $sql = 'DELETE FROM autores WHERE id=:id';
         ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

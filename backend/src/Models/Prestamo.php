@@ -34,7 +34,7 @@ class Prestamo extends ModelBase
     public function serializar(): array
     {
         return [
-            'id' => $this->id,
+            'id_socio' => $this->id,
             'socio' => $this->socio->serializar(),
             'libro' => $this->libro->serializar(),
             'fecha_desde' => $this->fecha_desde,
@@ -46,9 +46,10 @@ class Prestamo extends ModelBase
     public Static function deserializar(array $datos): self
     {
         return new self(
-            $datos['id'],
+            $datos['id_socio'],
             Socio::deserializar($datos['socio']),
             Libro::deserializar($datos['libro']),
+           
             $datos['fecha_desde'],
             $datos['fecha_hasta'],
             $datos['fecha_dev']

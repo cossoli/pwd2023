@@ -11,7 +11,7 @@ class PrestamoDAO implements InterfaceDAO
     public static function listar(): array
     {
         $sql = 'SELECT * FROM prestamos';
-        $listaPrestamos = ConectarBD::leer($sql);
+        $listaPrestamos = ConectarBD::leer( sql: $sql);
         $prestamos = [];
         foreach ($listaPrestamos as $prestamoData) {
             $prestamos[] = Prestamo::deserializar($prestamoData);

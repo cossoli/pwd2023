@@ -18,7 +18,7 @@
           <td>{{ autor.id }}</td>
           <td>{{ autor.nombre_apellido }}</td>
           <td>
-            <button @click="editarAutor(autor.id)" class="btn-editar">Editar</button>
+            <button @click="editarAutor(autor)" class="btn-editar">Editar</button>
             <button @click="eliminarAutorConfirmacion(autor)" class="btn-eliminar">Eliminar</button>
           </td>
         </tr>
@@ -48,19 +48,20 @@ export default {
         console.error(error);
       }
     },
-    async editarAutor(autor) {
+    
+    editarAutor(autor) {
       this.$router.push(`/Autor/Actualizar/${autor.id}`);
     },
     async eliminarAutorConfirmacion(autor) {
-      if (confirm(`¿Estás seguro de que quieres eliminar al Autor ${autor.id}?`)) {
+      if (confirm(`¿Estás seguro de que quieres eliminar al Autor ${autor.nombre_apellido}?`)) {
         await this.eliminarAutor(autor.id);
       }
     },
-    async eliminarAutor(autor) {
+    async eliminarAutor(id) {
       try {
-        await axios.delete(`http://192.168.20.10/apiv1/autores/${autor.id}`);
+        await axios.delete(`http://192.168.20.10/apiv1/autores/${id}`);
         this.items = this.items.filter(item => item.id !== id);
-        console.log(response.data);
+        console.log('Autor eliminado correctamente');
       } catch (error) {
         console.error(error);
       }
