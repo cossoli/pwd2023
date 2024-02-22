@@ -19,7 +19,7 @@
 
     <div class="form-group">
       <label for="id_categoria">Categoría</label>
-      <select v-model="libro.id_categoria" id="id_categoria">
+      <select v-model="libro.categoria" id="id_categoria">
         <option value="">Seleccionar Categoría</option>
         <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">{{ categoria.descripcion }}</option>
       </select>
@@ -27,7 +27,7 @@
 
     <div class="form-group">
       <label for="id_editorial">Editorial</label>
-      <select v-model="libro.id_editorial" id="id_editorial">
+      <select v-model="libro.editorial" id="id_editorial">
         <option value="">Seleccionar Editorial</option>
         <option v-for="editorial in editoriales" :key="editorial.id" :value="editorial.id">{{ editorial.nombre }}</option>
       </select>
@@ -35,7 +35,7 @@
 
     <div class="form-group">
       <label for="id_genero">Género</label>
-      <select v-model="libro.id_genero" id="id_genero">
+      <select v-model="libro.genero" id="id_genero">
         <option value="">Seleccionar Género</option>
         <option v-for="genero in generos" :key="genero.id" :value="genero.id">{{ genero.descripcion }}</option>
       </select>
@@ -61,9 +61,9 @@ export default {
         titulo: "",
         estado: "",
         anio: "",
-        id_categoria: "",
-        id_editorial: "",
-        id_genero: "",
+        categoria: "",
+        editorial: "",
+        genero: "",
         cant_paginas: ""
       },
       categorias: [],

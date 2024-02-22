@@ -46,7 +46,7 @@ class Prestamo extends ModelBase
     public Static function deserializar(array $datos): self
     {
         return new self(
-            $datos['id_socio'],
+            $datos['id'],
             Socio::deserializar($datos['socio']),
             Libro::deserializar($datos['libro']),
            

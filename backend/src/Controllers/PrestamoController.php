@@ -1,7 +1,9 @@
 <?php
 namespace Raiz\Controllers;
 
+use Raiz\Bd\LibroDAO;
 use Raiz\Bd\PrestamoDAO;
+use Raiz\Bd\SocioDAO;
 use Raiz\Models\Prestamo;
 
 class PrestamoController implements InterfaceController{
@@ -41,7 +43,22 @@ class PrestamoController implements InterfaceController{
 
     public static function crear(array $parametros): array
     {
-        $prestamo = Prestamo::deserializar($parametros);
+        foreach($parametros['socio'] as $socio){
+            $parametros[$socio][] = SocioDAO::encontrarUno($socio);
+        }
+        
+        foreach($parametros['libro'] as $libro){
+            $parametros[$libro][] = LibroDAO::encontrarUno($libro);
+        }
+        $prestamo = new Prestamo(
+            
+            id: $parametros['id'], 
+            socio: $parametros['socio'],
+            libro: $parametros["libro"],
+            fecha_dev :$parametros["fecha_dev"],
+            fecha_desde:$parametros["fecha_desde"],
+            fecha_hasta: $parametros['fecha_hasta'],
+        );
         PrestamoDAO::crear($prestamo);
         return $prestamo->serializar();
     }
