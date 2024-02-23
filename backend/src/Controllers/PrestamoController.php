@@ -4,6 +4,7 @@ namespace Raiz\Controllers;
 use Raiz\Bd\LibroDAO;
 use Raiz\Bd\PrestamoDAO;
 use Raiz\Bd\SocioDAO;
+use Raiz\Models\Libro;
 use Raiz\Models\Prestamo;
 
 class PrestamoController implements InterfaceController{
@@ -41,15 +42,11 @@ class PrestamoController implements InterfaceController{
         
     }
 
-    public static function crear(array $parametros): array
+  
     {
-        foreach($parametros['socio'] as $socio){
-            $parametros[$socio][] = SocioDAO::encontrarUno($socio);
-        }
+        $parametros['socio'] = SocioDAO::encontrarUno($parametros['id']);
+        $parametros['libro'] = LibroDAO::encontrarUno($parametros['id']);
         
-        foreach($parametros['libro'] as $libro){
-            $parametros[$libro][] = LibroDAO::encontrarUno($libro);
-        }
         $prestamo = new Prestamo(
             
             id: $parametros['id'], 
