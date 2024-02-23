@@ -31,35 +31,34 @@ class PrestamoDAO implements InterfaceDAO
     }
 
     public static function crear(Serializador $instancia): void
-    {
-        $params = $instancia->serializar();
-        $sql = 'INSERT INTO prestamos (id_socio,id_libro, fecha_dev, fecha_hasta,fecha_desde) 
-        
-        VALUES (:socio_id :libro_id, :fecha_dev, :fecha_hasta,fecha_desde)';
-        ConectarBD::escribir($sql, [
-            ':id_socio' => $params['id_socio'],
-            ':id_libro' => $params['id_libro'],
-            ':fecha_dev' => $params['fecha_dev'],
-            ':fecha_hasta' => $params['fecha_hasta'],
-            ':fecha_desde' => $params['fecha_desde']
-        ]);
-    }
+{
+    $params = $instancia->serializar();
+    $sql = 'INSERT INTO prestamos (id_socio, id_libro, fecha_dev, fecha_hasta, fecha_desde) 
+            VALUES (:id_socio, :id_libro, :fecha_dev, :fecha_hasta, :fecha_desde)';
+    ConectarBD::escribir($sql, [
+        ':id_socio' => $params['id_socio'],
+        ':id_libro' => $params['id_libro'],
+        ':fecha_dev' => $params['fecha_dev'],
+        ':fecha_hasta' => $params['fecha_hasta'],
+        ':fecha_desde' => $params['fecha_desde']
+    ]);
+}
+public static function actualizar(Serializador $instancia): void
+{
+    $params = $instancia->serializar();
+    $sql = 'UPDATE prestamos SET id_socio = :id_socio, id_libro = :id_libro, fecha_dev = :fecha_dev, 
+            fecha_desde = :fecha_desde, fecha_hasta = :fecha_hasta 
+            WHERE id = :id';
+    ConectarBD::escribir($sql, [
+        ':id' => $params['id'],
+        ':id_socio' => $params['id_socio'],
+        ':id_libro' => $params['id_libro'],
+        ':fecha_dev' => $params['fecha_dev'],
+        ':fecha_hasta' => $params['fecha_hasta'],
+        ':fecha_desde' => $params['fecha_desde'],
+    ]);
+}
 
-    public static function actualizar(Serializador $instancia): void
-    {
-        $params = $instancia->serializar();
-        $sql = 'UPDATE prestamos SET id_socio = :id_socio,id_libro, fecha_dev = :fecha_dev, fecha_desde = :fecha_desde,
-        fecha_hasta =:fecha_hasta 
-        WHERE id = :id';
-        ConectarBD::escribir($sql, [
-            ':id' => $params['id'],
-            ':id_socio' => $params['id_socio'],
-            ':id_libro' => $params['id_libro'],
-            ':fecha_dev' => $params['fecha_dev'],
-            ':fecha_hasta' => $params['fecha_hasta'],
-            ':fecha_desde' => $params['fecha_desde'],
-        ]);
-    }
 
     public static function borrar(string $id)
     {

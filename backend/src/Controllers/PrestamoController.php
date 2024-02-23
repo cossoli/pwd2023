@@ -1,64 +1,61 @@
 <?php
+
 namespace Raiz\Controllers;
 
 use Raiz\Bd\LibroDAO;
 use Raiz\Bd\PrestamoDAO;
 use Raiz\Bd\SocioDAO;
-use Raiz\Models\Libro;
 use Raiz\Models\Prestamo;
 
-class PrestamoController implements InterfaceController{
-   
-    //Clase que controla de acuerdo a lo que pida la vista: 
-    // --- CRUD --- 
-    //  Listar 
-    //  encontrar uno
-    //  crear
-    //  actualizar
-    //  borrar  
-
+class PrestamoController implements InterfaceController
+{
     public static function listar(): array
     {
-        $prestamo = [];
-        $listadoprestamo = PrestamoDAO::listar();
-        foreach($listadoprestamo as $prestamo){
-            $prestamo[] = $prestamo->serializar();
+        $prestamos = [];
+        $listaPrestamos = PrestamoDAO::listar();
+        foreach ($listaPrestamos as $prestamo) {
+            $prestamos[] = $prestamo->serializar();
         }
-        return $prestamo;
-
-        
+        return $prestamos;
     }
-    
+
     public static function encontrarUno(mixed $id): ?array
     {
         $prestamo = PrestamoDAO::encontrarUno($id);
-        if($prestamo===null){
-            return $prestamo;
-        }else{
+        if ($prestamo === null) {
+            return null;
+        } else {
             return $prestamo->serializar();
         }
-        
-        
-        
     }
 
-  
-    {
-        $parametros['socio'] = SocioDAO::encontrarUno($parametros['id']);
-        $parametros['libro'] = LibroDAO::encontrarUno($parametros['id']);
-        
-        $prestamo = new Prestamo(
-            
-            id: $parametros['id'], 
-            socio: $parametros['socio'],
-            libro: $parametros["libro"],
-            fecha_dev :$parametros["fecha_dev"],
-            fecha_desde:$parametros["fecha_desde"],
-            fecha_hasta: $parametros['fecha_hasta'],
-        );
-        PrestamoDAO::crear($prestamo);
-        return $prestamo->serializar();
+    public static function crear(array $parametros): array
+{
+    // Buscar el socio y el libro por sus IDs
+    $socio = SocioDAO::encontrarUno($parametros['id']);
+    $libro = LibroDAO::encontrarUno($parametros['id']);
+
+    // Verificar si el socio y el libro existen antes de crear el préstamo
+    if (!$socio || !$libro) {
+        throw new \Exception('No se encontró el socio o el libro correspondiente');
     }
+
+    // Crear el objeto Prestamo usando los datos proporcionados
+    $prestamo = new Prestamo(
+        id: $parametros['id'] ?? 0, // Si no se proporciona un ID, se establece en 0
+        socio: $socio, // Usar el objeto Socio encontrado
+        libro: $libro, // Usar el objeto Libro encontrado
+        fecha_dev: $parametros['fecha_dev'],
+        fecha_desde: $parametros['fecha_desde'],
+        fecha_hasta: $parametros['fecha_hasta']
+    );
+
+    // Guardar el préstamo en la base de datos
+    PrestamoDAO::crear($prestamo);
+
+    // Devolver el préstamo serializado como array
+    return $prestamo->serializar();
+}
 
     public static function actualizar(array $parametros): array
     {
@@ -67,19 +64,18 @@ class PrestamoController implements InterfaceController{
         return $prestamo->serializar();
     }
 
-    public static function borrar(mixed $id):void
+    public static function borrar(mixed $id): void
     {
         PrestamoDAO::borrar($id);
-        
     }
-    public function verificarLibroDevuelvo(mixed $id)
-    {
 
-    } 
-    
-
-    public function calcularDiasRetraso(mixed$id)
+    public function verificarLibroDevuelto(mixed $id)
     {
-        
+        // Implementa la lógica para verificar si un libro ha sido devuelto
+    }
+
+    public function calcularDiasRetraso(mixed $id)
+    {
+        // Implementa la lógica para calcular los días de retraso de un préstamo
     }
 }
