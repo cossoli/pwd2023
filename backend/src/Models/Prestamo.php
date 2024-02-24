@@ -45,17 +45,17 @@ class Prestamo extends ModelBase
     }
 
     public static function deserializar(array $datos): self
-{
-    return new self(
-        id: $datos['id'] ?? 0, // Usamos el operador de fusión null-coalesce para manejar el caso en que $datos['id'] no esté definido
-        socio: Socio::deserializar($datos['id_socio'] ?? []), // Usamos el operador de fusión null-coalesce y proporcionamos un arreglo vacío como valor predeterminado para Socio::deserializar
-        libro: Libro::deserializar($datos['id_socio'] ?? []), // Usamos el operador de fusión null-coalesce y proporcionamos un arreglo vacío como valor predeterminado para Libro::deserializar
-        fecha_desde: $datos['fecha_desde'] ?? '',
-        fecha_hasta: $datos['fecha_hasta'] ?? '',
-        fecha_dev: $datos['fecha_dev'] ?? null // Usamos el operador de fusión null-coalesce para manejar el caso en que $datos['fecha_dev'] no esté definido
-    );
-}
-
+    {
+        return new self(
+            id: $datos['id'] ?? 0,
+            socio: Socio::deserializar(['id' => $datos['id_socio'] ?? null]), // Cambiamos 'id_socio' a 'id' para que coincida con la estructura esperada en Socio::deserializar
+            libro: Libro::deserializar(['id' => $datos['id_libro'] ?? null]), // Cambiamos 'id_libro' a 'id' para que coincida con la estructura esperada en Libro::deserializar
+            fecha_desde: $datos['fecha_desde'] ?? '',
+            fecha_hasta: $datos['fecha_hasta'] ?? '',
+            fecha_dev: $datos['fecha_dev'] ?? null
+        );
+    }
+    
 
     public function diasRetraso(): int
     {
