@@ -14,8 +14,8 @@ class PrestamoDAO implements InterfaceDAO
         $listaPrestamos = ConectarBD::leer( sql: $sql);
         $prestamos = [];
         foreach ($listaPrestamos as $prestamoData) {
-          //  $prestamoData['socio'] = SocioDAO::encontrarUno($prestamoData['id_socio']);
-          //  $prestamoData['libro'] = LibroDAO::encontrarUno($prestamoData['id_libro']);
+          //  $prestamoData['socio'] = SocioDAO::encontrarUno($prestamoData['socio']);
+          //  $prestamoData['libro'] = LibroDAO::encontrarUno($prestamoData['libro']);
 
             $prestamos[] = Prestamo::deserializar($prestamoData);
         }
