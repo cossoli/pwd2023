@@ -40,6 +40,7 @@ class LibroController implements InterfaceController{
     public static function encontrarUno(mixed $id): ?array
     {
         $Libro = LibroDAO::encontrarUno($id);
+        
         if($Libro===null){
             return $Libro;
         }else{
