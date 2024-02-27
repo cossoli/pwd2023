@@ -20,8 +20,9 @@ class PrestamoDAO implements InterfaceDAO
             $prestamos[] = Prestamo::deserializar($prestamoData);
         }
         return $prestamos;
-    }
 
+    }
+  
     public static function encontrarUno(string $id): ?Prestamo
     {
         $sql = 'SELECT * FROM prestamos WHERE id = :id';
@@ -38,9 +39,11 @@ class PrestamoDAO implements InterfaceDAO
     $params = $instancia->serializar();
     $sql = 'INSERT INTO prestamos (id_socio, id_libro, fecha_dev, fecha_hasta, fecha_desde) 
             VALUES (:id_socio, :id_libro, :fecha_dev, :fecha_hasta, :fecha_desde)';
-    ConectarBD::escribir($sql, [
-        ':id_socio' => $params['id_socio'],
-        ':id_libro' => $params['id_libro'],
+    ConectarBD::escribir(
+        sql : $sql , 
+        params : [
+        ':id_socio' => $params['socio'] ->getId(),
+        ':id_libro' => $params['libro']->getId(),
         ':fecha_dev' => $params['fecha_dev'],
         ':fecha_hasta' => $params['fecha_hasta'],
         ':fecha_desde' => $params['fecha_desde']
@@ -52,10 +55,12 @@ public static function actualizar(Serializador $instancia): void
     $sql = 'UPDATE prestamos SET id_socio = :id_socio, id_libro = :id_libro, fecha_dev = :fecha_dev, 
             fecha_desde = :fecha_desde, fecha_hasta = :fecha_hasta 
             WHERE id = :id';
-    ConectarBD::escribir($sql, [
+    ConectarBD::escribir(
+         sql:$sql,
+         params: [
         ':id' => $params['id'],
-        ':id_socio' => $params['id_socio'],
-        ':id_libro' => $params['id_libro'],
+        ':id_socio' => $params['socio'] ->getId(),
+        ':id_libro' => $params['libro']->getId(),
         ':fecha_dev' => $params['fecha_dev'],
         ':fecha_hasta' => $params['fecha_hasta'],
         ':fecha_desde' => $params['fecha_desde'],
