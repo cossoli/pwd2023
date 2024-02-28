@@ -27,15 +27,11 @@ class PrestamoDAO implements InterfaceDAO
     {
         $sql = 'SELECT * FROM prestamos WHERE id = :id';
         $prestamoData = ConectarBD::leer($sql, [':id' => $id]);
-        if (empty($prestamoData)) {
+        if (count($prestamoData)) {
             return null; // Devuelve null si no se encuentra ningún préstamo
         } else {
-
-
             $prestamoData[0]['socio'] = SocioDAO::encontrarUno($prestamoData[0]['id_socio']);
             $prestamoData[0]['libro'] = LibroDAO::encontrarUno($prestamoData[0]['id_libro']);
-
-
             return Prestamo::deserializar($prestamoData[0]);
         }
     }
