@@ -14,8 +14,8 @@ class PrestamoDAO implements InterfaceDAO
         $listaPrestamos = ConectarBD::leer( sql: $sql);
         $prestamos = [];
         foreach ($listaPrestamos as $prestamoData) {
-          //  $prestamoData['socio'] = SocioDAO::encontrarUno($prestamoData['socio']);
-          //  $prestamoData['libro'] = LibroDAO::encontrarUno($prestamoData['libro']);
+            $prestamoData['socio'] = SocioDAO::encontrarUno($prestamoData['id_socio']);
+            $prestamoData['libro'] = LibroDAO::encontrarUno($prestamoData['id_libro']);
 
             $prestamos[] = Prestamo::deserializar($prestamoData);
         }
@@ -30,6 +30,12 @@ class PrestamoDAO implements InterfaceDAO
         if (empty($prestamoData)) {
             return null; // Devuelve null si no se encuentra ningún préstamo
         } else {
+
+
+            $prestamoData[0]['socio'] = SocioDAO::encontrarUno($prestamoData[0]['id_socio']);
+            $prestamoData[0]['libro'] = LibroDAO::encontrarUno($prestamoData[0]['id_libro']);
+
+
             return Prestamo::deserializar($prestamoData[0]);
         }
     }

@@ -26,9 +26,9 @@
            <td>{{ libro.titulo }}</td>
            <td>{{ libro.anio }}</td>
            <td>{{ libro.estado }}</td>
-           <td>{{ obtenerNombre(libro.id_categoria, categorias) }}</td>
-           <td>{{ obtenerNombre(libro.id_editorial, editoriales) }}</td>
-           <td>{{ obtenerNombre(libro.id_genero, generos) }}</td>
+           <td>{{ libro.id_categoria }}</td>
+           <td>{{ libro.id_editorial }}</td>
+           <td>{{ libro.id_genero }}</td>
            <td>{{ libro.cant_paginas }}</td>
            <td>
              <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
@@ -49,16 +49,16 @@
    data() {
      return {
        items: [],
-       categorias: {},
-       editoriales: {},
-       generos: {}
+       //categorias: [],
+       //editoriales: [],
+       //generos: []
      };
    },
    created() {
      this.listarLibros();
-     this.obtenerNombres('categorias');
-     this.obtenerNombres('editoriales');
-     this.obtenerNombres('generos');
+     //this.obtenerNombres('categorias');
+     //this.obtenerNombres('editoriales');
+     //this.obtenerNombres('generos');
    },
    methods: {
      async listarLibros() {
@@ -67,17 +67,6 @@
          this.items = res.data;
        } catch (error) {
          console.error(error);
-       }
-     },
-     async obtenerNombres(tipo) {
-       try {
-         const res = await axios.get(`http://192.168.20.10/apiv1/libros ${tipo}`);
-         this[tipo] = res.data.reduce((acc, curr) => {
-           acc[curr.id] = curr.nombre; // Suponiendo que la respuesta tiene la estructura { id, nombre }
-           return acc;
-         }, {});
-       } catch (error) {
-         console.error(`Error al obtener los nombres de ${tipo}:`, error);
        }
      },
      editarLibro(id) {
@@ -91,9 +80,7 @@
          console.error('Error al eliminar el libro:', error);
        }
      },
-     obtenerNombre(id, nombres) {
-       return nombres[id] || 'Sin información';
-     }
+     
    }
  };
  </script>
