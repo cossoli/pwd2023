@@ -46,6 +46,14 @@
       <input v-model="libro.cant_paginas" type="number" id="cant_paginas">
     </div>
 
+    <div class="form-group">
+      <label for="autor">Autor</label>
+      <select v-model="libro.autor" id="autor">
+        <option value="">Seleccionar Autor</option>
+        <option v-for="nombreAutor in nombresAutores" :key="nombreAutor">{{ nombreAutor }}</option>
+      </select>
+    </div>
+
     <button @click="crearLibro" :disabled="cargando" class="guardar-btn">{{ cargando ? 'Cargando...' : 'Guardar' }}</button>
     <p v-if="mensajeError" class="error-message">{{ mensajeError }}</p>
   </div>
@@ -64,11 +72,13 @@ export default {
         categoria: "",
         editorial: "",
         genero: "",
-        cant_paginas: ""
+        cant_paginas: "",
+        autor: ""
       },
       categorias: [],
       editoriales: [],
       generos: [],
+      nombresAutores: [],
       cargando: false,
       mensajeError: ""
     }
@@ -77,6 +87,7 @@ export default {
     this.obtenerCategorias();
     this.obtenerEditoriales();
     this.obtenerGeneros();
+    this.obtenerNombresAutores();
   },
   methods: {
     async obtenerCategorias() {
@@ -103,6 +114,14 @@ export default {
         console.error(error);
       }
     },
+    async obtenerNombresAutores() {
+      try {
+        const res = await axios.get('http://192.168.20.10/apiv1/autores');
+        this.nombresAutores = res.data.map(autor => autor.nombre_apellido);
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async crearLibro() {
       this.cargando = true;
       try {
@@ -117,7 +136,8 @@ export default {
           id_categoria: "",
           id_editorial: "",
           id_genero: "",
-          cant_paginas: ""
+          cant_paginas: "",
+          autor: ""
         };
       } catch (error) {
         console.error(error);
