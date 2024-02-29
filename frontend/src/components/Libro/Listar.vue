@@ -39,7 +39,7 @@
           <td>{{ libro.cant_paginas }}</td>
           <td>
             <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
-            <button @click="eliminarLibro(libro.id)" class="btn-eliminar">Eliminar</button>
+            <button @click="eliminarLibroConfirmacion(libro)" class="btn-eliminar">Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -78,6 +78,11 @@ export default {
     },
     editarLibro(id) {
       this.$router.push(`/Libro/Actualizar/${id}`);
+    },
+    async eliminarLibroConfirmacion(libro) {
+      if (confirm(`¿Estás seguro de que quieres eliminar el libro "${libro.titulo}"?`)) {
+        await this.eliminarLibro(libro.id);
+      }
     },
     async eliminarLibro(id) {
       try {
