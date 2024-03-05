@@ -16,6 +16,7 @@
           <th>Fecha Hasta</th>
           <th>Fecha Devolución</th>
           <th>Estado</th>
+          <th>Autores</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -28,6 +29,12 @@
           <td>{{ prestamo.fecha_hasta }}</td>    
           <td>{{ prestamo.fecha_dev }}</td>   
           <td>{{ prestamo.estado }}</td> <!-- Mostrar el estado del préstamo -->
+          <td>
+            <span v-for="(autor, index) in prestamo.autores" :key="index">
+              {{ autor.nombre_apellido }}
+              <span v-if="index !== prestamo.autores.length - 1">, </span>
+            </span>
+          </td>
           <td>
             <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
           </td>
@@ -54,6 +61,12 @@ export default {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/prestamos');
         this.items = res.data;
+
+        // Para cada préstamo, obtenemos los detalles del libro prestado, incluidos los autores asociados
+        for (let prestamo of this.items) {
+          const libroRes = await axios.get(`http://192.168.20.10/apiv1/libros/${prestamo.id_libro}`);
+          prestamo.autores = libroRes.data.autores;
+        }
       } catch (error) {
         console.error('Error al obtener los préstamos:', error);
       }
