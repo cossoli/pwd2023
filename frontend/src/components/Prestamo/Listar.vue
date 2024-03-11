@@ -50,12 +50,16 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      items: []
+      items: [],
+      nombre_autores :[]
+      
     };
   },
   created() {
     this.Listar();
+    this.obtenerNombresAutores();
   },
+
   methods: {
     async Listar() {
       try {
@@ -71,6 +75,18 @@ export default {
         console.error('Error al obtener los préstamos:', error);
       }
     },
+
+  async obtenerNombresAutores() {
+
+  try {
+    const res = await axios.get(`http://192.168.20.10/apiv1/autores`);
+    this.nombre_autores = res.data.map(autor => ({ id: autor.id, nombre: autor.nombre_apellido }));
+  } catch (error) {
+    console.error('Error al obtener autores:', error);
+      }
+      }
+        },
+        
     async devolverLibro(id) {
       try {
         await axios.put(`http://192.168.20.10/apiv1/prestamos/devolver/${id}`);
@@ -81,7 +97,7 @@ export default {
       }
     }
   }
-}
+
 </script>
 
 <style scoped>
