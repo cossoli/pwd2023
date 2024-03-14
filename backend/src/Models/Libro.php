@@ -70,16 +70,16 @@ class Libro extends ModelBase
     {
         return $this->titulo;
     }
-   /// public function getAutores(): array
-    ///{
-///        $listaAutores =[];
+    public function getAutores(): array
+    {
+        $listaAutores =[];
         
-    ///    foreach($this->autor as $autor){
-        ///    $listaAutores = $autor->serializar();
-        // }
-       // return $listaAutores;
+        foreach($this->autor as $autor){
+        $listaAutores = $autor->serializar();
+         }
+     return $listaAutores;
         
-   // }
+    }
     public function getEstado(): string
     {
         return $this->estado;
