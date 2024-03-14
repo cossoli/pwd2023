@@ -31,6 +31,10 @@
         mensajeError: ""
       }
     },
+    created() {
+        this.crearPrestamo;
+    },
+
     methods: {
       async crearPrestamo() {
         console.log(this.prestamo);

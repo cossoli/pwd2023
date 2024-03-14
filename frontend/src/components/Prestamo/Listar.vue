@@ -65,17 +65,11 @@ export default {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/prestamos');
         this.items = res.data;
-
-        // Para cada préstamo, obtenemos los detalles del libro prestado, incluidos los autores asociados
-        for (let prestamo of this.items) {
-          const libroRes = await axios.get(`http://192.168.20.10/apiv1/libros/${prestamo.id_libro}`);
-          prestamo.autores = libroRes.data.autores;
-        }
       } catch (error) {
         console.error('Error al obtener los préstamos:', error);
       }
     },
-
+    
   async obtenerNombresAutores() {
 
   try {
