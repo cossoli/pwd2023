@@ -125,7 +125,7 @@ export default {
     async crearLibro() {
       this.cargando = true;
       try {
-        const res = await axios.post('http://192.168.20.10/apiv1/libros', this.libro);
+        const res = await axios.post('http://192.168.20.10/apiv1/libros/nuevo', this.libro);
         console.log(res.data); // Manejar la respuesta según sea necesario
         this.mensajeError = ""; // Limpiar mensaje de error si existe
         // Reiniciar formulario
