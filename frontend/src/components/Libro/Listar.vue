@@ -68,10 +68,10 @@ export default {
         this.items = res.data;
 
         // Para cada libro, obtenemos los autores asociados
-        for (let libro of this.items) {
-          const autoresRes = await axios.get(`http://192.168.20.10/apiv1/libros/${libro.id}/autores`);
-          libro.autores = autoresRes.data;
-        }
+       // for (let libro of this.items) {
+        //  const autoresRes = await axios.get(`http://192.168.20.10/apiv1/libros/${libro.id}/autores`);
+         // libro.autores = autoresRes.data;
+       // }
       } catch (error) {
         console.error(error);
       }

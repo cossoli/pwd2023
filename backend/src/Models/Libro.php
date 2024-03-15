@@ -136,7 +136,7 @@ class Libro extends ModelBase
         return [
             'id' => $this->getId(),
             'titulo' => $this->titulo,
-    ////        'autor' => $this->getAutores(),
+            //'autor' => $this->getAutores(),
             'editorial' => $this->editorial->serializar(),
             'cant_paginas' => $this->cant_paginas,
             'genero' => $this->genero->serializar(),

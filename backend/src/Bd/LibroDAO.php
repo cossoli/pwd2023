@@ -79,6 +79,7 @@ class LibroDAO implements InterfaceDAO
                 ':anio' => $params['anio'],
                 ':estado' => $params['estado'],
                 ':id_editorial' => $params['editorial']->getId(),
+                ':autor' => $params['autor']->getId(),
             ]
         );
         

@@ -133,9 +133,9 @@ export default {
           titulo: "",
           estado: "",
           anio: "",
-          id_categoria: "",
-          id_editorial: "",
-          id_genero: "",
+          categoria: "",
+          editorial: "",
+          genero: "",
           cant_paginas: "",
           autor: ""
         };
