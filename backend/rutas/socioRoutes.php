@@ -4,7 +4,7 @@ use PhpParser\JsonDecoder;
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Raiz\Aux\Utiles\Prueba\Utileria;
+use Raiz\Auxi\Utiles\Utileria;
 use Raiz\Controllers\SocioController;
 
 

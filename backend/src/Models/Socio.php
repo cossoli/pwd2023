@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Raiz\Models;
 
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 
 class Socio extends ModelBase 
 {

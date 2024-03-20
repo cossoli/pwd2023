@@ -2,7 +2,7 @@
 
 namespace Raiz\Models;
 
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 use Error;
 
 abstract class ModelBase implements Serializador

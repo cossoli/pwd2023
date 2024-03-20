@@ -78,7 +78,7 @@ services:
         volumes:
         - ./frontend/:/app
         tty: true
-        command: -c "npm run dev"
+        command: -c "npm install && npm run dev"
         networks:
            red_interna:
              ipv4_address: 192.168.20.25

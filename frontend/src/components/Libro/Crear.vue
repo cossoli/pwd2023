@@ -7,14 +7,10 @@
       <input v-model="libro.titulo" type="text" id="titulo" placeholder="Título del libro">
     </div>
 
-    <div class="form-group">
-      <label for="estado">Estado</label>
-      <input v-model="libro.estado" type="text" id="estado" placeholder="Estado del libro">
-    </div>
 
     <div class="form-group">
       <label for="anio">Año</label>
-      <input v-model="libro.anio" type="date" id="anio">
+      <input v-model="libro.anio" type="int" id="anio">
     </div>
 
     <div class="form-group">
@@ -48,9 +44,9 @@
 
     <div class="form-group">
       <label for="autor">Autor</label>
-      <select v-model="libro.autor" id="autor">
+      <select v-model="libro.autores" id="autor">
         <option value="">Seleccionar Autor</option>
-        <option v-for="nombreAutor in nombresAutores" :key="nombreAutor">{{ nombreAutor }}</option>
+        <option v-for="autor in nombresAutores" :key="autor.id" :value="autor.id">{{ autor.nombre_apellido }}</option>
       </select>
     </div>
 
@@ -67,13 +63,13 @@ export default {
     return {
       libro: {
         titulo: "",
-        estado: "",
+        estado: "Activo",
         anio: "",
         categoria: "",
         editorial: "",
         genero: "",
         cant_paginas: "",
-        autor: ""
+        autores: []
       },
       categorias: [],
       editoriales: [],
@@ -117,7 +113,7 @@ export default {
     async obtenerNombresAutores() {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/autores');
-        this.nombresAutores = res.data.map(autor => autor.nombre_apellido);
+        this.nombresAutores = res.data;
       } catch (error) {
         console.error(error);
       }
@@ -125,6 +121,9 @@ export default {
     async crearLibro() {
       this.cargando = true;
       try {
+        let autores = []
+        autores.push(this.libro.autores);
+        this.libro.autores=autores
         const res = await axios.post('http://192.168.20.10/apiv1/libros/nuevo', this.libro);
         console.log(res.data); // Manejar la respuesta según sea necesario
         this.mensajeError = ""; // Limpiar mensaje de error si existe
@@ -137,7 +136,7 @@ export default {
           editorial: "",
           genero: "",
           cant_paginas: "",
-          autor: ""
+          autores: []
         };
       } catch (error) {
         console.error(error);
