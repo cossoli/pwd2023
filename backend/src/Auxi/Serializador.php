@@ -1,6 +1,6 @@
 <?php
 
-namespace Raiz\Aux;
+namespace Raiz\Auxi;
 
 interface Serializador
 {

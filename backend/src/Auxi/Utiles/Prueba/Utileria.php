@@ -1,5 +1,5 @@
 <?php
-namespace Raiz\Aux\Utiles\Prueba;
+namespace Raiz\Auxi\Utiles\Prueba;
 Class Utileria {
 
     public static function PasarAJson(String $AJson):Array{

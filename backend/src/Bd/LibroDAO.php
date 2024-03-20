@@ -4,7 +4,7 @@ namespace Raiz\Bd;
 
 use Raiz\Models\Autor;
 use Raiz\Models\Libro;
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 use PDO;
 
 class LibroDAO implements InterfaceDAO
