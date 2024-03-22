@@ -8,8 +8,7 @@ use Raiz\Bd\AutorDAO;
 use Raiz\Bd\CategoriaDAO;
 use Raiz\Bd\GeneroDAO;
 use Raiz\Bd\EditorialDAO;
-
-
+use Raiz\Models\Autor;
 
 class LibroController implements InterfaceController{
 
@@ -53,13 +52,14 @@ class LibroController implements InterfaceController{
 
     public static function crear(array $parametros): array
     {
-        $parametros['genero'] = GeneroDAO::encontrarUno($parametros['id_genero']);
-        $parametros['categoria'] = CategoriaDAO::encontrarUno($parametros['id_categoria']);
-        $parametros['editorial']= EditorialDAO::encontrarUno($parametros['id_editorial']);
-        foreach($parametros['autor'] as $autor){
-            $parametros[$autor][] = AutorDAO::encontrarUno($autor);
+        $parametros['genero'] = GeneroDAO::encontrarUno($parametros['genero']);
+        $parametros['categoria'] = CategoriaDAO::encontrarUno($parametros['categoria']);
+        $parametros['editorial'] = EditorialDAO::encontrarUno($parametros['editorial']);
+
+        foreach ($parametros['autores'] as $autor) {
+            $parametros["autor"][] = AutorDAO::encontrarUno($autor)->Serializar();
         }
-        
+      
         $Libro = new Libro(
             id:null,
             titulo: $parametros['titulo'],

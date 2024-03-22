@@ -7,7 +7,7 @@ use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Routing\RouteContext;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '../../vendor/autoload.php';
 
 $app = AppFactory::create();
 header('Access-Control-Allow-Origin: http://192.168.20.25:8080');

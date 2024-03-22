@@ -3,9 +3,9 @@
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Raiz\Aux\Utiles\Prueba\Utileria;
+use Raiz\Auxi\Utiles\Utileria;
 use Raiz\Controllers\PrestamoController;
-use Raiz\Controllers\AutorController;
+
 
 
 
@@ -27,19 +27,7 @@ $app->get('/apiv1/prestamos/{id}', function (Request $req, Response $res, array 
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
 });
-$app->get('/apiv1/prestamos/{id}/diasretraso', function (Request $req, Response $res, array $args) {
-    $payload = Json_Encode(PrestamoController::calcularDiasRetraso($args["id"]), JSON_PRETTY_PRINT);
-    $res->getBody()->write("el libro tiene ");
-    $res->getBody()->write($payload);
-    $res->getBody()->write(" dias de retraso ");
-    return $res->withHeader("Content-Type", "application/json");
-});
 
-$app->get('/apiv1/prestamos/{id}/librodevuelto', function (Request $req, Response $res, array $args) {
-    $payload = Json_Encode(PrestamoController::verificarLibroDevuelvo($args["id"]), JSON_PRETTY_PRINT);
-    $res->getBody()->write($payload);
-    return $res->withHeader("Content-Type", "application/json");
-});
 // ---- Crear nuevo regitro ---- //
 
 

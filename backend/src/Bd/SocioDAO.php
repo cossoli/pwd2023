@@ -2,7 +2,7 @@
 
 namespace Raiz\Bd;
 
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 use Raiz\Bd\InterfaceDAO;
 use Raiz\Models\Socio;
 

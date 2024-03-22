@@ -72,12 +72,7 @@ class Libro extends ModelBase
     }
     public function getAutores(): array
     {
-        $listaAutores =[];
-        
-        foreach($this->autor as $autor){
-        $listaAutores = $autor->serializar();
-         }
-     return $listaAutores;
+        return $this->autor;
         
     }
     public function getEstado(): string
@@ -136,7 +131,7 @@ class Libro extends ModelBase
         return [
             'id' => $this->getId(),
             'titulo' => $this->titulo,
-            //'autor' => $this->getAutores(),
+            'autor' => $this->getAutores(),
             'editorial' => $this->editorial->serializar(),
             'cant_paginas' => $this->cant_paginas,
             'genero' => $this->genero->serializar(),

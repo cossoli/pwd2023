@@ -2,27 +2,27 @@
 declare(strict_types=1);
 namespace Raiz\Models;
 
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 use Raiz\Models\Serializar;
 use Raiz\Models\ModelBase;
 
 class Autor extends ModelBase implements Serializador
 {
-  public  $id;
+  
   public  $nombre_apellido;
 
   Function __construct(string $nombre_apellido, mixed $id=null)
   {
-      $this->id = is_null($id) ? 'adjhdf' : $id;
+    parent::__construct($id);
       $this->nombre_apellido = $nombre_apellido;
-      $this->id = $id;
+      
   }
 
   public function Serializar(): array
   {
     return [
       'nombre_apellido' => $this->nombre_apellido,
-      'id' => $this->id
+      'id' => $this->getId()
 
     ];
   }
