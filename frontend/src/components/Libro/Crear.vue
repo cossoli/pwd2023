@@ -53,6 +53,7 @@
     <button @click="crearLibro" :disabled="cargando" class="guardar-btn">{{ cargando ? 'Cargando...' : 'Guardar' }}</button>
     <p v-if="mensajeError" class="error-message">{{ mensajeError }}</p>
   </div>
+  
 </template>
 
 <script lang="ts">
@@ -76,7 +77,8 @@ export default {
       generos: [],
       nombresAutores: [],
       cargando: false,
-      mensajeError: ""
+      mensajeError: "",
+      registroExitoso: false // Variable para controlar el mensaje de éxito
     }
   },
   created() {
@@ -127,17 +129,10 @@ export default {
         const res = await axios.post('http://192.168.20.10/apiv1/libros/nuevo', this.libro);
         console.log(res.data); // Manejar la respuesta según sea necesario
         this.mensajeError = ""; // Limpiar mensaje de error si existe
-        // Reiniciar formulario
-        this.libro = {
-          titulo: "",
-          estado: "",
-          anio: "",
-          categoria: "",
-          editorial: "",
-          genero: "",
-          cant_paginas: "",
-          autores: []
-        };
+        this.registroExitoso = true; // Mostrar mensaje de éxito
+        setTimeout(() => {
+          this.$router.push('/libro'); // Redirigir al usuario después de un tiempo
+        }, 3000); // Redirigir después de 3 segundos (3000 milisegundos)
       } catch (error) {
         console.error(error);
         this.mensajeError = "Error al crear el libro"; // Mostrar mensaje de error
@@ -193,7 +188,10 @@ button {
   color: #ff0000;
   font-size: 14px;
 }
-</style>
 
+.success-message {
+  color: #008000; /* Color verde */
+}
+</style>
 
 
