@@ -36,11 +36,11 @@ class Prestamo extends ModelBase
         return [
             'id' => $this->getId(),
              
-            'socio' => $this->socio->serializar(),
-            'libro' => $this->libro->serializar(),
-            'fecha_desde' => $this->fecha_desde,
-            'fecha_hasta' => $this->fecha_hasta,
-            'fecha_dev' => $this->fecha_dev
+            'socio'=>$this->socio->serializar(),
+            'libro'=>$this->libro->serializar(),
+            'fecha_desde'=>$this->fecha_desde,
+            'fecha_hasta'=>$this->fecha_hasta,
+            'fecha_dev'=>$this->fecha_dev
         ];
     }
 

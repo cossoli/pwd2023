@@ -5,13 +5,18 @@ namespace Raiz\Bd;
 use Raiz\Auxi\Serializador;
 use Raiz\Bd\InterfaceDAO;
 use Raiz\Models\Prestamo;
+use PDO;
 
 class PrestamoDAO implements InterfaceDAO
 {
     public static function listar(): array
     {
         $sql = 'SELECT * FROM prestamos';
-        $listaPrestamos = ConectarBD::leer( sql: $sql);
+
+       $cnx = ConectarBD::conectar();
+        $consulta = $cnx->prepare($sql);
+        $consulta->execute();
+        $listaPrestamos= $consulta->fetchAll(PDO::FETCH_ASSOC);
         $prestamos = [];
         foreach ($listaPrestamos as $prestamoData) {
             $prestamoData['socio'] = SocioDAO::encontrarUno($prestamoData['id_socio']);
@@ -30,8 +35,8 @@ class PrestamoDAO implements InterfaceDAO
         if (count($prestamoData)) {
             return null; // Devuelve null si no se encuentra ningún préstamo
         } else {
-           // $prestamoData[0]['socio'] = SocioDAO::encontrarUno($prestamoData[0]['id_socio']);
-            //$prestamoData[0]['libro'] = LibroDAO::encontrarUno($prestamoData[0]['id_libro']);
+            $prestamoData[0]['socio'] = SocioDAO::encontrarUno($prestamoData[0]['id_socio']);
+            $prestamoData[0]['libro'] = LibroDAO::encontrarUno($prestamoData[0]['id_libro']);
             return Prestamo::deserializar($prestamoData[0]);
         }
     }
@@ -39,13 +44,14 @@ class PrestamoDAO implements InterfaceDAO
     public static function crear(Serializador $instancia): void
 {
     $params = $instancia->serializar();
+    
     $sql = 'INSERT INTO prestamos (id_socio, id_libro, fecha_dev, fecha_hasta, fecha_desde) 
             VALUES (:id_socio, :id_libro, :fecha_dev, :fecha_hasta, :fecha_desde)';
     ConectarBD::escribir(
         sql : $sql , 
         params : [
-        ':id_socio' => $params['socio'] ->getId(),
-        ':id_libro' => $params['libro']->getId(),
+        ':id_socio' => $params['socio']['id'], 
+        ':id_libro' => $params['libro']['id'],
         ':fecha_dev' => $params['fecha_dev'],
         ':fecha_hasta' => $params['fecha_hasta'],
         ':fecha_desde' => $params['fecha_desde']
@@ -61,8 +67,8 @@ public static function actualizar(Serializador $instancia): void
          sql:$sql,
          params: [
         ':id' => $params['id'],
-        ':id_socio' => $params['socio'] ->getId(),
-        ':id_libro' => $params['libro']->getId(),
+        ':id_socio' => $params['socio'] ['id'],
+        ':id_libro' => $params['libro']['id'],
         ':fecha_dev' => $params['fecha_dev'],
         ':fecha_hasta' => $params['fecha_hasta'],
         ':fecha_desde' => $params['fecha_desde'],

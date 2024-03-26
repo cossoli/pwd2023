@@ -19,7 +19,7 @@
           nombre_apellido: "",
           direccion: "",
           telefono:"",
-          activo: 1,
+          activo:1,
         }
       }
     },

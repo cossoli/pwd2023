@@ -7,6 +7,7 @@ use Raiz\Bd\PrestamoDAO;
 use Raiz\Bd\SocioDAO;
 use Raiz\Models\Prestamo;
 
+
 class PrestamoController implements InterfaceController
 {
     public static function listar(): array
@@ -34,12 +35,13 @@ class PrestamoController implements InterfaceController
     public static function crear(array $parametros): array
 {
     // Buscar el socio y el libro por sus IDs
-    $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
-    $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
+    //$parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
+    //$parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
 
    
     // Crear el objeto Prestamo usando los datos proporcionados
     $prestamo = new Prestamo(
+        
         id: $parametros['id'] ?? 0, // Si no se proporciona un ID, se establece en 0
         socio: $parametros['socio'], // Usar el objeto Socio encontrado
         libro:     $parametros['libro'], // Usar el objeto Libro encontrado

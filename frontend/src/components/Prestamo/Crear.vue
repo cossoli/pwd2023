@@ -22,8 +22,8 @@
           socio: "",
           libro: "",
           fecha_desde: new Date().toISOString().substring(0, 10),
-          fecha_hasta: new Date().toISOString().substring(0, 10),
-          fecha_dev: new Date().toISOString().substring(0, 10)
+          fecha_hasta: null,
+          fecha_dev: null 
         },
         socio: [],
         libro: [],
@@ -31,9 +31,7 @@
         mensajeError: ""
       }
     },
-    created() {
-        this.crearPrestamo;
-    },
+   
 
     methods: {
       async crearPrestamo() {
@@ -42,6 +40,7 @@
           const res = await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', this.prestamo);
           console.log(res.data); // Manejar la respuesta según sea necesario
           // Aquí podrías redirigir a otra página o realizar otra acción después de crear el préstamo
+          this.$router.push('/Prestamo');
         } catch (error) {
           console.error(error);
           // Manejar errores de la solicitud HTTP

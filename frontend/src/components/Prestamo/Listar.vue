@@ -119,4 +119,3 @@ export default {
   background-color: #555; /* Cambiar color al pasar el mouse */
 }
 </style>
-

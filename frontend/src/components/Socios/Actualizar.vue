@@ -23,6 +23,7 @@ export default {
         console.log(res.data);
         // Redirigir a la página de detalle del socio actualizado o mostrar un mensaje de éxito
         alert('Socio actualizado correctamente');
+        this.$router.push('/socios');
       } catch (error) {
         console.error(error);
         // Manejar errores adecuadamente, por ejemplo, mostrar un mensaje de error al usuario

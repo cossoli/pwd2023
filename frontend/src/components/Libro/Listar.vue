@@ -67,17 +67,13 @@ export default {
         const res = await axios.get('http://192.168.20.10/apiv1/libros');
         this.items = res.data;
 
-        // Para cada libro, obtenemos los autores asociados
-       // for (let libro of this.items) {
-        //  const autoresRes = await axios.get(`http://192.168.20.10/apiv1/libros/${libro.id}/autores`);
-         // libro.autores = autoresRes.data;
-       // }
+        
       } catch (error) {
         console.error(error);
       }
     },
-    editarLibro(id) {
-      this.$router.push(`/Libro/Actualizar/${id}`);
+    editarLibro(libro) {
+      this.$router.push(`/Libro/Actualizar`);
     },
     async eliminarLibroConfirmacion(libro) {
       if (confirm(`¿Estás seguro de que quieres eliminar el libro "${libro.titulo}"?`)) {
