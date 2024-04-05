@@ -9,14 +9,11 @@
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>ID Libro</th>
           <th>ID Socio</th>
           <th>Fecha Desde</th>
           <th>Fecha Hasta</th>
-          <th>Fecha Devolución</th>
           <th>Estado</th>
-          <th>Autores</th>
           <th>Acciones</th>
         </tr>
       </thead>
