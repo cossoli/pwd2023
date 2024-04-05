@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\Static_;
 
 class Prestamo extends ModelBase 
 {
-    public int $id;
+
     public Socio $socio;
     public Libro $libro;
     public string $fecha_desde;
@@ -16,20 +16,75 @@ class Prestamo extends ModelBase
     public ?string $fecha_dev = null;
 
     public function __construct(
-        int $id, 
+        $id, 
         Socio $socio, 
         Libro $libro, 
         string $fecha_desde, 
         string $fecha_hasta, 
         ?string $fecha_dev = null
     ) {
-        $this->id = $id;
+        parent::__construct($id);
+        
         $this->socio = $socio;
         $this->libro = $libro;
         $this->fecha_desde = $fecha_desde;
         $this->fecha_hasta = $fecha_hasta;
         $this->fecha_dev = $fecha_dev;
     }
+
+ // Getters
+ public function getSocio(): Socio
+ {
+     return $this->socio;
+ }
+
+ public function getLibro(): Libro
+ {
+     return $this->libro;
+ }
+
+ public function getFechaDesde(): string
+ {
+     return $this->fecha_desde;
+ }
+
+ public function getFechaHasta(): string
+ {
+     return $this->fecha_hasta;
+ }
+
+ public function getFechaDev(): ?string
+ {
+     return $this->fecha_dev;
+ }
+
+ // Setters
+ public function setSocio(Socio $socio): void
+ {
+     $this->socio = $socio;
+ }
+
+ public function setLibro(Libro $libro): void
+ {
+     $this->libro = $libro;
+ }
+
+ public function setFechaDesde(string $fecha_desde): void
+ {
+     $this->fecha_desde = $fecha_desde;
+ }
+
+ public function setFechaHasta(string $fecha_hasta): void
+ {
+     $this->fecha_hasta = $fecha_hasta;
+ }
+
+ public function setFechaDev(?string $fecha_dev): void
+ {
+     $this->fecha_dev = $fecha_dev;
+ }
+
+
 
     public function serializar(): array
     {
