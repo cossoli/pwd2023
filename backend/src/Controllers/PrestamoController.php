@@ -35,8 +35,8 @@ class PrestamoController implements InterfaceController
     public static function crear(array $parametros): array
 {
     // Buscar el socio y el libro por sus IDs
-    //$parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
-    //$parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
+    $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
+    $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
 
    
     // Crear el objeto Prestamo usando los datos proporcionados
@@ -45,9 +45,9 @@ class PrestamoController implements InterfaceController
         id: $parametros['id'] ?? 0, // Si no se proporciona un ID, se establece en 0
         socio: $parametros['socio'], // Usar el objeto Socio encontrado
         libro:     $parametros['libro'], // Usar el objeto Libro encontrado
-        fecha_dev: $parametros['fecha_dev'],
         fecha_desde: $parametros['fecha_desde'],
-        fecha_hasta: $parametros['fecha_hasta']
+        fecha_hasta: $parametros['fecha_hasta'],
+        fecha_dev: $parametros['fecha_dev']
     );
 
     // Guardar el préstamo en la base de datos

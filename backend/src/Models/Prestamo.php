@@ -24,7 +24,6 @@ class Prestamo extends ModelBase
         ?string $fecha_dev = null
     ) {
         parent::__construct($id);
-        
         $this->socio = $socio;
         $this->libro = $libro;
         $this->fecha_desde = $fecha_desde;
@@ -59,12 +58,12 @@ class Prestamo extends ModelBase
  }
 
  // Setters
- public function setSocio(Socio $socio): void
+ public function setSocio(Socio $socio)
  {
      $this->socio = $socio;
  }
 
- public function setLibro(Libro $libro): void
+ public function setLibro(Libro $libro)
  {
      $this->libro = $libro;
  }
@@ -105,7 +104,7 @@ class Prestamo extends ModelBase
             id: $datos['id'] === null ? 0 : $datos['id'],
             socio:  Socio::deserializar($datos['socio']),
             libro: Libro::deserializar($datos['libro']),
-    
+           
             fecha_desde: $datos['fecha_desde'],
             fecha_hasta:$datos['fecha_hasta'],
             fecha_dev:$datos['fecha_dev']
