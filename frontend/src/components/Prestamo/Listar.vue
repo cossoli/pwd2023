@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Listado de Prestamos</h1>
+    <h1>Listado de Préstamos</h1>
 
     <router-link class="btn-crear" to="/prestamo/crear">
-      <img src="../../assets/editar.svg" alt=""/>Crear Prestamo
+      <img src="../../assets/editar.svg" alt=""/>Crear Préstamo
     </router-link>
 
     <table>
@@ -13,106 +13,104 @@
           <th>ID Socio</th>
           <th>Fecha Desde</th>
           <th>Fecha Hasta</th>
+          <th>Fecha Devolución</th>
           <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="prestamo in items" :key="prestamo.id">
-          <td>{{ prestamo.id }}</td>
+        <tr v-for="prestamo in prestamos" :key="prestamo.id">
           <td>{{ prestamo.id_libro }}</td>
           <td>{{ prestamo.id_socio }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
-          <td>{{ prestamo.fecha_hasta }}</td>    
-          <td>{{ prestamo.fecha_dev }}</td>   
-          <td>{{ prestamo.estado }}</td> <!-- Mostrar el estado del préstamo -->
-          <td>
-            <span v-for="(autor, index) in prestamo.autores" :key="index">
-              {{ autor.nombre_apellido }}
-              <span v-if="index !== prestamo.autores.length - 1">, </span>
-            </span>
-          </td>
+          <td>{{ prestamo.fecha_hasta }}</td>
+          <td>{{ prestamo.fecha_dev }}</td>
+          <td>{{ prestamo.estado }}</td>
           <td>
             <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
           </td>
-        </tr>      
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      items: [],
-      nombre_autores :[]
-      
+      prestamos: []
     };
   },
   created() {
-    this.Listar();
-    this.obtenerNombresAutores();
+    this.obtenerPrestamos();
   },
-
   methods: {
-    async Listar() {
+    async obtenerPrestamos() {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/prestamos');
-        this.items = res.data;
+        this.prestamos = res.data;
       } catch (error) {
         console.error('Error al obtener los préstamos:', error);
+        // Manejar el error y mostrar un mensaje al usuario si es necesario
       }
     },
-    
-  async obtenerNombresAutores() {
-
-  try {
-    const res = await axios.get(`http://192.168.20.10/apiv1/autores`);
-    this.nombre_autores = res.data.map(autor => ({ id: autor.id, nombre: autor.nombre_apellido }));
-  } catch (error) {
-    console.error('Error al obtener autores:', error);
-      }
-      }
-        },
-        
     async devolverLibro(id) {
       try {
         await axios.put(`http://192.168.20.10/apiv1/prestamos/devolver/${id}`);
         // Actualizar la lista después de devolver el libro
-        this.Listar();
+        this.obtenerPrestamos();
       } catch (error) {
         console.error('Error al devolver el libro:', error);
+        // Manejar el error y mostrar un mensaje al usuario si es necesario
       }
     }
   }
-
+}
 </script>
 
 <style scoped>
-/* Estilos para los botones */
-.btn {
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+table th {
+  background-color: #f2f2f2;
+}
+table tr:hover {
+  background-color: #f5f5f5;
 }
 
+/* Estilos para los botones */
 .btn-crear {
-  background-color: #66cc99; /* Verde */
+  background-color: #66cc99;
   color: white;
   text-decoration: none;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .btn-devolver {
-  background-color: #3498db; /* Azul */
+  background-color: #3498db;
   color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.btn:hover {
-  background-color: #555; /* Cambiar color al pasar el mouse */
+.btn-devolver:hover {
+  background-color: #2980b9;
 }
 </style>
+
