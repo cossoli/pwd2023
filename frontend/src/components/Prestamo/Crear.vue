@@ -39,7 +39,7 @@ export default {
         socio: "",
         libro: "",
         fecha_desde: new Date().toISOString().substring(0, 10),
-        fecha_hasta: null,
+        fecha_hasta:new Date().toISOString().substring(0, 10),
         fecha_dev: null 
       },
       cargando: false,

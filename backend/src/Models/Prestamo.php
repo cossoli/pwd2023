@@ -98,13 +98,12 @@ class Prestamo extends ModelBase
         ];
     }
 
-    public Static function deserializar(array $datos): self
+    public Static function deserializar(array $datos): ModelBase
     {
         return new self(
             id: $datos['id'] === null ? 0 : $datos['id'],
-            socio:  Socio::deserializar($datos['socio']),
-            libro: Libro::deserializar($datos['libro']),
-           
+            socio: $datos['socio'],
+            libro: $datos['libro'],
             fecha_desde: $datos['fecha_desde'],
             fecha_hasta:$datos['fecha_hasta'],
             fecha_dev:$datos['fecha_dev']
