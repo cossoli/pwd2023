@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="prestamo in prestamos" :key="prestamo.id">
+        <tr v-for="prestamo in prestamos " :key="prestamo.id">
           <td>{{ prestamo.id_libro }}</td>
           <td>{{ prestamo.id_socio }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
@@ -58,14 +58,7 @@ export default {
       }
     },
     async devolverLibro(id) {
-      try {
-        await axios.put(`http://192.168.20.10/apiv1/prestamos/devolver/${id}`);
-        // Actualizar la lista después de devolver el libro
-        this.obtenerPrestamos();
-      } catch (error) {
-        console.error('Error al devolver el libro:', error);
-        // Manejar el error y mostrar un mensaje al usuario si es necesario
-      }
+      this.$router.push(`/Prestamos/Actualizar`);
     }
   }
 }
