@@ -27,7 +27,7 @@ export default {
   methods: {
     async actualizarAutor() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/autores/${this.autores.nombre_apellido}`, this.autores);
+        const res = await axios.put(`http://192.168.20.10/apiv1/autores/${this.autores.id}`, this.autores);
         console.log(res.data);
         alert(' Autor actualizado correctamente');
         this.$router.push('/Autor');

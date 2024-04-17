@@ -49,9 +49,11 @@ export default {
       }
     },
     
-    editarAutor(autor) {
-      this.$router.push(`/Autor/Actualizar`);
+    editarAutor(autores) {
+      this.$router.push(`/Autor/Actualizar/${autores.id}`);
     },
+
+    
     async eliminarAutorConfirmacion(autor) {
       if (confirm(`¿Estás seguro de que quieres eliminar al Autor ${autor.nombre_apellido}?`)) {
         await this.eliminarAutor(autor.id);

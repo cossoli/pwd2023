@@ -61,10 +61,10 @@ export default {
       try {
         const response = await axios.delete(`http://192.168.20.10/apiv1/socios/${socio.id}`);
         this.items = this.items.filter(item => item.id !== socio.id);
-        console.log(response.data); // Mostrar mensaje de éxito si es necesario
+        console.log(response.data); 
       } catch (error) {
         console.error(error);
-        // Mostrar mensaje de error si es necesario
+        
       }
     },
     editarSocio(socio) {
