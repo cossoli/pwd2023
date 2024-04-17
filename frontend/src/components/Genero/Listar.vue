@@ -57,14 +57,14 @@
         try {
           const response = await axios.delete(`http://192.168.20.10/apiv1/generos/${genero.id}`);
           this.items = this.items.filter(item => item.id !== genero.id);
-          console.log(response.data); // Mostrar mensaje de éxito si es necesario
+          console.log(response.data); 
         } catch (error) {
           console.error(error);
-          // Mostrar mensaje de error si es necesario
+          
         }
       },
       editarGenero(genero) {
-        this.$router.push(`/Genero/Actualizar/${genero.id}`);
+        this.$router.push(`/Genero/Actualizar`);
       }
     }
   };

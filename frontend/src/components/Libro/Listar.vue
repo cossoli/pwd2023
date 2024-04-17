@@ -12,9 +12,11 @@
           <th>ID</th>
           <th>Título</th>
           <th>Año</th>
+          <th>Estado</th>
           <th>Categoría</th>
           <th>Editorial</th>
           <th>Género</th>
+          <th>Autor</th>
           <th>Cant. Páginas</th>
           <th>Acciones</th>
         </tr>
@@ -28,6 +30,12 @@
           <td>{{ libro.categoria.descripcion }}</td>
           <td>{{ libro.editorial.nombre }}</td>
           <td>{{ libro.genero.descripcion }}</td>
+          <td>
+            <span v-for="(autor, index) in libro.autores" :key="index">
+              {{ autor.nombre_apellido }}
+              <span v-if="index !== libro.autores.length - 1">, </span>
+            </span>
+          </td>
           <td>{{ libro.cant_paginas }}</td>
           <td>
             <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
@@ -65,7 +73,7 @@ export default {
       }
     },
     editarLibro(libro) {
-      this.$router.push(`/Libro/Actualizar`);
+      this.$router.push(`/libro/Actualizar`);
     },
     async eliminarLibroConfirmacion(libro) {
       if (confirm(`¿Estás seguro de que quieres eliminar el libro "${libro.titulo}"?`)) {

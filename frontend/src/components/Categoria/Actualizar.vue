@@ -17,7 +17,7 @@
         
           async ActualizarCategoria (categoria){
                const res=await axios.put('http://192.168.20.10/apiv1/categorias/'+this.$route.params, categoria)
-                    this.$route.push('/ categoria')
+                    this.$route.push('/Categoria/Actualizar')
                 
            
          },

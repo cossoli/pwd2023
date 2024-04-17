@@ -1,12 +1,23 @@
+<template>
+  <div>
+    <h2>Actualizar Autor</h2>
+      
+      <input v-model="autores.nombre_apellido" type="text" label="Nombre y Apellido" placeholder="Apellido y Nombre">
+    </div>
+    <button @click="actualizarAutor">Actualizar</button>
+  
+</template>
+
 <script lang="ts">
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      autor: {
+      autores: {
+        id:'',
         nombre_apellido: '',
-        activo: 1
+      
       }
     };
   },
@@ -16,38 +27,28 @@ export default {
   methods: {
     async actualizarAutor() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/autor/${this.$route.params.id}`, this.autor);
+        const res = await axios.put(`http://192.168.20.10/apiv1/autores/${this.autores.nombre_apellido}`, this.autores);
         console.log(res.data);
-        // Redirigir a la página de autor o realizar otra acción después de actualizar
-        this.$router.push('/autor');
+        alert(' Autor actualizado correctamente');
+        this.$router.push('/Autor');
       } catch (error) {
         console.error(error);
-        // Manejar errores adecuadamente, por ejemplo, mostrar un mensaje al usuario
+        
       }
     },
     async buscarAutor() {
       try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/autor/${this.$route.params.id}`);
-        this.autor = res.data;
-        console.log(this.autor);
+        const res = await axios.get(`http://192.168.20.10/apiv1/autores/${this.$route.params.id}`);
+        this.autores = res.data;
+        console.log(this.autores);
       } catch (error) {
         console.error(error);
-        // Manejar errores adecuadamente, por ejemplo, redirigir a una página de error
+      
       }
     }
   }
 };
 </script>
-
-<template>
-  <div>
-    <h2>Actualizar Autor</h2>
-    <div v-if="autor.activo === 1">
-      <input v-model="autor.nombre_apellido" type="text" label="Nombre y Apellido" placeholder="Apellido y Nombre">
-    </div>
-    <button @click="actualizarAutor">Actualizar</button>
-  </div>
-</template>
 
 <style scoped>
 input {
@@ -59,5 +60,4 @@ input {
   margin: 15px;
 }
 </style>
-
 
