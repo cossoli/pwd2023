@@ -74,8 +74,8 @@ export default {
         console.error(error);
       }
     },
-    editarLibro(libro) {
-      this.$router.push(`/libro/Actualizar`);
+    editarLibro(id) {
+      this.$router.push("/libro/Actualizar" +id);
     },
     async eliminarLibroConfirmacion(libro) {
       if (confirm(`¿Estás seguro de que quieres eliminar el libro "${libro.titulo}"?`)) {

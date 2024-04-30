@@ -63,8 +63,8 @@
           
         }
       },
-      editarGenero(genero) {
-        this.$router.push(`/Genero/Actualizar`);
+      editarGenero(id) {
+        this.$router.push("/Genero/Actualizar" +id);
       }
     }
   };
