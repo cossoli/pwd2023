@@ -18,7 +18,7 @@
           <td>{{ autor.id }}</td>
           <td>{{ autor.nombre_apellido }}</td>
           <td>
-            <button @click="editarAutor(autor)" class="btn-editar">Editar</button>
+            <button @click="editarAutor(autor.id)" class="btn-editar">Editar</button>
             <button @click="eliminarAutorConfirmacion(autor)" class="btn-eliminar">Eliminar</button>
           </td>
         </tr>
@@ -49,8 +49,8 @@ export default {
       }
     },
     
-    editarAutor(autores) {
-      this.$router.push(`/Autor/Actualizar/${autores.id}`);
+    editarAutor(id) {
+      this.$router.push("/Autor/Actualizar/" +id);
     },
 
     

@@ -20,8 +20,8 @@
       </thead>
       <tbody>
         <tr v-for="prestamo in prestamos " :key="prestamo.id">
-          <td>{{ prestamo.id_libro }}</td>
-          <td>{{ prestamo.id_socio }}</td>
+          <td>{{ prestamo.libro.id }}</td>
+          <td>{{ prestamo.socio.id }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
           <td>{{ prestamo.fecha_hasta }}</td>
           <td>{{ prestamo.fecha_dev }}</td>

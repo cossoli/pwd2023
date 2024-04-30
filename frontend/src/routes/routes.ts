@@ -56,7 +56,7 @@ const router = createRouter({
 
       },
       {
-         path: '/Autor/actualizar',
+         path: '/Autor/actualizar/:id',
          name: 'ActualizarAutores',
          component: ActualizarAutores,
       },
@@ -74,7 +74,7 @@ const router = createRouter({
 
       },
       {
-         path:'/Genero/actualizar',
+         path:'/Genero/actualizar/:id',
          name: 'ActualizarGenero',
          component: ActualizarGenero,
 
@@ -93,7 +93,7 @@ const router = createRouter({
       },
 
 {
-         path: '/Libro/actualizar',
+         path: '/Libro/actualizar/:id',
          name: 'ActualizarLibro',
          component: ActualizarLibro,
 
@@ -115,7 +115,7 @@ const router = createRouter({
       },
 
       {
-         path: '/Editorial/actualizar',
+         path: '/Editorial/actualizar/:id',
          name: 'ActualizarEditorial',
          component: ActualizarEditorial,
 
@@ -138,7 +138,7 @@ const router = createRouter({
       },
 
       {
-         path: '/Categoria/actualizar',
+         path: '/Categoria/actualizar/:id',
          name: 'ActualizarCategoria',
          component: ActualizarCategoria,
 
@@ -159,7 +159,7 @@ const router = createRouter({
 
       } ,
       {
-         path: '/Prestamo/actualizar',
+         path: '/Prestamo/actualizar/:id',
          name: 'ActualizarPrestamo',
          component: ActualizarPrestamo,
 
