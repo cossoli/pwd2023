@@ -5,13 +5,11 @@ export default {
   data() {
     return {
       prestamo: {
-        // Inicializa aquí todas las propiedades del objeto prestamo que deseas actualizar
+        id:'',
+        fecha_desde:'',
+        fecha_hasta:'',
       },
-      socio: {
-        nombre_apellido: '',
-        telefono: '',
-        direccion: ''
-      }
+         
     };
   },
   created() {
@@ -20,16 +18,16 @@ export default {
   methods: {
     async actualizarPrestamo() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/prestamo/${this.$route.params.id}`, this.prestamo);
+        const res = await axios.put(`http://192.168.20.10/apiv1/prestamos/${this.prestamo.id}`, this.prestamo);
         console.log(res.data); // Manejar la respuesta según sea necesario
-        this.$router.push('/socios');
+        this.$router.push('/prestamo');
       } catch (error) {
         console.error('Error al actualizar el préstamo:', error);
       }
     },
     async buscar() {
       try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/prestamo/${this.$route.params.id}`);
+        const res = await axios.get(`http://192.168.20.10/apiv1/prestamos/${this.$route.params.id}`);
         this.prestamo = res.data;
         console.log(this.prestamo);
       } catch (error) {
@@ -43,11 +41,10 @@ export default {
 <template>
   <div>
     <h2>Actualizar préstamo</h2>
-    <div v-if="socio.activo === 1">
-      <input v-model="socio.nombre_apellido" type="text" label="Nombre y Apellido" placeholder="Apellido y Nombre">
-      <input v-model="socio.telefono" type="text" label="Teléfono" placeholder="Teléfono">
-      <input v-model="socio.direccion" type="text" label="Dirección" placeholder="Dirección">
-    </div>
+    
+      <input v-model="prestamo.fecha_desde" type="text" label="fecha desde" placeholder="fecha desde">
+      <input v-model="prestamo.fecha_hasta" type="text" label="fecha hasta" placeholder="fecha hasta">
+    
     <button @click="actualizarPrestamo">Actualizar Préstamo</button>
   </div>
 </template>

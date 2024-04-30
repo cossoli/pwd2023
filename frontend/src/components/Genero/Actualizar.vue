@@ -5,8 +5,9 @@ export default {
   data() {
     return {
       genero: {
+        id : '',
         descripcion: '',
-        activo: 1 // Puedes inicializar otros campos según sea necesario
+        activo: 1
       }
     };
   },
@@ -16,23 +17,21 @@ export default {
   methods: {
     async ActualizarGenero() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/genero/${this.$route.params.id}`, this.genero);
-        console.log(res.data);
-
-        // Redirigir a la página de detalle del género actualizado u otra acción necesaria
+        const res = await axios.put(`http://192.168.20.10/apiv1/generos/${this.genero.id}`, this.genero);
+       console.log(res.data);
+  
       } catch (error) {
         console.error(error);
-        // Manejar errores adecuadamente, por ejemplo, mostrar un mensaje al usuario
       }
     },
     async buscar() {
       try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/genero/${this.$route.params.id}`);
+        const res = await axios.get(`http://192.168.20.10/apiv1/generos/${this.$route.params.id}`);
         this.genero = res.data;
         console.log(this.genero);
       } catch (error) {
         console.error(error);
-        // Manejar errores adecuadamente, por ejemplo, redirigir a una página de error
+        
       }
     }
   }
@@ -41,9 +40,7 @@ export default {
 
 <template>
   <h2>Actualizar género</h2>
-  <div v-if="genero.activo === 1">
     <input v-model="genero.descripcion" type="text" label="Descripción" placeholder="Descripción">
-  </div>
   <button @click="ActualizarGenero">Actualizar</button>
 </template>
 

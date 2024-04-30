@@ -40,6 +40,8 @@
           <td>
             <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
             <button @click="eliminarLibroConfirmacion(libro)" class="btn-eliminar">Eliminar</button>
+
+          <button @click="prestarLibro(libro)" class="btn-prestar">Prestar Libro</button>
           </td>
         </tr>
       </tbody>
@@ -88,7 +90,35 @@ export default {
         console.error('Error al eliminar el libro:', error);
       }
     },
+    async prestarLibro(libro) {
+      try {
+    if (libro.estado !== 'Disponible') {
+      alert('El libro seleccionado no está disponible para préstamo.');
+      return;
+    }
+
+
+    const usuarioId = 1; 
+    const fechaInicio = new Date().toISOString();
+    const prestamo = {
+      libro_id: libro.id,
+      usuario_id: usuarioId,
+      fecha_inicio: fechaInicio
+    };
+    await axios.post('http://192.168.20.10/apiv1/prestamos', prestamo);
+
+    
+    libro.estado = 'Prestado'; 
+    await axios.put(`http://192.168.20.10/apiv1/libros/${libro.id}`, { estado: 'Prestado' });
+   
+    alert(`El libro "${libro.titulo}" se ha prestado correctamente.`);
+  } catch (error) {
+    console.error('Error al prestar el libro:', error);
+    alert('Ocurrió un error al prestar el libro. Por favor, inténtalo de nuevo.');
   }
+}
+      
+  },
 };
 </script>
 
@@ -118,4 +148,14 @@ th {
   background-color: #e74c3c; /* Rojo */
   color: #fff;
 }
+
+.btn-prestar {
+  background-color: #66cc99; /* Verde */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 </style>

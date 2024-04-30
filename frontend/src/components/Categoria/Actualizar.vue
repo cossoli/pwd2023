@@ -4,7 +4,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      categoria: {
+      categorias: {
         id: '',
         descripcion: '',
         activo :'',
@@ -16,24 +16,24 @@ export default {
     this.buscar();
   },
   methods: {
-    async ActualizarCategoria(categoria) {
+    async ActualizarCategoria() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/categorias/${this.$route.params.id}`, categoria);
+        const res = await axios.put(`http://192.168.20.10/apiv1/categorias/${this.categorias.id}`, this.categoria);
         console.log(res.data);
         this.$router.push('/Categoria');
       } catch (error) {
         console.error(error);
-        // Manejar errores adecuadamente, por ejemplo, mostrar un mensaje al usuario
+       
       }
     },
     async buscar() {
       try {
         const res = await axios.get(`http://192.168.20.10/apiv1/categorias/${this.$route.params.id}`);
-        this.categoria = res.data;
-        console.log(this.categoria);
+        this.categorias = res.data;
+        console.log(this.categorias);
       } catch (error) {
         console.error(error);
-        // Manejar errores adecuadamente, por ejemplo, redirigir a una página de error
+       
       }
     }
   }
@@ -43,8 +43,8 @@ export default {
 <template>
   <div>
     <h2>Actualizar Categoría</h2>
-    <input v-model="categoria.descripcion" type="text" label="Nombre" placeholder="Nombre">
-    <button @click="ActualizarCategoria(categoria)">Actualizar</button>
+    <input v-model="categorias.descripcion" type="text" label="Nombre" placeholder="Nombre">
+    <button @click="ActualizarCategoria">Actualizar</button>
   </div>
 </template>
 

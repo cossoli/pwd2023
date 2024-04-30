@@ -54,12 +54,32 @@ export default {
         this.prestamos = res.data;
       } catch (error) {
         console.error('Error al obtener los préstamos:', error);
-        // Manejar el error y mostrar un mensaje al usuario si es necesario
+      
       }
     },
-    async devolverLibro(id) {
-      this.$router.push(`/Prestamo/Actualizar`);
+    async devolverLibro(idLibro) {
+  try {
+    
+    const prestamo = this.prestamos.find(p => p.libro.id === idLibro);
+    if (!prestamo.id) {
+      console.error('No se encontró el préstamo asociado al libro.');
+      return;
     }
+
+
+    const resPrestamo = await axios.put(`http://192.168.20.10/apiv1/prestamos/${prestamo.id}`);
+    console.log('Libro devuelto:', resPrestamo.data);
+
+
+    const resLibro = await axios.put(`http://192.168.20.10/apiv1/libros/${idLibro}`, { estado: 'disponible' });
+    console.log('Estado del libro actualizado:', resLibro.data);
+
+    this.obtenerPrestamos();
+  } catch (error) {
+    console.error('Error al devolver el libro:', error);
+  }
+}
+
   }
 }
 </script>

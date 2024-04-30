@@ -1,8 +1,7 @@
 <template>
   <div>
     <h2>Actualizar libro</h2>
-    <div v-if="Libros.activo == 1">
-      <div class="form-group">
+       <div class="form-group">
         <label for="estado">Estado</label>
         <input v-model="Libros.estado" type="text" id="estado" placeholder="Estado">
       </div>
@@ -34,7 +33,7 @@
         <label for="autores">Autores</label>
         <input v-model="autores" type="text" id="autores" placeholder="Autores">
       </div>
-    </div>
+    
     <button @click="ActualizarLibro" :disabled="cargando" class="guardar-btn">{{ cargando ? 'Cargando...' : 'Actualizar' }}</button>
     <p v-if="mensajeError" class="error-message">{{ mensajeError }}</p>
   </div>
@@ -66,7 +65,7 @@ export default {
   methods: {
     async buscarLibro() {
       try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/libros/${this.$route.params.id}`);
+        const res = await axios.get(`http://192.168.20.10/apiv1/libros/${this.libros.id}`, this.libros);
         this.Libros = res.data;
       } catch (error) {
         console.error("Error al obtener el libro:", error);

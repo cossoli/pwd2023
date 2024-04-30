@@ -16,25 +16,24 @@
     data() {
       return {
         Autor: {
-          id: 4,
+          id: " ",
           nombre_apellido: "",
         },
-        mensaje: "" // Mensaje de retroalimentación para el usuario
+        mensaje: "" 
       };
     },
     methods: {
       async crearAutor() {
         try {
-          // Validar que el nombre y apellido no estén vacíos
+         
           if (!this.Autor.nombre_apellido.trim()) {
             this.mensaje = "Por favor ingresa un nombre y apellido válidos para el autor.";
             return;
           }
   
           const res = await axios.post('http://192.168.20.10/apiv1/autores/nuevo', this.Autor);
-          console.log(res.data); // Manejar la respuesta según sea necesario
+          console.log(res.data); 
   
-          // Limpiar el formulario y mostrar mensaje de éxito
           this.Autor.nombre_apellido = "";
           this.mensaje = "Autor creado exitosamente.";
         } catch (error) {
