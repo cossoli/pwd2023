@@ -92,7 +92,7 @@ export default {
     },
     async prestarLibro(libro) {
       try {
-    if (libro.estado !== 'Disponible') {
+    if (libro.estado == 'Disponible') {
       alert('El libro seleccionado no está disponible para préstamo.');
       return;
     }
