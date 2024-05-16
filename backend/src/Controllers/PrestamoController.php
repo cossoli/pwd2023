@@ -5,6 +5,7 @@ namespace Raiz\Controllers;
 use Raiz\Bd\LibroDAO;
 use Raiz\Bd\PrestamoDAO;
 use Raiz\Bd\SocioDAO;
+use Raiz\Models\Libro;
 use Raiz\Models\Prestamo;
 
 
@@ -16,7 +17,11 @@ class PrestamoController implements InterfaceController
         $listaPrestamos = PrestamoDAO::listar();
 
         foreach ($listaPrestamos as $prestamo) {
+           
+            if($prestamo->getFechaDev()=== null )
+        
             $prestamos[] = $prestamo->serializar();
+        
         }
         return $prestamos;
     }
@@ -38,6 +43,7 @@ class PrestamoController implements InterfaceController
     $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
     $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
 
+   if ($parametros['libro']->getEstado === Libro::ACTIVO ){
    
     // Crear el objeto Prestamo usando los datos proporcionados
     $prestamo = new Prestamo(
@@ -52,18 +58,32 @@ class PrestamoController implements InterfaceController
 
     // Guardar el préstamo en la base de datos
     PrestamoDAO::crear($prestamo);
+    $parametros['libro']->setEstado === (Libro::PRESTADO); 
+    LibroDAO::actualizarEstado($parametros['libro']);
 
     // Devolver el préstamo serializado como array
     return $prestamo->serializar();
 }
-
+}
     public static function actualizar(array $parametros): array
     {
-        $prestamo = Prestamo::deserializar($parametros);
-        PrestamoDAO::actualizar($prestamo);
-        return $prestamo->serializar();
+        
+        $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
+        $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
+       
+        if ($parametros['libro']->getEstado === Libro::PRESTADO ){
+       
+            $prestamo = Prestamo::deserializar($parametros);
+       
+            PrestamoDAO::actualizar($prestamo);
+       
+            $parametros['libro']->setEstado === (Libro::ACTIVO); 
+       
+            LibroDAO::actualizarEstado($parametros['libro']);
+       
+            return $prestamo->serializar();
     }
-
+    }
     public static function borrar(mixed $id): void
     {
         PrestamoDAO::borrar($id);

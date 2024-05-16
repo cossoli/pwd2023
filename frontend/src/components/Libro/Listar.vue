@@ -102,7 +102,7 @@ export default {
     const fechaInicio = new Date().toISOString();
     const prestamo = {
       libro_id: libro.id,
-      usuario_id: usuarioId,
+      socio_id: usuarioId,
       fecha_inicio: fechaInicio
     };
     await axios.post('http://192.168.20.10/apiv1/prestamos', prestamo);
