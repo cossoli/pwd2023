@@ -27,7 +27,7 @@
           <td>{{ prestamo.fecha_dev }}</td>
           <td>{{ prestamo.estado }}</td>
           <td>
-            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
+            <button class="btn-devolver" @click="prestamoydevolver(prestamo.id)">Devolver</button>
           </td>
         </tr>
       </tbody>
@@ -57,27 +57,8 @@ export default {
       
       }
     },
-    async devolverLibro(idLibro) {
-  try {
-    
-    const prestamo = this.prestamos.find(p => p.libro.id === idLibro);
-    if (!prestamo.id) {
-      console.error('No se encontró el préstamo asociado al libro.');
-      return;
-    }
-
-
-    const resPrestamo = await axios.put(`http://192.168.20.10/apiv1/prestamos/${prestamo.id}`);
-    console.log('Libro devuelto:', resPrestamo.data);
-
-
-    const resLibro = await axios.put(`http://192.168.20.10/apiv1/libros/${idLibro}`, { estado: 'disponible' });
-    console.log('Estado del libro actualizado:', resLibro.data);
-
-    this.obtenerPrestamos();
-  } catch (error) {
-    console.error('Error al devolver el libro:', error);
-  }
+    async prestamoydevolverdevolver() {
+ 
 }
 
   }
