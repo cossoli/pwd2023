@@ -17,6 +17,7 @@ class PrestamoController implements InterfaceController
         foreach ($listaPrestamos as $prestamo) {
             $prestamos[] = $prestamo->serializar();
         }
+       
         return $prestamos;
     }
 
@@ -36,8 +37,7 @@ class PrestamoController implements InterfaceController
     // Buscar el socio y el libro por sus IDs
     $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
     $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
-
-   
+    
     // Crear el objeto Prestamo usando los datos proporcionados
     $prestamo = new Prestamo(
         id: $parametros['id'] ?? 0, // Si no se proporciona un ID, se establece en 0

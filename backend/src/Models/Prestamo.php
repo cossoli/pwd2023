@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\Static_;
 
 class Prestamo extends ModelBase 
 {
-    public int $id;
+   
     public Socio $socio;
     public Libro $libro;
     public string $fecha_desde;
@@ -23,7 +23,7 @@ class Prestamo extends ModelBase
         string $fecha_hasta, 
         ?string $fecha_dev = null
     ) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->socio = $socio;
         $this->libro = $libro;
         $this->fecha_desde = $fecha_desde;
@@ -46,10 +46,11 @@ class Prestamo extends ModelBase
 
     public Static function deserializar(array $datos): self
     {
+       
         return new self(
             id: $datos['id'] === null ? 0 : $datos['id'],
-            socio:  Socio::deserializar($datos['socio']),
-            libro: Libro::deserializar($datos['libro']),
+            socio: $datos['socio'],
+            libro: $datos['libro'],
     
             fecha_desde: $datos['fecha_desde'],
             fecha_hasta:$datos['fecha_hasta'],

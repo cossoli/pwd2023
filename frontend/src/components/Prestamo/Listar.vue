@@ -3,95 +3,84 @@
     <h1>Listado de Prestamos</h1>
 
     <router-link class="btn-crear" to="/prestamo/crear">
-      <img src="../../assets/editar.svg" alt=""/>Crear Prestamo
+      <img src="../../assets/editar.svg" alt="" />Crear Prestamo
     </router-link>
 
     <table>
       <thead>
         <tr>
           <th>ID</th>
-          <th>ID Libro</th>
-          <th>ID Socio</th>
+          <th>Libro</th>
+          <th>Socio</th>
           <th>Fecha Desde</th>
           <th>Fecha Hasta</th>
           <th>Fecha Devolución</th>
           <th>Estado</th>
-          <th>Autores</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="prestamo in items" :key="prestamo.id">
           <td>{{ prestamo.id }}</td>
-          <td>{{ prestamo.id_libro }}</td>
-          <td>{{ prestamo.id_socio }}</td>
+          <td>{{ prestamo.libro.titulo }}</td>
+          <td>{{ prestamo.socio.nombre_apellido }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
-          <td>{{ prestamo.fecha_hasta }}</td>    
-          <td>{{ prestamo.fecha_dev }}</td>   
-          <td>{{ prestamo.estado }}</td> <!-- Mostrar el estado del préstamo -->
+          <td>{{ prestamo.fecha_hasta }}</td>
+          <td>{{ prestamo.fecha_dev }}</td>
+          <td>{{ prestamo.estado }}</td>
+          <!-- Mostrar el estado del préstamo -->
+
           <td>
-            <span v-for="(autor, index) in prestamo.autores" :key="index">
-              {{ autor.nombre_apellido }}
-              <span v-if="index !== prestamo.autores.length - 1">, </span>
-            </span>
+            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">
+              Devolver
+            </button>
           </td>
-          <td>
-            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
-          </td>
-        </tr>      
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <script lang="ts">
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
       items: [],
-      nombre_autores :[]
       
     };
   },
   created() {
     this.Listar();
-    this.obtenerNombresAutores();
+    
   },
 
   methods: {
+    async devolverLibro(id: number) {
+    try {
+      await axios.put(`http://192.168.20.10/apiv1/prestamos/devolver/${id}`);
+      // Actualizar la lista después de devolver el libro
+      this.Listar();
+    } catch (error) {
+      console.error("Error al devolver el libro:", error);
+    }
+  },
     async Listar() {
       try {
-        const res = await axios.get('http://192.168.20.10/apiv1/prestamos');
+        const res = await axios.get("http://192.168.20.10/apiv1/prestamos");
+        console.log(res.data)
         this.items = res.data;
       } catch (error) {
-        console.error('Error al obtener los préstamos:', error);
+        console.error("Error al obtener los préstamos:", error);
       }
     },
+
     
-  async obtenerNombresAutores() {
+  },
 
-  try {
-    const res = await axios.get(`http://192.168.20.10/apiv1/autores`);
-    this.nombre_autores = res.data.map(autor => ({ id: autor.id, nombre: autor.nombre_apellido }));
-  } catch (error) {
-    console.error('Error al obtener autores:', error);
-      }
-      }
-        },
-        
-    async devolverLibro(id) {
-      try {
-        await axios.put(`http://192.168.20.10/apiv1/prestamos/devolver/${id}`);
-        // Actualizar la lista después de devolver el libro
-        this.Listar();
-      } catch (error) {
-        console.error('Error al devolver el libro:', error);
-      }
-    }
-  }
-
+  
+};
 </script>
 
 <style scoped>
@@ -119,4 +108,3 @@ export default {
   background-color: #555; /* Cambiar color al pasar el mouse */
 }
 </style>
-
