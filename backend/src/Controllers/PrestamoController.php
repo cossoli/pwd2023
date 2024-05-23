@@ -18,7 +18,7 @@ class PrestamoController implements InterfaceController
 
         foreach ($listaPrestamos as $prestamo) {
            
-            if($prestamo->getFechaDev()=== null )
+          //  if($prestamo->getFechaDev()=== null )
         
             $prestamos[] = $prestamo->serializar();
         
