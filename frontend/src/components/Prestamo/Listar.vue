@@ -27,7 +27,7 @@
           <td>{{ prestamo.fecha_dev }}</td>
           <td>{{ prestamo.estado }}</td>
           <td>
-            <button class="btn-devolver" @click="prestamoydevolver(prestamo.id)">Devolver</button>
+            <button class="btn-devolver" @click="prestarlibro(prestamo.id)">Devolver</button>
           </td>
         </tr>
       </tbody>
@@ -57,7 +57,8 @@ export default {
       
       }
     },
-    async prestamoydevolverdevolver() {
+    prestarlibro(id) {
+      this.$router.push("/Prestamo/crear" +id);
  
 }
 

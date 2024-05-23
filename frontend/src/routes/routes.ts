@@ -164,13 +164,7 @@ const router = createRouter({
          component: ActualizarPrestamo,
 
       } ,
-
-
-
-
-
-
-
+     
    ]
 
 })

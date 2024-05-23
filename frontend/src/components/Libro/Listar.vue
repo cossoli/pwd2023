@@ -90,11 +90,7 @@ export default {
         console.error('Error al eliminar el libro:', error);
       }
     },
-    async prestarLibro(){
-      this.$router.push("/libro/prestar");
-      
-    },
-      
+          
   },
 };
 </script>

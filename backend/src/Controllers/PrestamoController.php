@@ -43,7 +43,7 @@ class PrestamoController implements InterfaceController
     $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
     $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
 
-   if ($parametros['libro']->getEstado === Libro::ACTIVO ){
+   if ($parametros['libro']->getEstado() === Libro::ACTIVO ){
    
     // Crear el objeto Prestamo usando los datos proporcionados
     $prestamo = new Prestamo(
@@ -58,7 +58,7 @@ class PrestamoController implements InterfaceController
 
     // Guardar el préstamo en la base de datos
     PrestamoDAO::crear($prestamo);
-    $parametros['libro']->setEstado === (Libro::PRESTADO); 
+    $parametros['libro']->setEstado() === (Libro::PRESTADO); 
     LibroDAO::actualizarEstado($parametros['libro']);
 
     // Devolver el préstamo serializado como array
@@ -71,13 +71,13 @@ class PrestamoController implements InterfaceController
         $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
         $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
        
-        if ($parametros['libro']->getEstado === Libro::PRESTADO ){
+        if ($parametros['libro']->getEstado() === Libro::PRESTADO ){
        
             $prestamo = Prestamo::deserializar($parametros);
        
             PrestamoDAO::actualizar($prestamo);
        
-            $parametros['libro']->setEstado === (Libro::ACTIVO); 
+            $parametros['libro']->setEstado() === (Libro::ACTIVO); 
        
             LibroDAO::actualizarEstado($parametros['libro']);
        
