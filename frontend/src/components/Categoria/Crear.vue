@@ -1,13 +1,14 @@
 <template>
-    <div>
-      <h2>Crear nueva categoría</h2>
-  
-      <input v-model="categoria.descripcion" type="text" label="Descripción" placeholder="Descripción">
-      <button @click="crearCategoria">Guardar</button>
-  
-      <p v-if="mensaje">{{ mensaje }}</p>
-    </div>
-  </template>
+  <div class="form-container">
+    <h2>Crear nueva categoría</h2>
+
+    <input v-model="categoria.descripcion" type="text" label="Descripción" placeholder="Descripción">
+    <button @click="crearCategoria" class="guardar-btn">Guardar</button>
+
+    <p v-if="mensaje">{{ mensaje }}</p>
+  </div>
+</template>
+
   
   <script lang="ts">
   import axios from 'axios';
@@ -47,15 +48,42 @@
   };
   </script>
   
-  <style>
-  input {
-    width: 50%;
-    font-size: 1.2em;
-    display: flex;
-    align-content: center;
-    padding: 10px;
-    margin: 15px;
-  }
-  </style>
-  
+  <style scoped>
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
 
+input {
+  width: 100%;
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 15px 0;
+  box-sizing: border-box;
+}
+
+.guardar-btn {
+  padding: 10px 20px;
+  background-color: #28a745; /* Verde */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.guardar-btn:hover {
+  background-color: #218838; /* Verde oscuro */
+}
+
+p {
+  color: #333;
+  font-size: 1em;
+  margin-top: 15px;
+}
+</style>

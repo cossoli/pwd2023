@@ -2,8 +2,8 @@
   <div>
     <h1>Listado de libros</h1>
 
-    <router-link class="crear" to="/libro/crear">
-      <img src="../..assets/editar.svg" alt="" />Crear libros
+    <router-link class="crear-btn" to="/libro/crear">
+      <img src="../../assets/editar.svg" alt="" />Crear libros
     </router-link>
 
     <table>
@@ -40,8 +40,6 @@
           <td>
             <button @click="editarLibro(libro.id)" class="btn-editar">Editar</button>
             <button @click="eliminarLibroConfirmacion(libro)" class="btn-eliminar">Eliminar</button>
-
-          <button @click="prestarLibro(libro)" class="btn-prestar">Prestar Libro</button>
           </td>
         </tr>
       </tbody>
@@ -51,10 +49,8 @@
 
 <script>
 import axios from 'axios';
-import Boton from '../Boton.vue';
 
 export default {
-  components: { Boton },
   data() {
     return {
       items: [],
@@ -68,14 +64,12 @@ export default {
       try {
         const res = await axios.get('http://192.168.20.10/apiv1/libros');
         this.items = res.data;
-
-        
       } catch (error) {
         console.error(error);
       }
     },
     editarLibro(id) {
-      this.$router.push("/libro/Actualizar" +id);
+      this.$router.push(`/libro/Actualizar/${id}`);
     },
     async eliminarLibroConfirmacion(libro) {
       if (confirm(`¿Estás seguro de que quieres eliminar el libro "${libro.titulo}"?`)) {
@@ -90,7 +84,6 @@ export default {
         console.error('Error al eliminar el libro:', error);
       }
     },
-          
   },
 };
 </script>
@@ -115,20 +108,40 @@ th {
   background-color: #3498db; /* Azul */
   color: #fff;
   margin-right: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .btn-eliminar {
   background-color: #e74c3c; /* Rojo */
   color: #fff;
-}
-
-.btn-prestar {
-  background-color: #66cc99; /* Verde */
-  color: white;
-  border: none;
   padding: 8px 12px;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+.crear-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #28a745; /* Verde */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.crear-btn img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.crear-btn:hover {
+  background-color: #218838; /* Verde oscuro */
+}
 </style>
+
