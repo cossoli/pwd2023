@@ -1,32 +1,34 @@
 <template>
-  <div>
-    <form @submit.prevent="manejarEnvio">
-      <input v-model="busqueda" type="text" placeholder="Buscar libro por nombre" @input="debouncedObtenerLibros" />
-      <ul v-if="busqueda && librosFiltrados.length" class="suggestions">
-        <li v-for="(libro, index) in librosFiltrados" :key="index" @click="seleccionarLibro(libro)">
-          {{ libro.titulo }}
-        </li>
-      </ul>
+  <div class="container">
+    <form @submit.prevent="manejarEnvio" class="formulario">
+      <div class="busqueda-libro">
+        <input v-model="busqueda" type="text" placeholder="Buscar libro por nombre" @input="debouncedObtenerLibros" />
+        <ul v-if="busqueda && librosFiltrados.length" class="suggestions">
+          <li v-for="(libro, index) in librosFiltrados" :key="index" @click="seleccionarLibro(libro)">
+            {{ libro.titulo }}
+          </li>
+        </ul>
+      </div>
+
       <div class="error" v-if="busqueda && !librosFiltrados.length">
         <h1>Libro no encontrado</h1>
       </div>
-      
-      <div v-if="detallesLibroSeleccionado">
+
+      <div v-if="detallesLibroSeleccionado" class="detalles-libro">
         <h2>Detalles del Libro Seleccionado</h2>
         <p><strong>ID:</strong> {{ detallesLibroSeleccionado.id }}</p>
         <p><strong>Nombre del Libro:</strong> {{ detallesLibroSeleccionado.titulo }}</p>
-        
-        <input v-model="busquedaSocio" type="text" placeholder="Buscar socio por nombre" @input="debouncedObtenerSocios" />
-        <ul v-if="busquedaSocio && sociosFiltrados.length" class="suggestions">
-          <li v-for="(socio, index) in sociosFiltrados" :key="index" @click="seleccionarSocio(socio)">
+
+        <select v-model="prestamo.id_socio" required>
+          <option disabled value="">Seleccione un socio</option>
+          <option v-for="socio in socios" :key="socio.id" :value="socio.id">
             {{ socio.nombre }}
-          </li>
-        </ul>
-        
-        <input v-model="prestamo.id_socio" type="number" placeholder="ID Socio" required min="1" readonly />
+          </option>
+        </select>
+
         <input v-model="prestamo.fecha_desde" type="date" placeholder="Fecha Desde" required />
         <input v-model="prestamo.fecha_hasta" type="date" placeholder="Fecha Hasta" required />
-        
+
         <button type="submit" class="btn-prestar">Prestar Libro</button>
       </div>
     </form>
@@ -34,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import axios from 'axios';
 
 interface Libro {
@@ -51,7 +53,7 @@ interface Libro {
 
 interface Socio {
   id: number;
-
+  nombre: string;
 }
 
 interface Prestamo {
@@ -61,11 +63,9 @@ interface Prestamo {
 }
 
 let busqueda = ref('');
-let busquedaSocio = ref('');
 let libros = ref<Array<Libro>>([]);
 let librosFiltrados = ref<Array<Libro>>([]);
 let socios = ref<Array<Socio>>([]);
-let sociosFiltrados = ref<Array<Socio>>([]);
 let libroSeleccionado = ref<number | null>(null);
 
 let prestamo = ref<Prestamo>({
@@ -90,15 +90,9 @@ const obtenerLibros = async () => {
 };
 
 const obtenerSocios = async () => {
-  if (busquedaSocio.value.trim() === '') {
-    sociosFiltrados.value = [];
-    return;
-  }
-
   try {
-    const respuesta = await axios.get(`http://192.168.20.10/apiv1/socios?busqueda=${busquedaSocio.value}`);
+    const respuesta = await axios.get('http://192.168.20.10/apiv1/socios');
     socios.value = respuesta.data;
-    sociosFiltrados.value = socios.value;
   } catch (error) {
     console.error('Error al obtener socios:', error);
   }
@@ -111,24 +105,13 @@ const debouncedObtenerLibros = () => {
   debounceTimerLibros = setTimeout(obtenerLibros, 300);
 };
 
-let debounceTimerSocios: ReturnType<typeof setTimeout>;
-const debouncedObtenerSocios = () => {
-  clearTimeout(debounceTimerSocios);
-  debounceTimerSocios = setTimeout(obtenerSocios, 300);
-};
-
 watch(busqueda, debouncedObtenerLibros);
-watch(busquedaSocio, debouncedObtenerSocios);
+onMounted(obtenerSocios);
 
 const seleccionarLibro = (libro: Libro) => {
   libroSeleccionado.value = libro.id;
   busqueda.value = libro.titulo;
   librosFiltrados.value = [];
-};
-
-const seleccionarSocio = (socio: Socio) => {
-  prestamo.value.id_socio = socio.id;
-  sociosFiltrados.value = [];
 };
 
 const manejarEnvio = async () => {
@@ -142,7 +125,6 @@ const manejarEnvio = async () => {
       });
       libroSeleccionado.value = null;
       busqueda.value = '';
-      busquedaSocio.value = '';
       prestamo.value = { id_socio: 0, fecha_desde: '', fecha_hasta: '' };
     } catch (error) {
       console.error('Error al prestar el libro:', error);
@@ -158,25 +140,53 @@ const detallesLibroSeleccionado = computed(() => {
 </script>
 
 <style scoped>
-.success,
-.error {
-  width: 90%;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+  padding: 1em;
+}
+
+.formulario {
+  background-color: white;
   padding: 1.5em;
-  margin: 0 auto;
-  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
-thead {
+
+.formulario .busqueda-libro {
+  position: relative;
+}
+
+.formulario input,
+.formulario select {
+  padding: 0.6em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.formulario .btn-prestar {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 0.6em;
+  border-radius: 5px;
+  cursor: pointer;
   text-transform: uppercase;
-  text-align: center;
-  background-color: beige;
-  color: grey;
 }
-tbody > tr > td {
-  padding: 1em 2em;
+
+.formulario .btn-prestar:hover {
+  background-color: darkgreen;
 }
-tbody > tr > td:nth-child(3) {
-  text-align: center;
-}
+
 .suggestions {
   list-style: none;
   margin: 0;
@@ -184,36 +194,53 @@ tbody > tr > td:nth-child(3) {
   border: 1px solid #ccc;
   max-height: 150px;
   overflow-y: auto;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
 }
+
 .suggestions li {
   padding: 10px;
   cursor: pointer;
-  background-color: #fff;
 }
+
 .suggestions li:hover {
   background-color: #f0f0f0;
 }
-.btn-prestar {
-  background-color: green;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
+
+.detalles-libro {
+  text-align: left;
 }
-.btn-prestar:hover {
-  background-color: darkgreen;
+
+.error {
+  width: 100%;
+  text-align: center;
+  color: red;
+  font-weight: bold;
 }
+
 @media (max-width: 600px) {
-  table {
+  .formulario {
     width: 100%;
-    font-size: 0.9em;
+    padding: 1em;
   }
-  input {
-    width: 100%;
-    margin-bottom: 1em;
+
+  .formulario input,
+  .formulario select {
+    padding: 0.5em;
+  }
+
+  .formulario .btn-prestar {
+    padding: 0.5em;
   }
 }
 </style>
+
+
+
 
 
 
