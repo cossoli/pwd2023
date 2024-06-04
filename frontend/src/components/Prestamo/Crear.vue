@@ -10,19 +10,15 @@
         </ul>
       </div>
 
-      <div class="error" v-if="busqueda && !librosFiltrados.length">
-        <h1>Libro no encontrado</h1>
-      </div>
-
       <div v-if="detallesLibroSeleccionado" class="detalles-libro">
         <h2>Detalles del Libro Seleccionado</h2>
         <p><strong>ID:</strong> {{ detallesLibroSeleccionado.id }}</p>
         <p><strong>Nombre del Libro:</strong> {{ detallesLibroSeleccionado.titulo }}</p>
 
-        <select v-model="prestamo.id_socio" required>
+        <select v-model="prestamo.socio" required>
           <option disabled value="">Seleccione un socio</option>
           <option v-for="socio in socios" :key="socio.id" :value="socio.id">
-            {{ socio.nombre }}
+            {{ socio.nombre_apellido }}
           </option>
         </select>
 
@@ -53,11 +49,12 @@ interface Libro {
 
 interface Socio {
   id: number;
-  nombre: string;
+  nombre_apellido: string;
 }
 
 interface Prestamo {
-  id_socio: number;
+  libro: number;
+  socio: number;
   fecha_desde: string;
   fecha_hasta: string;
 }
@@ -69,7 +66,8 @@ let socios = ref<Array<Socio>>([]);
 let libroSeleccionado = ref<number | null>(null);
 
 let prestamo = ref<Prestamo>({
-  id_socio: 0,
+  libro: 0,
+  socio: 0,
   fecha_desde: '',
   fecha_hasta: ''
 });
@@ -112,20 +110,21 @@ const seleccionarLibro = (libro: Libro) => {
   libroSeleccionado.value = libro.id;
   busqueda.value = libro.titulo;
   librosFiltrados.value = [];
+  prestamo.value.libro = libro.id;
 };
 
 const manejarEnvio = async () => {
-  if (libroSeleccionado.value && prestamo.value.id_socio) {
+  if (libroSeleccionado.value && prestamo.value.socio) {
     try {
-      await axios.post('http://192.168.20.10/apiv1/prestamos', {
-        id_libro: libroSeleccionado.value,
-        id_socio: prestamo.value.id_socio,
+      await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', {
+        libro: prestamo.value.libro,
+        socio: prestamo.value.socio,
         fecha_desde: prestamo.value.fecha_desde,
         fecha_hasta: prestamo.value.fecha_hasta
       });
       libroSeleccionado.value = null;
       busqueda.value = '';
-      prestamo.value = { id_socio: 0, fecha_desde: '', fecha_hasta: '' };
+      prestamo.value = { libro: 0, socio: 0, fecha_desde: '', fecha_hasta: '' };
     } catch (error) {
       console.error('Error al prestar el libro:', error);
     }
@@ -151,11 +150,11 @@ const detallesLibroSeleccionado = computed(() => {
 
 .formulario {
   background-color: white;
-  padding: 1.5em;
+  padding: 1em;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -167,7 +166,7 @@ const detallesLibroSeleccionado = computed(() => {
 
 .formulario input,
 .formulario select {
-  padding: 0.6em;
+  padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
@@ -177,7 +176,7 @@ const detallesLibroSeleccionado = computed(() => {
   background-color: green;
   color: white;
   border: none;
-  padding: 0.6em;
+  padding: 0.5em;
   border-radius: 5px;
   cursor: pointer;
   text-transform: uppercase;
@@ -230,17 +229,13 @@ const detallesLibroSeleccionado = computed(() => {
 
   .formulario input,
   .formulario select {
-    padding: 0.5em;
+    padding: 0.4em;
   }
 
   .formulario .btn-prestar {
-    padding: 0.5em;
+    padding: 0.4em;
   }
 }
 </style>
-
-
-
-
 
 
