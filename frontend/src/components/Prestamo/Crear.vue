@@ -3,7 +3,7 @@
     <form @submit.prevent="manejarEnvio" class="formulario">
       <div class="busqueda-libro">
         <input v-model="busqueda" type="text" placeholder="Buscar libro por nombre" @input="debouncedObtenerLibros" />
-        <ul v-if="busqueda && librosFiltrados.length" class="suggestions">
+        <ul v-if="librosFiltrados.length" class="suggestions">
           <li v-for="(libro, index) in librosFiltrados" :key="index" @click="seleccionarLibro(libro)">
             {{ libro.titulo }}
           </li>
@@ -57,6 +57,8 @@ interface Prestamo {
   socio: number;
   fecha_desde: string;
   fecha_hasta: string;
+  fecha_dev?: string; 
+  estado: string;
 }
 
 let busqueda = ref('');
@@ -69,7 +71,9 @@ let prestamo = ref<Prestamo>({
   libro: 0,
   socio: 0,
   fecha_desde: '',
-  fecha_hasta: ''
+  fecha_hasta: '',
+  fecha_dev: '',
+  estado:'',
 });
 
 const obtenerLibros = async () => {
@@ -116,15 +120,19 @@ const seleccionarLibro = (libro: Libro) => {
 const manejarEnvio = async () => {
   if (libroSeleccionado.value && prestamo.value.socio) {
     try {
-      await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', {
+      const data = {
         libro: prestamo.value.libro,
         socio: prestamo.value.socio,
         fecha_desde: prestamo.value.fecha_desde,
-        fecha_hasta: prestamo.value.fecha_hasta
-      });
+        fecha_hasta: prestamo.value.fecha_hasta,
+        fecha_dev: prestamo.value.fecha_dev,
+        estado: prestamo.value.estado
+      };
+      await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', data);
       libroSeleccionado.value = null;
       busqueda.value = '';
-      prestamo.value = { libro: 0, socio: 0, fecha_desde: '', fecha_hasta: '' };
+      prestamo.value = { libro: 0, socio: 0, fecha_desde: '', fecha_hasta: '', fecha_dev: '',
+        estado:''  };
     } catch (error) {
       console.error('Error al prestar el libro:', error);
     }
@@ -237,5 +245,6 @@ const detallesLibroSeleccionado = computed(() => {
   }
 }
 </style>
+
 
 

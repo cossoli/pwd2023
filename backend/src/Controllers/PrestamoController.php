@@ -93,7 +93,20 @@ class PrestamoController implements InterfaceController
 
     public function verificarLibroDevuelto(mixed $id)
     {
-        // Implementa la lógica para verificar si un libro ha sido devuelto
+        $prestamo = PrestamoDAO::encontrarUno($id);
+
+        if ($prestamo) {
+            $prestamo->setFechaDev(date('Y-m-d')); 
+            PrestamoDAO::actualizar($prestamo);
+            
+            $libro = $prestamo->getLibro();
+            $libro->setEstado(Libro::ACTIVO);
+            LibroDAO::actualizarEstado($libro);
+    
+            return true;
+        } else {
+            throw ("Préstamo no encontrado");
+        }
     }
 
     public function calcularDiasRetraso(mixed $id)
