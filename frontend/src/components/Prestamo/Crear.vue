@@ -17,13 +17,14 @@
 
         <select v-model="prestamo.socio" required>
           <option disabled value="">Seleccione un socio</option>
-          <option v-for="socio in socios" :key="socio.id" :value="socio.id">
+          <option v-for="socio in socios" :key="socio.id" :value="socio">
             {{ socio.nombre_apellido }}
           </option>
         </select>
 
         <input v-model="prestamo.fecha_desde" type="date" placeholder="Fecha Desde" required />
         <input v-model="prestamo.fecha_hasta" type="date" placeholder="Fecha Hasta" required />
+        <input v-model="prestamo.fecha_dev" type="date" placeholder="Fecha Devolución (opcional)" />
 
         <button type="submit" class="btn-prestar">Prestar Libro</button>
       </div>
@@ -53,27 +54,25 @@ interface Socio {
 }
 
 interface Prestamo {
-  libro: number;
-  socio: number;
+  libro: Libro | null;
+  socio: Socio | null;
   fecha_desde: string;
   fecha_hasta: string;
   fecha_dev?: string; 
-  estado: string;
 }
 
 let busqueda = ref('');
 let libros = ref<Array<Libro>>([]);
 let librosFiltrados = ref<Array<Libro>>([]);
 let socios = ref<Array<Socio>>([]);
-let libroSeleccionado = ref<number | null>(null);
+let libroSeleccionado = ref<Libro | null>(null);
 
 let prestamo = ref<Prestamo>({
-  libro: 0,
-  socio: 0,
+  libro: null,
+  socio: null,
   fecha_desde: '',
   fecha_hasta: '',
-  fecha_dev: '',
-  estado:'',
+  fecha_dev: ''
 });
 
 const obtenerLibros = async () => {
@@ -100,7 +99,6 @@ const obtenerSocios = async () => {
   }
 };
 
-// Implementación manual de debounce
 let debounceTimerLibros: ReturnType<typeof setTimeout>;
 const debouncedObtenerLibros = () => {
   clearTimeout(debounceTimerLibros);
@@ -111,28 +109,26 @@ watch(busqueda, debouncedObtenerLibros);
 onMounted(obtenerSocios);
 
 const seleccionarLibro = (libro: Libro) => {
-  libroSeleccionado.value = libro.id;
+  libroSeleccionado.value = libro;
   busqueda.value = libro.titulo;
   librosFiltrados.value = [];
-  prestamo.value.libro = libro.id;
+  prestamo.value.libro = libro;
 };
 
 const manejarEnvio = async () => {
-  if (libroSeleccionado.value && prestamo.value.socio) {
+  if (prestamo.value.libro && prestamo.value.socio) {
     try {
       const data = {
-        libro: prestamo.value.libro,
-        socio: prestamo.value.socio,
+        libro: prestamo.value.libro.id,
+        socio: prestamo.value.socio.id,
         fecha_desde: prestamo.value.fecha_desde,
         fecha_hasta: prestamo.value.fecha_hasta,
-        fecha_dev: prestamo.value.fecha_dev,
-        estado: prestamo.value.estado
+        fecha_dev: prestamo.value.fecha_dev
       };
       await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', data);
       libroSeleccionado.value = null;
       busqueda.value = '';
-      prestamo.value = { libro: 0, socio: 0, fecha_desde: '', fecha_hasta: '', fecha_dev: '',
-        estado:''  };
+      prestamo.value = { libro: null, socio: null, fecha_desde: '', fecha_hasta: '', fecha_dev: '' };
     } catch (error) {
       console.error('Error al prestar el libro:', error);
     }
@@ -142,7 +138,7 @@ const manejarEnvio = async () => {
 };
 
 const detallesLibroSeleccionado = computed(() => {
-  return libros.value.find(libro => libro.id === libroSeleccionado.value) || null;
+  return libroSeleccionado.value;
 });
 </script>
 
@@ -162,10 +158,11 @@ const detallesLibroSeleccionado = computed(() => {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 350px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 1em;
+  text-align: center;
 }
 
 .formulario .busqueda-libro {
@@ -174,7 +171,7 @@ const detallesLibroSeleccionado = computed(() => {
 
 .formulario input,
 .formulario select {
-  padding: 0.5em;
+  padding: 0.25em;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
@@ -231,20 +228,22 @@ const detallesLibroSeleccionado = computed(() => {
 
 @media (max-width: 600px) {
   .formulario {
-    width: 100%;
+    width: 90%;
     padding: 1em;
   }
 
   .formulario input,
   .formulario select {
-    padding: 0.4em;
+    padding: 0.3em;
   }
 
   .formulario .btn-prestar {
-    padding: 0.4em;
+    padding: 0.3em;
   }
 }
 </style>
+
+
 
 
 
