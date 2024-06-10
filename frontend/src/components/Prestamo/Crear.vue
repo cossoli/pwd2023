@@ -24,7 +24,6 @@
 
         <input v-model="prestamo.fecha_desde" type="date" placeholder="Fecha Desde" required />
         <input v-model="prestamo.fecha_hasta" type="date" placeholder="Fecha Hasta" required />
-        <input v-model="prestamo.fecha_dev" type="date" placeholder="Fecha Devolución (opcional)" />
 
         <button type="submit" class="btn-prestar">Prestar Libro</button>
       </div>
@@ -58,7 +57,7 @@ interface Prestamo {
   socio: Socio | null;
   fecha_desde: string;
   fecha_hasta: string;
-  fecha_dev?: string; 
+  fecha_dev: string; 
 }
 
 let busqueda = ref('');
@@ -72,7 +71,7 @@ let prestamo = ref<Prestamo>({
   socio: null,
   fecha_desde: '',
   fecha_hasta: '',
-  fecha_dev: ''
+  fecha_dev : '2024-07-10',
 });
 
 const obtenerLibros = async () => {
@@ -116,14 +115,14 @@ const seleccionarLibro = (libro: Libro) => {
 };
 
 const manejarEnvio = async () => {
-  if (prestamo.value.libro && prestamo.value.socio) {
+  if (libroSeleccionado.value && prestamo.value.socio) {
     try {
       const data = {
         libro: prestamo.value.libro.id,
         socio: prestamo.value.socio.id,
         fecha_desde: prestamo.value.fecha_desde,
         fecha_hasta: prestamo.value.fecha_hasta,
-        fecha_dev: prestamo.value.fecha_dev
+        fecha_dev: prestamo.value.fecha_dev,
       };
       await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', data);
       libroSeleccionado.value = null;
@@ -158,11 +157,10 @@ const detallesLibroSeleccionado = computed(() => {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   gap: 1em;
-  text-align: center;
 }
 
 .formulario .busqueda-libro {
@@ -171,7 +169,7 @@ const detallesLibroSeleccionado = computed(() => {
 
 .formulario input,
 .formulario select {
-  padding: 0.25em;
+  padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
@@ -228,21 +226,20 @@ const detallesLibroSeleccionado = computed(() => {
 
 @media (max-width: 600px) {
   .formulario {
-    width: 90%;
+    width: 100%;
     padding: 1em;
   }
 
   .formulario input,
   .formulario select {
-    padding: 0.3em;
+    padding: 0.4em;
   }
 
   .formulario .btn-prestar {
-    padding: 0.3em;
+    padding: 0.4em;
   }
 }
 </style>
-
 
 
 
