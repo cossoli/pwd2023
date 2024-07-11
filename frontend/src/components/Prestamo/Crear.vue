@@ -1,13 +1,14 @@
 <template>
-  <div class="container">
+  <div class="contenedor">
     <form @submit.prevent="manejarEnvio" class="formulario">
       <div class="busqueda-libro">
         <input v-model="busqueda" type="text" placeholder="Buscar libro por nombre" @input="debouncedObtenerLibros" />
-        <ul v-if="librosFiltrados.length" class="suggestions">
+        <ul v-if="librosFiltrados.length" class="sugerencias">
           <li v-for="(libro, index) in librosFiltrados" :key="index" @click="seleccionarLibro(libro)">
             {{ libro.titulo }}
           </li>
         </ul>
+        <p v-if="librosFiltrados.length === 0 && busqueda.length > 0">No hay libros disponibles para prestar.</p>
       </div>
 
       <div v-if="detallesLibroSeleccionado" class="detalles-libro">
@@ -71,7 +72,7 @@ let prestamo = ref<Prestamo>({
   socio: null,
   fecha_desde: '',
   fecha_hasta: '',
-  fecha_dev : '2024-07-10',
+  fecha_dev: '2024-08-21',
 });
 
 const obtenerLibros = async () => {
@@ -83,7 +84,7 @@ const obtenerLibros = async () => {
   try {
     const respuesta = await axios.get(`http://192.168.20.10/apiv1/libros?busqueda=${busqueda.value}`);
     libros.value = respuesta.data;
-    librosFiltrados.value = libros.value;
+    librosFiltrados.value = libros.value.filter(libro => libro.estado !== 'prestado');
   } catch (error) {
     console.error('Error al obtener libros:', error);
   }
@@ -142,7 +143,7 @@ const detallesLibroSeleccionado = computed(() => {
 </script>
 
 <style scoped>
-.container {
+.contenedor {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,10 +158,10 @@ const detallesLibroSeleccionado = computed(() => {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 350px;
+  max-width: 300px; 
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em; 
 }
 
 .formulario .busqueda-libro {
@@ -169,7 +170,7 @@ const detallesLibroSeleccionado = computed(() => {
 
 .formulario input,
 .formulario select {
-  padding: 0.5em;
+  padding: 0.3em; 
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
@@ -179,7 +180,7 @@ const detallesLibroSeleccionado = computed(() => {
   background-color: green;
   color: white;
   border: none;
-  padding: 0.5em;
+  padding: 0.3em; 
   border-radius: 5px;
   cursor: pointer;
   text-transform: uppercase;
@@ -189,7 +190,7 @@ const detallesLibroSeleccionado = computed(() => {
   background-color: darkgreen;
 }
 
-.suggestions {
+.sugerencias {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -204,12 +205,12 @@ const detallesLibroSeleccionado = computed(() => {
   z-index: 1;
 }
 
-.suggestions li {
-  padding: 10px;
+.sugerencias li {
+  padding: 5px; 
   cursor: pointer;
 }
 
-.suggestions li:hover {
+.sugerencias li:hover {
   background-color: #f0f0f0;
 }
 
@@ -232,15 +233,14 @@ const detallesLibroSeleccionado = computed(() => {
 
   .formulario input,
   .formulario select {
-    padding: 0.4em;
+    padding: 0.2em; 
   }
 
   .formulario .btn-prestar {
-    padding: 0.4em;
+    padding: 0.2em; 
   }
 }
 </style>
-
 
 
 

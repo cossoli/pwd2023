@@ -11,7 +11,7 @@ class Autor extends ModelBase implements Serializador
   
   public  $nombre_apellido;
 
-  Function __construct(string $nombre_apellido, mixed $id=null)
+  Function __construct( $nombre_apellido , mixed $id=null)
   {
     parent::__construct($id);
       $this->nombre_apellido = $nombre_apellido;
