@@ -23,6 +23,7 @@ import ListarPrestamo from '../components/Prestamo/Listar.vue';
 import CrearPrestamo from '../components/Prestamo/Crear.vue';
 import ActualizarPrestamo from '../components/Prestamo/Actualizar.vue';
 
+
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
    routes: [
