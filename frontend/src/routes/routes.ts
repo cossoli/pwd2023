@@ -22,7 +22,7 @@ import ActualizarLibro from '../components/Libro/Actualizar.vue';
 import ListarPrestamo from '../components/Prestamo/Listar.vue';
 import CrearPrestamo from '../components/Prestamo/Crear.vue';
 import ActualizarPrestamo from '../components/Prestamo/Actualizar.vue';
-
+import DevolverLibro from '../components/Prestamo/Devolver.vue';
 
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
@@ -165,7 +165,13 @@ const router = createRouter({
          component: ActualizarPrestamo,
 
       } ,
-     
+      {
+         path : '/Prestamo/Devolver/:id',
+         name : 'Devolverlibro',
+         component : DevolverLibro,
+      },
+
+         
    ]
 
 })

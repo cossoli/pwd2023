@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="prestamo in prestamos " :key="prestamo.id">
+        <tr v-for="prestamo in prestamos" :key="prestamo.id">
           <td>{{ prestamo.libro.id }}</td>
           <td>{{ prestamo.socio.id }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
@@ -27,7 +27,7 @@
           <td>{{ prestamo.fecha_dev }}</td>
           <td>{{ prestamo.estado }}</td>
           <td>
-            <button class="btn-devolver" @click="prestarlibro(prestamo.id)">Devolver</button>
+            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
           </td>
         </tr>
       </tbody>
@@ -54,20 +54,20 @@ export default {
         this.prestamos = res.data;
       } catch (error) {
         console.error('Error al obtener los préstamos:', error);
-      
       }
     },
     prestarlibro(id) {
-      this.$router.push("/Prestamo/crear" +id);
- 
-}
-
+      this.$router.push("/prestamo/crear/" + id);
+    },
+    devolverLibro(id) {
+      this.$router.push("/prestamo/devolver/" + id);
+    }
   }
 }
 </script>
 
 <style scoped>
-/* Estilos para la tabla */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -83,8 +83,6 @@ table th {
 table tr:hover {
   background-color: #f5f5f5;
 }
-
-/* Estilos para los botones */
 .btn-crear {
   background-color: #66cc99;
   color: white;
@@ -108,4 +106,3 @@ table tr:hover {
   background-color: #2980b9;
 }
 </style>
-
