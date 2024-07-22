@@ -36,12 +36,10 @@
           const res = await axios.post('http://192.168.20.10/apiv1/categorias/nuevo', this.categoria);
           console.log(res.data); // Manejar la respuesta según sea necesario
   
-          // Limpiar el formulario y mostrar mensaje de éxito
-          this.categoria.descripcion = "";
-          this.mensaje = "Categoría creada exitosamente.";
-        } catch (error) {
-          console.error(error);
-          this.mensaje = "Ocurrió un error al crear la categoría. Por favor intenta nuevamente.";
+          this.$router.push('/categoria');
+      } catch (error) {
+        console.error(error);
+   
         }
       }
     }

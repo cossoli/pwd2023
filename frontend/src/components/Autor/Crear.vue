@@ -26,22 +26,20 @@ export default defineComponent({
   methods: {
     async crearAutor() {
       try {
-        // Validar entrada
+   
         if (!this.Autor.nombre_apellido.trim()) {
           this.mensaje = 'Por favor ingresa un nombre y apellido válidos para el autor.';
           return;
         }
 
-        // Solicitud POST a la API
+    
         const res = await axios.post('http://192.168.20.10/apiv1/autores/nuevo', this.Autor);
         console.log(res.data);
 
-        // Limpiar el campo de entrada
-        this.Autor.nombre_apellido = '';
-        this.mensaje = 'Autor creado exitosamente.';
+        this.$router.push('/autor');
       } catch (error) {
         console.error(error);
-        this.mensaje = 'Ocurrió un error al crear el autor. Por favor intenta nuevamente.';
+   
       }
     }
   }

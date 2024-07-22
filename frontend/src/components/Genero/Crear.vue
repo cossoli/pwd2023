@@ -33,12 +33,10 @@ export default defineComponent({
         const res = await axios.post('http://192.168.20.10/apiv1/generos/nuevo', this.genero);
         console.log(res.data);
 
-        // Limpiar el formulario y mostrar mensaje de éxito
-        this.genero.descripcion = "";
-        this.mensaje = "Género creado exitosamente.";
+        this.$router.push('/genero');
       } catch (error) {
         console.error(error);
-        this.mensaje = "Ocurrió un error al crear el género. Por favor intenta nuevamente.";
+   
       }
     }
   }

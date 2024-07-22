@@ -43,10 +43,20 @@ export default {
 
       const prestamoId = this.$route.params.id;
       try {
-        // Actualizar el estado del libro
+        // Obtener el estado actual del libro
+        const libroRes = await axios.get(`http://192.168.20.10/apiv1/libros/${this.libroSeleccionado.id}`);
+        const libroActual = libroRes.data;
+
+        // Verificar si el libro está activo
+        if (libroActual.estado === 'activo') {
+          alert('El libro seleccionado no está prestado, por lo tanto, no se puede devolver.');
+          return;
+        }
+
+        // Actualizar el estado del libro a 'activo'
         await axios.put(`http://192.168.20.10/apiv1/libros/${this.libroSeleccionado.id}`, { estado: 'activo' });
 
-        // Actualizar el estado del préstamo
+        // Actualizar el estado del préstamo a 'devuelto'
         await axios.put(`http://192.168.20.10/apiv1/prestamos/${prestamoId}`, {
           estado: 'devuelto',
           fecha_dev: new Date().toISOString().slice(0, 10)
@@ -55,6 +65,7 @@ export default {
         this.$router.push('/prestamos');
       } catch (error) {
         console.error('Error al devolver el libro:', error);
+        alert('Ocurrió un error al intentar devolver el libro. Por favor, inténtelo de nuevo.');
       }
     }
   }
