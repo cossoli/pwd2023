@@ -59,7 +59,7 @@ export default {
         }
 
         // Actualizar el estado del libro a 'activo'
-        const libroUpdateRes = await axios.put(`http://192.168.20.10/apiv1/libros/${this.libroSeleccionado}`, { estado: 'Activo' });
+        const libroUpdateRes = await axios.put(`http://192.168.20.10/apiv1/libros/${this.libroSeleccionado.id}`, { estado: 'Activo' });
         console.log('Respuesta de la actualización del libro:', libroUpdateRes.data); 
 
         // Actualizar el estado del préstamo a 'devuelto'

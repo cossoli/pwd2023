@@ -19,9 +19,11 @@ export default {
       try {
         const res = await axios.put(`http://192.168.20.10/apiv1/generos/${this.genero.id}`, this.genero);
        console.log(res.data);
-  
+       alert('Genero actualizado correctamente');
+       this.$router.push('/genero');
       } catch (error) {
         console.error(error);
+        alert('Error al actualizar el Genero');
       }
     },
     async buscar() {

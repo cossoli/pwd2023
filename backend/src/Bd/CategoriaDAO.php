@@ -49,7 +49,7 @@ class CategoriaDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE categorias SET categorias =:categorias WHERE id=:id';
+        $sql = 'UPDATE categorias SET descripcion =:descripcion WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [

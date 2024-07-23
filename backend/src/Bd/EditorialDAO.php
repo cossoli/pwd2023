@@ -51,7 +51,7 @@ class EditorialDAO implements InterfaceDAO
     public static function actualizar(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'UPDATE editoriales SET editoriales =: editoriales WHERE id=:id';
+        $sql = 'UPDATE editoriales SET nombre =:nombre WHERE id=:id';
         ConectarBD::escribir(
             sql: $sql,
             params: [

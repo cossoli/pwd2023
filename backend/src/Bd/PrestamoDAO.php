@@ -79,6 +79,6 @@ public static function actualizar(Serializador $instancia): void
     public static function borrar(string $id)
     {
         $sql = 'DELETE FROM prestamos WHERE id = :id';
-        ConectarBD::escribir($sql, [':id' => $id]);
+        ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

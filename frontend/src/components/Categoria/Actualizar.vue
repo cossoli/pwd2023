@@ -18,12 +18,13 @@ export default {
   methods: {
     async ActualizarCategoria() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/categorias/${this.categorias.id}`, this.categoria);
+        const res = await axios.put(`http://192.168.20.10/apiv1/categorias/${this.categorias.id}`, this.categorias);
         console.log(res.data);
+        alert('Categoria Se actualizado correctamente');
         this.$router.push('/Categoria');
       } catch (error) {
         console.error(error);
-       
+       alert('Error al actualizar Categoria');
       }
     },
     async buscar() {

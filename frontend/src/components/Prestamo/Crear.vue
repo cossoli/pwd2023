@@ -39,13 +39,7 @@ import axios from 'axios';
 interface Libro {
   id: number;
   titulo: string;
-  anio: number;
   estado: string;
-  categoria: string;
-  editorial: string;
-  genero: string;
-  autor: string;
-  paginas: number;
 }
 
 interface Socio {
@@ -117,6 +111,12 @@ const seleccionarLibro = (libro: Libro) => {
 
 const manejarEnvio = async () => {
   if (libroSeleccionado.value && prestamo.value.socio) {
+    // Verificar si el libro está prestado
+    if (libroSeleccionado.value.estado === 'prestado') {
+      alert('Este libro ya está prestado y no se puede volver a prestar.');
+      return;
+    }
+
     try {
       const data = {
         libro: prestamo.value.libro.id,
@@ -129,6 +129,7 @@ const manejarEnvio = async () => {
       libroSeleccionado.value = null;
       busqueda.value = '';
       prestamo.value = { libro: null, socio: null, fecha_desde: '', fecha_hasta: '', fecha_dev: '' };
+      this.$router.push('/prestamos');
     } catch (error) {
       console.error('Error al prestar el libro:', error);
     }
@@ -241,6 +242,3 @@ const detallesLibroSeleccionado = computed(() => {
   }
 }
 </style>
-
-
-

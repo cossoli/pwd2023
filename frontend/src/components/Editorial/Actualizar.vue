@@ -17,7 +17,7 @@ export default {
   methods: {
     async ActualizarEditorial() {
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/editorial/${this.editorial.id}`, this.editorial);
+        const res = await axios.put(`http://192.168.20.10/apiv1/editoriales/${this.editorial.id}`, this.editorial);
         console.log(res.data);
         this.$router.push('/editorial');
       } catch (error) {
@@ -27,7 +27,7 @@ export default {
     },
     async buscar() {
       try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/editorial/${this.$route.params.id}`);
+        const res = await axios.get(`http://192.168.20.10/apiv1/editoriales/${this.$route.params.id}`);
         this.editorial = res.data;
         console.log(this.editorial);
       } catch (error) {
