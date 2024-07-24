@@ -62,13 +62,7 @@ export default {
         const libroUpdateRes = await axios.put(`http://192.168.20.10/apiv1/libros/${this.libroSeleccionado.id}`, { estado: 'Activo' });
         console.log('Respuesta de la actualización del libro:', libroUpdateRes.data); 
 
-        // Actualizar el estado del préstamo a 'devuelto'
-        const prestamoUpdateRes = await axios.put(`http://192.168.20.10/apiv1/prestamos/${prestamoId}`, {
-          estado: 'devuelto',
-          fecha_dev: new Date().toISOString().slice(0, 10)
-        });
-        console.log('Respuesta de la actualización del préstamo:', prestamoUpdateRes.data); 
-
+      
         this.$router.push('/prestamos');
       } catch (error) {
         console.error('Error al devolver el libro:', error);
@@ -78,6 +72,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .devolver-libro {
