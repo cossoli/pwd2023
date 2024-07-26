@@ -60,7 +60,7 @@ export default {
       this.$router.push("/prestamo/crear/" + id);
     },
     devolverLibro(id) {
-      this.$router.push("/prestamo/actualizar/" + id);
+      this.$router.push("/prestamo/Actualizar/" + id);
     }
   }
 }

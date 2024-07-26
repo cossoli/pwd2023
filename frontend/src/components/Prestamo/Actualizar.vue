@@ -1,98 +1,99 @@
 <template>
   <div class="devolver-libro">
     <h1>Devolver Libro</h1>
-    <form @submit.prevent="manejarDevolucion">
-      <div class="form-group">
-        <label for="libro">Libro:</label>
-        <select id="libro" v-model="libroSeleccionado">
-          <option v-for="libro in libros" :key="libro.id" :value="libro">{{ libro.titulo }}</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-confirmar" :disabled="cargando">Confirmar Devolución</button>
-    </form>
-    <p v-if="cargando">Procesando...</p>
+    <div v-if="libro">
+      <p>Libro a devolver: <strong>{{ libro.titulo }}</strong></p>
+      <form @submit.prevent="manejarDevolucion">
+        <button type="submit" class="btn-confirmar">Confirmar Devolución</button>
+      </form>
+    </div>
+    <div v-else>
+      <p>Cargando información del libro...</p>
+    </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      libros: [],
-      libroSeleccionado: null,
-      cargando: false,
+      libro: null,
+      socio: null
     };
   },
   created() {
-    this.obtenerLibros();
+    this.obtenerDatos();
   },
   methods: {
-    async obtenerLibros() {
-      this.cargando = true;
+    async obtenerDatos() {
+      const libroId = this.$route.params.libroId; 
+      const socioId = this.$route.params.socioId; 
       try {
-        const res = await axios.get('http://192.168.20.10/apiv1/libros');
-        this.libros = res.data;
-        console.log('Libros obtenidos:', this.libros); // Depuración
+        await this.buscarLibro(libroId);
+        await this.buscarSocio(socioId);
       } catch (error) {
-        console.error('Error al obtener los libros:', error);
-        alert('Error al obtener la lista de libros.');
-      } finally {
-        this.cargando = false;
+        console.error('Error al obtener la información del libro o del socio:', error);
+        alert('Error al obtener la información del libro o del socio. Por favor, inténtelo de nuevo.');
+      }
+    },
+    async buscarLibro(libroId) {
+      try {
+        const resLibro = await axios.get(`http://192.168.20.10/apiv1/libros/${libroId}`);
+        this.libro = resLibro.data;
+        console.log('Libro obtenido:', this.libro); 
+      } catch (error) {
+        console.error('Error al obtener el libro:', error);
+        alert('Error al obtener la información del libro. Por favor, inténtelo de nuevo.');
+      }
+    },
+    async buscarSocio(socioId) {
+      try {
+        const resSocio = await axios.get(`http://192.168.20.10/apiv1/socios/${socioId}`);
+        this.socio = resSocio.data;
+        console.log('Socio obtenido:', this.socio); 
+      } catch (error) {
+        console.error('Error al obtener el socio:', error);
+        alert('Error al obtener la información del socio. Por favor, inténtelo de nuevo.');
       }
     },
     async manejarDevolucion() {
-      if (!this.libroSeleccionado) {
-        alert('Por favor, seleccione un libro para devolver.');
+      if (!this.libro) {
+        alert('No se ha seleccionado ningún libro para devolver.');
         return;
       }
 
-      this.cargando = true;
-
-      const prestamoId = this.$route.params.id;
+      const prestamoId = this.$route.params.prestamoId; 
       console.log('Préstamo ID:', prestamoId); 
-      console.log('Libro Seleccionado:', this.libroSeleccionado); 
 
       try {
-        const libroRes = await axios.get(`http://192.168.20.10/apiv1/libros/${this.libroSeleccionado.id}`);
-        const libroActual = libroRes.data;
-        console.log('Estado actual del libro:', libroActual.estado); 
-
-        if (libroActual.estado === 'Activo') {
+        // Verificar si el libro está prestado
+        if (this.libro.estado === 'Activo') {
           alert('El libro seleccionado no está prestado, por lo tanto, no se puede devolver.');
-          this.cargando = false;
           return;
         }
 
-        const dataToUpdate = { estado: 'Activo' };
-        console.log('Datos para actualizar el libro:', dataToUpdate);
-
-        const libroUpdateRes = await axios.put(`http://192.168.20.10/apiv1/libros/actualizar/${this.libroSeleccionado.id}`, dataToUpdate);
+        // Actualizar el estado del libro a 'Activo'
+        const libroUpdateRes = await axios.put(`http://192.168.20.10/apiv1/libros/actualizar/${this.libro.id}`, { 
+          id: this.libro.id,
+          socio: this.socio.id,
+          estado: 'Activo'
+        });
         console.log('Respuesta de la actualización del libro:', libroUpdateRes.data); 
 
+        
         this.$router.push('/prestamos');
       } catch (error) {
         console.error('Error al devolver el libro:', error);
-        if (error.response) {
-          console.error('Datos del error:', error.response.data);
-          console.error('Estado del error:', error.response.status);
-          console.error('Cabeceras del error:', error.response.headers);
-          alert(`Error: ${error.response.data.message || 'Ocurrió un error al intentar devolver el libro.'}`);
-        } else if (error.request) {
-          console.error('Solicitud realizada pero no hubo respuesta:', error.request);
-          alert('No se recibió respuesta del servidor. Por favor, inténtelo de nuevo.');
-        } else {
-          console.error('Error al configurar la solicitud:', error.message);
-          alert('Error al configurar la solicitud. Por favor, inténtelo de nuevo.');
-        }
-      } finally {
-        this.cargando = false;
+        alert('Ocurrió un error al intentar devolver el libro. Por favor, inténtelo de nuevo.');
       }
     }
   }
 }
 </script>
+
+
+
 
 <style scoped>
 .devolver-libro {
