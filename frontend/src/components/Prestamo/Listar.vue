@@ -13,8 +13,6 @@
           <th>ID Socio</th>
           <th>Fecha Desde</th>
           <th>Fecha Hasta</th>
-          <th>Fecha Devolución</th>
-          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -24,8 +22,7 @@
           <td>{{ prestamo.socio.id }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
           <td>{{ prestamo.fecha_hasta }}</td>
-          <td>{{ prestamo.fecha_dev }}</td>
-          <td>{{ prestamo.estado }}</td>
+          
           <td>
             <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
           </td>

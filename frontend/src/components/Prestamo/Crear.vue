@@ -52,7 +52,7 @@ interface Prestamo {
   socio: Socio | null;
   fecha_desde: string;
   fecha_hasta: string;
-  fecha_dev: string; 
+  fecha_dev: null; 
 }
 
 let busqueda = ref('');
@@ -66,7 +66,7 @@ let prestamo = ref<Prestamo>({
   socio: null,
   fecha_desde: '',
   fecha_hasta: '',
-  fecha_dev: '2024-08-21',
+  fecha_dev: null,
 });
 
 const obtenerLibros = async () => {
@@ -128,7 +128,7 @@ const manejarEnvio = async () => {
       await axios.post('http://192.168.20.10/apiv1/prestamos/nuevo', data);
       libroSeleccionado.value = null;
       busqueda.value = '';
-      prestamo.value = { libro: null, socio: null, fecha_desde: '', fecha_hasta: '', fecha_dev: '' };
+      prestamo.value = { libro: null, socio: null, fecha_desde: '', fecha_hasta: '', fecha_dev: null };
       this.$router.push('/prestamos');
     } catch (error) {
       console.error('Error al prestar el libro:', error);

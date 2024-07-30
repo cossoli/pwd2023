@@ -1,99 +1,90 @@
 <template>
-  <div class="devolver-libro">
-    <h1>Devolver Libro</h1>
-    <div v-if="libro">
-      <p>Libro a devolver: <strong>{{ libro.titulo }}</strong></p>
-      <form @submit.prevent="manejarDevolucion">
-        <button type="submit" class="btn-confirmar">Confirmar Devolución</button>
-      </form>
+  <div>
+    <h2>Buscar Préstamos por Fecha de Devolución</h2>
+    <div>
+      <label for="fechaDevolucion">Fecha de Devolución:</label>
+      <input v-model="fecha_dev" type="date" id="fechaDevolucion" required>
+      <button @click="buscarPrestamosPorFecha">Buscar</button>
     </div>
-    <div v-else>
-      <p>Cargando información del libro...</p>
+    <div v-if="prestamos.length">
+      <h3>Resultados de la Búsqueda</h3>
+      <ul>
+        <li v-for="prestamo in prestamos" :key="prestamo.id" @click="seleccionarPrestamo(prestamo.id)">
+          ID: {{ prestamo.id }}, Estado: {{ prestamo.estado }}, Fecha de Devolución: {{ prestamo.fecha_dev }}
+        </li>
+      </ul>
+    </div>
+    <div v-if="selectedPrestamo">
+      <h3>Actualizar Estado del Préstamo</h3>
+      <p><strong>ID del Préstamo:</strong> {{ selectedPrestamo.id }}</p>
+      <form @submit.prevent="actualizarEstadoPrestamo">
+        <div>
+          <label for="estado">Nuevo Estado:</label>
+          <input v-model="nuevoEstado" type="text" id="estado" placeholder="Nuevo Estado" required>
+        </div>
+        <div>
+          <label for="nuevaFechaDevolucion">Nueva Fecha de Devolución:</label>
+          <input v-model="nuevaFechaDevolucion" type="date" id="nuevaFechaDevolucion" required>
+        </div>
+        <button type="submit">Actualizar Estado y Fecha</button>
+      </form>
     </div>
   </div>
 </template>
-<script>
-import axios from 'axios';
 
-export default {
+<script lang="ts">
+import axios from 'axios';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   data() {
     return {
-      libro: null,
-      socio: null
+      prestamos: [] as Array<{ id: string, estado: string, fecha_dev: null }>,
+      selectedPrestamo: null as { id: string, estado: string, fecha_dev: null } | null,
+      fecha_dev: null,
+      nuevoEstado: '',
+      nuevaFechaDevolucion: null
     };
   },
-  created() {
-    this.obtenerDatos();
-  },
   methods: {
-    async obtenerDatos() {
-      const libroId = this.$route.params.libroId; 
-      const socioId = this.$route.params.socioId; 
+    async buscarPrestamosPorFecha() {
       try {
-        await this.buscarLibro(libroId);
-        await this.buscarSocio(socioId);
+        const res = await axios.get(`http://192.168.20.10/apiv1/prestamos/${this.fecha_dev}`);
+        this.prestamos = res.data;
+        console.log('Préstamos:', this.prestamos);
       } catch (error) {
-        console.error('Error al obtener la información del libro o del socio:', error);
-        alert('Error al obtener la información del libro o del socio. Por favor, inténtelo de nuevo.');
+        console.error(error);
+        alert('Error al obtener préstamos por fecha de devolución');
       }
     },
-    async buscarLibro(libroId) {
-      try {
-        const resLibro = await axios.get(`http://192.168.20.10/apiv1/libros/${libroId}`);
-        this.libro = resLibro.data;
-        console.log('Libro obtenido:', this.libro); 
-      } catch (error) {
-        console.error('Error al obtener el libro:', error);
-        alert('Error al obtener la información del libro. Por favor, inténtelo de nuevo.');
+    seleccionarPrestamo(prestamoId: string) {
+      this.selectedPrestamo = this.prestamos.find(prestamo => prestamo.id === prestamoId) || null;
+      if (this.selectedPrestamo) {
+        this.nuevoEstado = this.selectedPrestamo.estado;
+        this.nuevaFechaDevolucion = this.selectedPrestamo.fecha_dev;
       }
     },
-    async buscarSocio(socioId) {
-      try {
-        const resSocio = await axios.get(`http://192.168.20.10/apiv1/socios/${socioId}`);
-        this.socio = resSocio.data;
-        console.log('Socio obtenido:', this.socio); 
-      } catch (error) {
-        console.error('Error al obtener el socio:', error);
-        alert('Error al obtener la información del socio. Por favor, inténtelo de nuevo.');
-      }
-    },
-    async manejarDevolucion() {
-      if (!this.libro) {
-        alert('No se ha seleccionado ningún libro para devolver.');
+    async actualizarEstadoPrestamo() {
+      if (!this.selectedPrestamo) {
+        alert('Seleccione un préstamo para actualizar');
         return;
       }
-
-      const prestamoId = this.$route.params.prestamoId; 
-      console.log('Préstamo ID:', prestamoId); 
-
       try {
-        // Verificar si el libro está prestado
-        if (this.libro.estado === 'Activo') {
-          alert('El libro seleccionado no está prestado, por lo tanto, no se puede devolver.');
-          return;
-        }
-
-        // Actualizar el estado del libro a 'Activo'
-        const libroUpdateRes = await axios.put(`http://192.168.20.10/apiv1/libros/actualizar/${this.libro.id}`, { 
-          id: this.libro.id,
-          socio: this.socio.id,
-          estado: 'Activo'
+        const res = await axios.put(`http://192.168.20.10/apiv1/prestamos/${this.selectedPrestamo.id}/estado`, {
+          estado: this.nuevoEstado,
+          fecha_Dev: this.nuevaFechaDevolucion
         });
-        console.log('Respuesta de la actualización del libro:', libroUpdateRes.data); 
-
-        
+        console.log(res.data);
+        alert('Estado del préstamo actualizado correctamente');
         this.$router.push('/prestamos');
       } catch (error) {
-        console.error('Error al devolver el libro:', error);
-        alert('Ocurrió un error al intentar devolver el libro. Por favor, inténtelo de nuevo.');
+        console.error(error);
+        alert('Error al actualizar el estado del préstamo');
       }
     }
   }
-}
+});
 </script>
-
-
-
 
 <style scoped>
 .devolver-libro {
@@ -148,5 +139,3 @@ export default {
   cursor: not-allowed;
 }
 </style>
-
-
