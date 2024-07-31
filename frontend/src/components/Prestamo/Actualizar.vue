@@ -1,90 +1,59 @@
 <template>
-  <div>
-    <h2>Buscar Préstamos por Fecha de Devolución</h2>
-    <div>
-      <label for="fechaDevolucion">Fecha de Devolución:</label>
-      <input v-model="fecha_dev" type="date" id="fechaDevolucion" required>
-      <button @click="buscarPrestamosPorFecha">Buscar</button>
-    </div>
-    <div v-if="prestamos.length">
-      <h3>Resultados de la Búsqueda</h3>
-      <ul>
-        <li v-for="prestamo in prestamos" :key="prestamo.id" @click="seleccionarPrestamo(prestamo.id)">
-          ID: {{ prestamo.id }}, Estado: {{ prestamo.estado }}, Fecha de Devolución: {{ prestamo.fecha_dev }}
-        </li>
-      </ul>
-    </div>
-    <div v-if="selectedPrestamo">
-      <h3>Actualizar Estado del Préstamo</h3>
-      <p><strong>ID del Préstamo:</strong> {{ selectedPrestamo.id }}</p>
-      <form @submit.prevent="actualizarEstadoPrestamo">
-        <div>
-          <label for="estado">Nuevo Estado:</label>
-          <input v-model="nuevoEstado" type="text" id="estado" placeholder="Nuevo Estado" required>
-        </div>
-        <div>
-          <label for="nuevaFechaDevolucion">Nueva Fecha de Devolución:</label>
-          <input v-model="nuevaFechaDevolucion" type="date" id="nuevaFechaDevolucion" required>
-        </div>
-        <button type="submit">Actualizar Estado y Fecha</button>
-      </form>
-    </div>
+  <div class="devolver-libro">
+    <h1>Devolver Libro</h1>
+    <form @submit.prevent="manejarDevolucion">
+      <div class="form-group">
+        <label for="fecha-dev">Fecha de Devolución:</label>
+        <input type="date" id="fecha-dev" v-model="fecha_dev" required>
+      </div>
+      <button type="submit" class="btn-confirmar">Confirmar Devolución</button>
+    </form>
   </div>
 </template>
 
-<script lang="ts">
-import axios from 'axios';
-import { defineComponent } from 'vue';
 
-export default defineComponent({
+<script>
+import axios from 'axios';
+
+export default {
   data() {
     return {
-      prestamos: [] as Array<{ id: string, estado: string, fecha_dev: null }>,
-      selectedPrestamo: null as { id: string, estado: string, fecha_dev: null } | null,
-      fecha_dev: null,
-      nuevoEstado: '',
-      nuevaFechaDevolucion: null
+      fecha_dev: null
     };
   },
   methods: {
-    async buscarPrestamosPorFecha() {
-      try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/prestamos/${this.fecha_dev}`);
-        this.prestamos = res.data;
-        console.log('Préstamos:', this.prestamos);
-      } catch (error) {
-        console.error(error);
-        alert('Error al obtener préstamos por fecha de devolución');
-      }
-    },
-    seleccionarPrestamo(prestamoId: string) {
-      this.selectedPrestamo = this.prestamos.find(prestamo => prestamo.id === prestamoId) || null;
-      if (this.selectedPrestamo) {
-        this.nuevoEstado = this.selectedPrestamo.estado;
-        this.nuevaFechaDevolucion = this.selectedPrestamo.fecha_dev;
-      }
-    },
-    async actualizarEstadoPrestamo() {
-      if (!this.selectedPrestamo) {
-        alert('Seleccione un préstamo para actualizar');
+    async manejarDevolucion() {
+      const prestamoId = this.$route.params.id; // Obtener el ID del préstamo desde la ruta
+
+      console.log('Prestamo ID:', prestamoId); // Para depuración
+
+      if (!prestamoId) {
+        alert('No se ha proporcionado un ID de préstamo.');
         return;
       }
+
+      if (!this.fecha_dev) {
+        alert('Por favor, ingrese la fecha de devolución.');
+        return;
+      }
+
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/prestamos/${this.selectedPrestamo.id}/estado`, {
-          estado: this.nuevoEstado,
-          fecha_Dev: this.nuevaFechaDevolucion
+        // Actualizar la fecha de devolución del préstamo
+        const prestamoUpdateRes = await axios.put(`http://192.168.20.10/apiv1/prestamos/actualizar/${prestamoId}`, { 
+          fecha_dev: this.fecha_dev
         });
-        console.log(res.data);
-        alert('Estado del préstamo actualizado correctamente');
+        console.log('Respuesta de la actualización del préstamo:', prestamoUpdateRes.data); 
+
         this.$router.push('/prestamos');
       } catch (error) {
-        console.error(error);
-        alert('Error al actualizar el estado del préstamo');
+        console.error('Error al actualizar la fecha de devolución del préstamo:', error);
+        alert('Ocurrió un error al intentar actualizar la fecha de devolución del préstamo. Por favor, inténtelo de nuevo.');
       }
     }
   }
-});
+}
 </script>
+
 
 <style scoped>
 .devolver-libro {
