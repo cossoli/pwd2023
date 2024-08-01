@@ -11,21 +11,33 @@
   </div>
 </template>
 
-
 <script>
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      fecha_dev: null
+      fecha_dev: null,
+      prestamo: null
     };
   },
+  created() {
+    this.obtenerPrestamo();
+  },
   methods: {
+    async obtenerPrestamo() {
+      const prestamoId = this.$route.params.id;
+      try {
+        const res = await axios.get(`http://192.168.20.10/apiv1/prestamos/${prestamoId}`);
+        this.prestamo = res.data;
+        console.log('Prestamo obtenido:', this.prestamo);
+      } catch (error) {
+        console.error('Error al obtener el préstamo:', error);
+        alert('Error al obtener la información del préstamo. Por favor, inténtelo de nuevo.');
+      }
+    },
     async manejarDevolucion() {
       const prestamoId = this.$route.params.id; // Obtener el ID del préstamo desde la ruta
-
-      console.log('Prestamo ID:', prestamoId); // Para depuración
 
       if (!prestamoId) {
         alert('No se ha proporcionado un ID de préstamo.');
@@ -39,7 +51,11 @@ export default {
 
       try {
         // Actualizar la fecha de devolución del préstamo
-        const prestamoUpdateRes = await axios.put(`http://192.168.20.10/apiv1/prestamos/actualizar/${prestamoId}`, { 
+        const prestamoUpdateRes = await axios.put(`http://192.168.20.10/apiv1/prestamos/${prestamoId}`, { 
+          //id: this.prestamo.id,
+          libro: this.prestamo.libro.id,
+          socio: this.prestamo.socio.id,
+          estado: 'Activo',
           fecha_dev: this.fecha_dev
         });
         console.log('Respuesta de la actualización del préstamo:', prestamoUpdateRes.data); 
