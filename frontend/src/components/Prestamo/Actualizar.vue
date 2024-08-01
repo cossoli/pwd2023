@@ -17,8 +17,11 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      prestamo: {
+      libro: "",
+      socio : "",    
       fecha_dev: null,
-      prestamo: null
+      }
     };
   },
   created() {
