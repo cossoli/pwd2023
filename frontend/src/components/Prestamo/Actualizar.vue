@@ -18,8 +18,9 @@ export default {
   data() {
     return {
       prestamo: {
+      id: "",
       libro: "",
-      socio : "",    
+      socio : "",
       fecha_dev: null,
       }
     };
@@ -29,9 +30,9 @@ export default {
   },
   methods: {
     async obtenerPrestamo() {
-      const prestamoId = this.$route.params.id;
+      const id = this.$route.params.id;
       try {
-        const res = await axios.get(`http://192.168.20.10/apiv1/prestamos/${prestamoId}`);
+        const res = await axios.get(`http://192.168.20.10/apiv1/prestamos/${id}`);
         this.prestamo = res.data;
         console.log('Prestamo obtenido:', this.prestamo);
       } catch (error) {
@@ -40,9 +41,9 @@ export default {
       }
     },
     async manejarDevolucion() {
-      const prestamoId = this.$route.params.id; // Obtener el ID del préstamo desde la ruta
+      const id = this.$route.params.id; // Obtener el ID del préstamo desde la ruta
 
-      if (!prestamoId) {
+      if (!id) {
         alert('No se ha proporcionado un ID de préstamo.');
         return;
       }
@@ -54,8 +55,8 @@ export default {
 
       try {
         // Actualizar la fecha de devolución del préstamo
-        const prestamoUpdateRes = await axios.put(`http://192.168.20.10/apiv1/prestamos/${prestamoId}`, { 
-          //id: this.prestamo.id,
+        const prestamoUpdateRes = await axios.put(`http://192.168.20.10/apiv1/prestamos/${id}`, { 
+          id: this.prestamo.id,
           libro: this.prestamo.libro.id,
           socio: this.prestamo.socio.id,
           estado: 'Activo',
