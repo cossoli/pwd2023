@@ -59,6 +59,8 @@ export default {
           id: this.prestamo.id,
           libro: this.prestamo.libro.id,
           socio: this.prestamo.socio.id,
+          fecha_desde: this.prestamo.fecha_desde,
+           fecha_hasta: this.prestamo.fecha_hasta,
           estado: 'Activo',
           fecha_dev: this.fecha_dev
         });
