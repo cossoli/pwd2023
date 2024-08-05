@@ -3,8 +3,10 @@
     <h2>Actualizar libro</h2>
     <div class="form-group">
       <label for="titulo">Título</label>
-      <select v-model="libro.id" id="titulo">
-        <option v-for="libroItem in libros" :key="libroItem.id" :value="libroItem.id">{{ libroItem.titulo }}</option>
+      <select v-model="selectedLibroId" id="titulo" @change="cargarLibro">
+        <option v-for="libroItem in libros" :key="libroItem.id" :value="libroItem.id">
+          {{ libroItem.titulo }}
+        </option>
       </select>
     </div>
     <div class="form-group">
@@ -14,19 +16,25 @@
     <div class="form-group">
       <label for="id_categoria">Categoría</label>
       <select v-model="libro.id_categoria" id="id_categoria">
-        <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">{{ categoria.descripcion }}</option>
+        <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+          {{ categoria.descripcion }}
+        </option>
       </select>
     </div>
     <div class="form-group">
       <label for="id_editorial">Editorial</label>
       <select v-model="libro.id_editorial" id="id_editorial">
-        <option v-for="editorial in editoriales" :key="editorial.id" :value="editorial.id">{{ editorial.nombre }}</option>
+        <option v-for="editorial in editoriales" :key="editorial.id" :value="editorial.id">
+          {{ editorial.nombre }}
+        </option>
       </select>
     </div>
     <div class="form-group">
       <label for="id_genero">Género</label>
       <select v-model="libro.id_genero" id="id_genero">
-        <option v-for="genero in generos" :key="genero.id" :value="genero.id">{{ genero.descripcion }}</option>
+        <option v-for="genero in generos" :key="genero.id" :value="genero.id">
+          {{ genero.descripcion }}
+        </option>
       </select>
     </div>
     <div class="form-group">
@@ -36,18 +44,23 @@
     <div class="form-group">
       <label for="autores">Autores</label>
       <select v-model="libro.autor_id" id="autores">
-        <option v-for="autor in autores" :key="autor.id" :value="autor.id">{{ autor.nombre_apellido }}</option>
+        <option v-for="autor in autores" :key="autor.id" :value="autor.id">
+          {{ autor.nombre_apellido }}
+        </option>
       </select>
     </div>
   
-    <button @click="actualizarLibro" :disabled="cargando" class="guardar-btn">{{ cargando ? 'Cargando...' : 'Actualizar' }}</button>
+    <button @click="actualizarLibro" :disabled="cargando" class="guardar-btn">
+      {{ cargando ? 'Cargando...' : 'Actualizar' }}
+    </button>
     <p v-if="mensajeError" class="error-message">{{ mensajeError }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
@@ -70,13 +83,18 @@ export default {
 
     const cargando = ref(false);
     const mensajeError = ref("");
+    const router = useRouter();
+    const selectedLibroId = ref('');
 
-    const buscarLibro = async () => {
-      try {
-        const resLibro = await axios.get(`http://192.168.20.10/apiv1/libros/${libro.value.id}`);
-        libro.value = resLibro.data;
-      } catch (error) {
-        console.error("Error al obtener el libro:", error);
+    const cargarLibro = async () => {
+      if (selectedLibroId.value) {
+        try {
+          const res = await axios.get(`http://192.168.20.10/apiv1/libros/${selectedLibroId.value}`);
+          libro.value = res.data;
+        } catch (error) {
+          console.error("Error al obtener el libro:", error);
+          mensajeError.value = "Error al obtener el libro";
+        }
       }
     };
 
@@ -99,16 +117,23 @@ export default {
 
       } catch (error) {
         console.error('Error al obtener datos:', error);
+        mensajeError.value = 'Error al obtener datos';
       }
     };
 
     const actualizarLibro = async () => {
       cargando.value = true;
       try {
-        const res = await axios.put(`http://192.168.20.10/apiv1/libros/${libro.value.id}`, libro.value);
+        if (!libro.value.id) {
+          mensajeError.value = "No se ha seleccionado un libro para actualizar.";
+          cargando.value = false;
+          return;
+        }
+
+        const res = await axios.put(`http://192.168.20.10/apiv1/libros/actualizar/${libro.value.id}`, libro.value);
         console.log(res.data);
         mensajeError.value = ""; // Limpiar mensaje de error si existe
-        this.$router.push('/libro');
+        router.push('/libro');
       } catch (error) {
         console.error("Error al actualizar el libro:", error);
         mensajeError.value = "Error al actualizar el libro"; // Mostrar mensaje de error
@@ -118,8 +143,13 @@ export default {
     };
 
     onMounted(() => {
-      buscarLibro();
       obtenerDatos();
+    });
+
+    watch(selectedLibroId, (newId) => {
+      if (newId) {
+        cargarLibro();
+      }
     });
 
     return {
@@ -131,7 +161,8 @@ export default {
       generos,
       actualizarLibro,
       cargando,
-      mensajeError
+      mensajeError,
+      selectedLibroId
     };
   }
 };
@@ -157,5 +188,3 @@ select {
   margin-top: 10px;
 }
 </style>
-
-

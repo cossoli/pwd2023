@@ -13,6 +13,8 @@
           <th>ID Socio</th>
           <th>Fecha Desde</th>
           <th>Fecha Hasta</th>
+          <th>Fecha Devolución</th>
+          <th>Días de Retraso</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -22,9 +24,19 @@
           <td>{{ prestamo.socio.id }}</td>
           <td>{{ prestamo.fecha_desde }}</td>
           <td>{{ prestamo.fecha_hasta }}</td>
-          
+          <td>{{ prestamo.fecha_dev || '-' }}</td>
+                    <td>
+            <span v-if="prestamo.dias_retraso > 0">
+              {{ prestamo.dias_retraso }} días
+            </span>
+            <span v-else>
+              -
+            </span>
+          </td>
           <td>
-            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">Devolver</button>
+            <button class="btn-devolver" @click="devolverLibro(prestamo.id)">
+              Devolver
+            </button>
           </td>
         </tr>
       </tbody>
@@ -64,7 +76,6 @@ export default {
 </script>
 
 <style scoped>
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -89,7 +100,6 @@ table tr:hover {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .btn-devolver {
   background-color: #3498db;
   color: white;
@@ -98,8 +108,8 @@ table tr:hover {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .btn-devolver:hover {
   background-color: #2980b9;
 }
 </style>
+
