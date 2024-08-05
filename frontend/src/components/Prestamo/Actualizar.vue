@@ -64,7 +64,7 @@ export default {
         });
         console.log('Respuesta de la actualización del préstamo:', prestamoUpdateRes.data); 
 
-        this.$router.push('/prestamos');
+        this.$router.push('/prestamo');
       } catch (error) {
         console.error('Error al actualizar la fecha de devolución del préstamo:', error);
         alert('Ocurrió un error al intentar actualizar la fecha de devolución del préstamo. Por favor, inténtelo de nuevo.');

@@ -67,25 +67,32 @@ class PrestamoController implements InterfaceController
     return $prestamo->serializar();
 }
 }
-    public static function actualizar(array $parametros): array
-    {
+public static function actualizar(array $parametros): array
+{
+    // Obtener socio y libro del préstamo
+    $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
+    $parametros['libro'] = LibroDAO::encontrarUno($parametros['libro']);
+    
+    // Verificar que el libro está prestado
+    if ($parametros['libro']->getEstado() === Libro::PRESTADO) {
         
-        $parametros['socio'] = SocioDAO::encontrarUno($parametros['socio']);
-        $parametros['libro']= LibroDAO::encontrarUno($parametros['libro']);
-       
-        if ($parametros['libro']->getEstado() === Libro::PRESTADO ){
-       
-            $prestamo = Prestamo::deserializar($parametros);
-       
-            PrestamoDAO::actualizar($prestamo);
-       
-            $parametros['libro']->setEstado(Libro::ACTIVO); 
-       
-            LibroDAO::actualizarEstado($parametros['libro']);
-       
-            return $prestamo->serializar();
-    }
-    }
+        // Deserializar el préstamo
+        $prestamo = Prestamo::deserializar($parametros);
+
+        // Actualizar el préstamo en la base de datos
+        PrestamoDAO::actualizar($prestamo);
+
+        // Cambiar el estado del libro a 'Activo'
+        $parametros['libro']->setEstado(Libro::ACTIVO);
+        LibroDAO::actualizarEstado($parametros['libro']);
+
+        // Devolver los datos del préstamo actualizado
+        return $prestamo->serializar();
+    } 
+
+    
+}
+
     public static function borrar(mixed $id): void
     {
         PrestamoDAO::borrar($id);
